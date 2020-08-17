@@ -11,6 +11,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    /// Manage colors here
+    /// Use Theme.of(context).accentColor etc. to get color
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -24,6 +26,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        accentColor: Colors.red,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -34,6 +37,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// Application entry point.
+/// Anything common to all views can be done here.
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
