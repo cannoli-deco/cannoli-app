@@ -12,7 +12,6 @@ class _NavigationBarState extends State<NavigationBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
-  /// Import and add your components here
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Placeholder', style: optionStyle),
     Text(
@@ -31,6 +30,7 @@ class _NavigationBarState extends State<NavigationBar> {
     });
   }
 
+  /// Import and add your components here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
