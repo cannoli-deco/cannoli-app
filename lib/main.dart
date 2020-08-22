@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: CustomMaterialColor.customColor(0xFF04645A),
-        accentColor: Colors.red,
+        accentColor: CustomMaterialColor.customColor(0xFF9DD4D1),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -56,8 +56,8 @@ class MyHomePage extends StatelessWidget {
 class CustomMaterialColor{
   static MaterialColor customColor(int primary) {
     int red = (0x00ff0000 & primary) >> 16;
-    int green = (0x0000ff00 & primary) >> 16;
-    int blue = (0x000000ff & primary) >> 16;
+    int green = (0x0000ff00 & primary) >> 8;
+    int blue = (0x000000ff & primary);
 
     int redLighterShade = (255 - red) ~/ 10;
     int redDarkerShade = red ~/ 10;
@@ -96,7 +96,7 @@ class CustomMaterialColor{
       Color c() => Color.fromARGB(0xFF, newRed, newGreen, newBlue);
       colorMapping.putIfAbsent(i*100, c);
     }
-    print(colorMapping);
+    
     return MaterialColor(primary, colorMapping);
   }
 }
