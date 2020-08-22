@@ -12,8 +12,13 @@ class _NavigationBarState extends State<NavigationBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  /// Import and add your components here
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Placeholder', style: optionStyle),
+    Text(
+      'Placeholder',
+      style: optionStyle,
+    ),
     Text(
       'Placeholder',
       style: optionStyle,
@@ -30,27 +35,34 @@ class _NavigationBarState extends State<NavigationBar> {
     });
   }
 
-  /// Import and add your components here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      floatingActionButton:
+          new FloatingActionButton(elevation: 5.0, child: new Icon(Icons.add)),
       bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home), title: Text('Home')),
+                icon: Icon(Icons.home),
+                title: Text('Home')),
             BottomNavigationBarItem(
-              icon: Icon(Icons.pie_chart),
-              title: Text('Placeholder'),
+                icon: Icon(Icons.show_chart), title: Text('Detail')),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              title: Text('Community'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.pie_chart),
-              title: Text('Placeholder'),
+              icon: Icon(Icons.person),
+              title: Text('User'),
             ),
           ],
           currentIndex: _selectedIndex,
           selectedItemColor: Theme.of(context).accentColor,
+//          backgroundColor: Colors.green,
           onTap: _onItemTapped),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
