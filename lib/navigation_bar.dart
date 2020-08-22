@@ -39,14 +39,17 @@ class _NavigationBarState extends State<NavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-      floatingActionButton:
-          new FloatingActionButton(elevation: 5.0, child: new Icon(Icons.add)),
+      floatingActionButton: new FloatingActionButton(
+          elevation: 5.0,
+          child: new Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(context, '/input');
+          }),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                title: Text('Home')),
+                icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.show_chart), title: Text('Detail')),
             BottomNavigationBarItem(
