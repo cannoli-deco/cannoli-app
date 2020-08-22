@@ -19,10 +19,12 @@ class InputList extends StatelessWidget {
                 title: Text('Car'),
                 onTap: () { Navigator.pushNamed(context, '/input/car'); }
               ),
+              Divider(),
               ListTile(
                 leading: Icon(Icons.flash_on),
                 title: Text('Electricity'),
               ),
+              Divider(),
               ListTile(
                 leading: Icon(Icons.theaters),
                 title: Text('Gas'),
