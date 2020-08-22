@@ -137,31 +137,26 @@ final dbHelper = DatabaseHelper.instance;
   _insert();
  }
 
-  allEntries(){
+Future<List<Entry>> allEntries() async{
    WidgetsFlutterBinding.ensureInitialized();
 
-   List<Entry> entryList = [];
 
-   void _query() async {
+   _query() async {
+     List<Entry> entryList = [];
      final allRows = await dbHelper.queryAllRows('Entry');
-     print('query all rows:');
-     allRows.forEach((row) => entryList.add(Entry.fromQuery(row)));
-     print("YAA");
-     print(entryList);
+     await Future.forEach(allRows, (row) async {
+       entryList.add(Entry.fromQuery(row));
+     });
+//     allRows.forEach((row) => entryList.add(Entry.fromQuery(row)));
+   return entryList;
    }
 
-   _query();
-   return entryList;
-
+   return _query();
  }
 
+ /// Run this to fill up db with examples
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  void _query() async {
-    final allRows = await dbHelper.queryAllRows('Entry');
-    print('query all rows:');
-    allRows.forEach((row) => print(row));
-  }
 
   void _insert() async {
 
@@ -182,10 +177,11 @@ Future<void> main() async {
     });
   }
 
-//  addEntry(399, DateTime.now(), 'Electricity');
-//  _query();
-  var a = allEntries();
-  print(a);
+  _insert();
+  addEntry(399, DateTime.now(), 'Electricity');
+  addEntry(500, DateTime.now(), 'Electricity');
+  addEntry(700, DateTime.now(), 'Gas');
+
 }
 
 class Entry {
