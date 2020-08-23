@@ -1,3 +1,4 @@
+import 'package:cannoli_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'navigation_bar.dart';
 
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: AppName),
+      routes: routes,
     );
   }
 }
