@@ -1,3 +1,4 @@
+import 'package:cannoli_app/dividers.dart';
 import 'package:flutter/material.dart';
 
 class InputList extends StatelessWidget {
@@ -19,16 +20,17 @@ class InputList extends StatelessWidget {
                 title: Text('Car'),
                 onTap: () { Navigator.pushNamed(context, '/input/car'); }
               ),
-              Divider(),
+              listDivider,
               ListTile(
                 leading: Icon(Icons.flash_on),
                 title: Text('Electricity'),
               ),
-              Divider(),
+              listDivider,
               ListTile(
                 leading: Icon(Icons.theaters),
                 title: Text('Gas'),
               ),
+              listDivider
             ],
           ),
         ),
