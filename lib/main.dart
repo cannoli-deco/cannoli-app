@@ -47,10 +47,15 @@ class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
 
-
   // Add your views in navigation_bar
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text(title)), body: NavigationBar());
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
+        ),
+        body: NavigationBar());
   }
 }
