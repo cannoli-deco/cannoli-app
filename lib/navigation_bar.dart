@@ -26,12 +26,18 @@ class _NavigationBarState extends State<NavigationBar> {
     Text(
       'Placeholder',
       style: optionStyle,
+    ),
+    Text(
+      'Placeholder',
+      style: optionStyle,
     )
   ];
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      if (index != 2) {
+        _selectedIndex = index;
+      }
     });
   }
 
@@ -47,11 +53,19 @@ class _NavigationBarState extends State<NavigationBar> {
           }),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          items: <BottomNavigationBarItem>[
+          items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.show_chart), title: Text('Detail')),
+            BottomNavigationBarItem(
+              title: Text(''),
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.white,
+                size: 1
+              )
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.group),
               title: Text('Community'),
