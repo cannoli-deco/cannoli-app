@@ -9,6 +9,21 @@ class CarFormInput {
   double distance;
 }
 
+int calculateEmission(String type, double distance) {
+  switch (type) {
+    case "Medium":
+      return (297 * distance).floor();
+    case "Small":
+      return (228 * distance).floor();
+    case "Large":
+      return (411 * distance).floor();
+    case "Diesel":
+      return (401 * distance).floor();
+    default:
+      return 0;
+  }
+}
+
 class CarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,7 +56,7 @@ class _carInputFormState extends State<carInputForm> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void _showDialog(double emission) {
+  void _showDialog(int emission) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -63,7 +78,7 @@ class _carInputFormState extends State<carInputForm> {
 
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = "Regular";
+    String dropdownValue = "Medium";
     CarFormInput newCarInput = new CarFormInput();
 
     return Form(
@@ -76,10 +91,9 @@ class _carInputFormState extends State<carInputForm> {
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(
-                    icon: Icon(Icons.directions),
-                    labelText: "Distance",
-                    hintText: "km"
-                  ),
+                      icon: Icon(Icons.directions),
+                      labelText: "Distance",
+                      hintText: "km"),
                   validator: (value) {
                     if (value.isEmpty) {
                       return 'Please enter some number';
@@ -87,13 +101,13 @@ class _carInputFormState extends State<carInputForm> {
                     return null;
                   },
                   keyboardType: TextInputType.number,
-                  onSaved: (String value) => {newCarInput.distance =  double.parse(value)},
+                  onSaved: (String value) =>
+                      {newCarInput.distance = double.parse(value)},
                 ),
                 DropdownButtonFormField(
                   decoration: InputDecoration(
-                    icon: Icon(Icons.directions_car),
-                    labelText: "Type of car"
-                  ),
+                      icon: Icon(Icons.directions_car),
+                      labelText: "Type of car"),
                   style: TextStyle(color: Theme.of(context).accentColor),
                   value: dropdownValue,
                   iconSize: 24,
@@ -103,7 +117,7 @@ class _carInputFormState extends State<carInputForm> {
                       dropdownValue = newValue;
                     });
                   },
-                  items: <String>['Regular', 'Two', 'Free', 'Four']
+                  items: <String>['Medium', 'Small', 'Large', 'Diesel']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -130,9 +144,10 @@ class _carInputFormState extends State<carInputForm> {
                           }
                           FormState form = _formKey.currentState;
                           form.save();
-                          int calculatedEmission = newCarInput.distance.floor();
+                          int calculatedEmission = calculateEmission(
+                              newCarInput.type, newCarInput.distance);
                           addEntry(calculatedEmission, DateTime.now(), 'Car');
-                          _showDialog(newCarInput.distance);
+                          _showDialog(calculatedEmission);
                         },
                         child: Text('Submit'),
                       ),
