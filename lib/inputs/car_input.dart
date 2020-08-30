@@ -82,7 +82,7 @@ class _carInputFormState extends State<carInputForm> {
                   ),
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Please enter some text';
+                      return 'Please enter some number';
                     }
                     return null;
                   },
