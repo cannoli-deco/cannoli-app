@@ -11,6 +11,7 @@ class InputList extends StatelessWidget {
         title: title,
         home: Scaffold(
           appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColor,
             title: Text(title),
           ),
           body: ListView(
