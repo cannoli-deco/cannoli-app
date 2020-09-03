@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+// General widget for text in forms.
+// Uses a 200W x 40H pixel dimension box to store output string
+// Usage : formTextBoxWidget (<context>, <output string>),
+Widget formTextBoxWidget(BuildContext context, String op) {
+  return SizedBox(
+    // Dimensions of text box
+    width: 200.0,
+    height: 40.0,
+    // Column child to allign text vertically
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          op,
+          style: TextStyle(
+            color: Colors.grey[800],
+            fontSize: 16.0,
+          ),
+        ),
+      ],
+    ),
+  );
+}
