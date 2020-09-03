@@ -8,23 +8,44 @@ class HomeFormInput {
   String type;
   String billingCycle;
   double kwh;
+  String jurisdiction;
 }
 
-// UPDATE NEEDED: Zyreen, convert the kWh to emission (CO2) or emission score here
-double conversion(double val, double mul) {
-  return (val * mul);
+// Converts electrical consumption (kWh) to kg of C02
+double conversion(double val, double mul, String jurisdiction) {
+  switch (jurisdiction) {
+    case "NSW":
+      // consumption * conversion to annual consumption * state emissions factor
+      return (val * mul * 0.81);
+    case "ACT":
+      return (val * mul * 0.81);
+    case "VIC":
+      return (val * mul * 1.02);
+    case "QLD":
+      return (val * mul * 0.81);
+    case "SA":
+      return (val * mul * 0.44);
+    case "WA":
+      return (val * mul * 0.64); // average of EF for SWIS and NWIS
+    case "TAS":
+      return (val * mul * 0.15);
+    case "NT":
+      return (val * mul * 0.63);
+    default:
+      return 0;
+  }
 }
 
-int calculateEmission(String billingCycle, double kwh) {
+int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
   switch (billingCycle) {
     case "Monthly":
-      return (conversion(kwh, 12.0)).floor();
+      return (conversion(kwh, 12.0, jurisdiction)).floor();
     case "Quarterly":
-      return (conversion(kwh, 4.0)).floor();
+      return (conversion(kwh, 4.0, jurisdiction)).floor();
     case "Half-Yearly":
-      return (conversion(kwh, 2.0)).floor();
+      return (conversion(kwh, 2.0, jurisdiction)).floor();
     case "Yearly":
-      return (conversion(kwh, 1.0)).floor();
+      return (conversion(kwh, 1.0, jurisdiction)).floor();
     default:
       return 0;
   }
@@ -70,7 +91,8 @@ class _HomeInputForm extends State<HomeInputForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: new Text("You emitted $emission"),
+          content: new Text("Your annual electrical consumption emission is "
+              "$emission kg of CO2"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Ok"),
@@ -85,12 +107,18 @@ class _HomeInputForm extends State<HomeInputForm> {
     );
   }
 
-  List<String> rowTitles = ['Home Energy Type', 'Billing Cycle', 'Consumption'];
+  List<String> rowTitles = [
+    'Home Energy Type',
+    'Billing Cycle',
+    'Consumption',
+    'State or Territory'
+  ];
 
   @override
   Widget build(BuildContext context) {
     String dropDownType = "Electricity Bill";
     String dropDownBilling = "Monthly";
+    String dropDownJurisdiction = "QLD";
     HomeFormInput newHomeInput = new HomeFormInput();
     // Build a Form widget using the _formKey created above.
     return Form(
@@ -233,6 +261,58 @@ class _HomeInputForm extends State<HomeInputForm> {
               ),
             ],
           ),
+          // State or Territory
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // Prompt
+              Column(
+                children: <Widget>[
+                  // Text Box of 200W x 40H Pixel Dimensions for prompt text
+                  formTextBoxWidget(context, rowTitles[3]),
+                ],
+              ),
+              // Input
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 120.0,
+                    height: 40.0,
+                    child: DropdownButtonFormField(
+                      style: TextStyle(color: Theme.of(context).accentColor),
+                      value: dropDownJurisdiction,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          dropDownJurisdiction = newValue;
+                        });
+                      },
+                      items: <String>[
+                        'NSW',
+                        'ACT',
+                        'VIC',
+                        'QLD',
+                        'SA',
+                        'WA',
+                        'TAS',
+                        'NT'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onSaved: (String selection) {
+                        newHomeInput.jurisdiction = selection;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
           // Submit Button
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -252,7 +332,9 @@ class _HomeInputForm extends State<HomeInputForm> {
                       FormState form = _formKey.currentState;
                       form.save();
                       int calculatedEmission = calculateEmission(
-                          newHomeInput.billingCycle, newHomeInput.kwh);
+                          newHomeInput.billingCycle,
+                          newHomeInput.kwh,
+                          newHomeInput.jurisdiction);
                       // Add lines below after DB implementation for Fields used
                       // -------------------------------------------------------
                       //addEntry(
