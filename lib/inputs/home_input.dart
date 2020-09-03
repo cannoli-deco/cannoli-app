@@ -100,6 +100,8 @@ class _HomeInputForm extends State<HomeInputForm> {
           // Each Row() contains a prompt and input.
           // Home Energy Type
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // Prompt
               Column(
@@ -111,6 +113,7 @@ class _HomeInputForm extends State<HomeInputForm> {
               // Input
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     width: 120.0,
@@ -144,6 +147,8 @@ class _HomeInputForm extends State<HomeInputForm> {
           ),
           // Billing Cycle
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // Prompt
               Column(
@@ -154,6 +159,8 @@ class _HomeInputForm extends State<HomeInputForm> {
               ),
               // Input
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     width: 120.0,
@@ -188,15 +195,21 @@ class _HomeInputForm extends State<HomeInputForm> {
           ),
           // Consumption
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               // Prompt
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   formTextBoxWidget(context, rowTitles[2]),
                 ],
               ),
               // Input
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(
                     width: 120.0,
@@ -222,7 +235,8 @@ class _HomeInputForm extends State<HomeInputForm> {
           ),
           // Submit Button
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Column(
                 children: <Widget>[
@@ -239,8 +253,11 @@ class _HomeInputForm extends State<HomeInputForm> {
                       form.save();
                       int calculatedEmission = calculateEmission(
                           newHomeInput.billingCycle, newHomeInput.kwh);
-                      addEntry(
-                          calculatedEmission, DateTime.now(), 'Home Energy');
+                      // Add lines below after DB implementation for Fields used
+                      // -------------------------------------------------------
+                      //addEntry(
+                      //    calculatedEmission, DateTime.now(), 'Home Energy');
+                      // -------------------------------------------------------
                       _showDialog(calculatedEmission);
                     },
                     child: Text('Submit'),
@@ -251,49 +268,6 @@ class _HomeInputForm extends State<HomeInputForm> {
           ),
         ],
       ),
-    );
-  }
-}
-
-// Widget for Drop Down Menu for Type of Home Energy
-
-// Widget for Drop Down Menu for Billing Cycle
-class DropDownBillingCycle extends StatefulWidget {
-  DropDownBillingCycle({Key key}) : super(key: key);
-
-  @override
-  _DropDownBillingCycle createState() => _DropDownBillingCycle();
-}
-
-class _DropDownBillingCycle extends State<DropDownBillingCycle> {
-  // Need to allign icon to the right
-  // Update code if you know how
-  String initialValue = 'Monthly';
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: initialValue,
-      icon: Icon(Icons.arrow_downward),
-      iconSize: 16,
-      elevation: 0,
-      style: TextStyle(color: Colors.grey[600]),
-      onChanged: (String newValue) {
-        setState(() {
-          initialValue = newValue;
-        });
-      },
-      items: <String>['Monthly', 'Quarterly', 'Half-Yearly', 'Yearly']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value,
-              style: TextStyle(
-                color: Colors.grey[400],
-                fontSize: 16.0,
-              )),
-        );
-      }).toList(),
     );
   }
 }
