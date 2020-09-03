@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cannoli_app/graphic_representation.dart';
+import 'package:cannoli_app/homepage.dart';
+import 'package:cannoli_app/dashboard_view.dart';
 
 
 class NavigationBar extends StatefulWidget {
@@ -18,10 +19,8 @@ class _NavigationBarState extends State<NavigationBar> {
 
   /// Import and add your components here
   List<Widget> _screens = <Widget>[
-    Text(
-      'Placeholder',
-      style: optionStyle,
-    ),
+    /// Add home page here
+    Homepage(),
     /// Add detail page here
     Dashboard(),
     Text(

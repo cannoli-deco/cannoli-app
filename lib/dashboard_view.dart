@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
+import 'package:cannoli_app/homepage.dart';
+
 import 'package:cannoli_app/color_scheme.dart';
+
 
 
 class Dashboard extends StatefulWidget{
@@ -162,7 +167,7 @@ class _DashboardState extends State<Dashboard> {
                 children: <Widget>[
 
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(3.0),
                     child:Text(title,style:TextStyle(
                       fontSize: 20.0,
                       color: Colors.blueAccent,
@@ -170,16 +175,16 @@ class _DashboardState extends State<Dashboard> {
                   ),
 
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(1.0),
                     child:Text(subtitle,style:TextStyle(
-                      fontSize: 30.0,
+                      fontSize: 10.0,
                     ),),
                   ),
 
                   Padding(
-                    padding:EdgeInsets.all(8.0),
+                    padding:EdgeInsets.all(3.0),
                     child:AnimatedCircularChart(
-                      size: const Size(100.0, 100.0),
+                      size: const Size(150.0, 150.0),
                       initialChartData: circularData,
                       chartType: CircularChartType.Pie,
                     ),
@@ -193,9 +198,6 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
-
-
 
 
   @override
@@ -214,28 +216,43 @@ class _DashboardState extends State<Dashboard> {
             crossAxisCount: 2,
             crossAxisSpacing: 12.0,
             mainAxisSpacing: 12.0,
-            
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical:8.0),
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: myCircularItems("Today's consumption", "1000g/CO2"),
+            Container(
+              child: Row(
+                children: <Widget>[
+                  myCircularItems("Today's Total Consumption", "250kg CO2"),
+                  Expanded(
+
+                    child: OutlineButton(
+                      shape: StadiumBorder(),
+                      color: Colors.white,
+                      child: Text("View Details"),
+                      borderSide: BorderSide(color: Color(0xFF9DD4D1)),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/graph');
+                      },
+                    ),
+                  ),
+
+                ],
+              ),
+
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Container(
               child: mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Container(
               child: mychart2Items("Public transport Consumption", "Weekly", "250kg CO2"),
             ),
 
           ],
           staggeredTiles: [
-            StaggeredTile.extent(2, 260.0),
-            StaggeredTile.extent(2, 260.0),
-            StaggeredTile.extent(2, 260.0),
+            StaggeredTile.extent(2, 225.0),
+            StaggeredTile.extent(2, 225.0),
+            StaggeredTile.extent(2, 225.0),
           ],
 
         ),
