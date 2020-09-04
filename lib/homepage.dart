@@ -31,6 +31,7 @@ class _HomepageState extends State<Homepage>{
             charts.ColorUtil.fromDartColor(task.colorval),
             id:'Daily Task',
             labelAccessorFn: (Task row,_)=>'${row.taskvalue}',
+
       )
     );
   }
@@ -92,14 +93,15 @@ class _HomepageState extends State<Homepage>{
                   _seriesPieData,
                   animate: true,
                   animationDuration: Duration(seconds: 5),
-                  // defaultRenderer: new charts.ArcRendererConfig(
+                  defaultRenderer: new charts.ArcRendererConfig(
+                    arcRendererDecorators: [charts.ArcLabelDecorator()]
                   //     arcWidth:100,
                   //     arcRendererDecorators: [
                   //       new charts.ArcLabelDecorator(
                   //           labelPosition: charts.ArcLabelPosition.inside
                   //       )
                   //     ]
-                  // ),
+                  ),
                 )
             ),
           ),
