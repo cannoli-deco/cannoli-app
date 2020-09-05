@@ -30,9 +30,11 @@ class InputList extends StatelessWidget {
                 }),
             listDivider,
             ListTile(
-              leading: Icon(Icons.theaters),
-              title: Text('Gas'),
-            ),
+                leading: Icon(Icons.theaters),
+                title: Text('Gas'),
+                onTap: () {
+                  Navigator.pushNamed(context, '/input/gas');
+                }),
             listDivider
           ],
         ),
