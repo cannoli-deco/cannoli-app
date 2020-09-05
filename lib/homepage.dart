@@ -1,4 +1,5 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:cannoli_app/database.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,9 +15,16 @@ class Homepage extends StatefulWidget{
 
 
 class _HomepageState extends State<Homepage>{
-  List<charts.Series<Task, String>> _seriesPieData;
+  List<charts.Series<Entry, String>> _seriesPieData;
 
-  _generateData(){
+  _generateData() async{
+
+    List<Entry> entrysData = await entryFromDate(DateTime.now());
+
+    final blue = charts.MaterialPalette.blue.makeShades(2);
+    final red = charts.MaterialPalette.red.makeShades(2);
+    final green = charts.MaterialPalette.green.makeShades(2);
+
     var pieData=[
       new Task('Car', 75.0, Color(0xFF04645A)),
       new Task('Electricity', 100.0, Color(0xFF9DD4D1)),
@@ -25,13 +33,24 @@ class _HomepageState extends State<Homepage>{
 
     _seriesPieData.add(
       charts.Series(
-        data:pieData,
-        domainFn: (Task task,_) => task.task,
-        measureFn: (Task task,_)=> task.taskvalue,
-        colorFn: (Task task,_)=>
-            charts.ColorUtil.fromDartColor(task.colorval),
-            id:'Daily Task',
-            labelAccessorFn: (Task row,_)=>'${row.taskvalue}',
+        data:entrysData,
+        domainFn: (Entry entry,_) => entry.source_id.toString(),
+        measureFn: (Entry entry,_) => entry.consumption,
+        colorFn: (Entry entry,_) => charts.MaterialPalette.blue.shadeDefault
+          // ignore: missing_return
+          // switch(entry.source_id){
+          //   case 1:
+          //     {
+          //       return blue[1];
+          //     }
+          //   case 2:
+          //     {
+          //       return red[1];
+          //     }
+          //   case 3:
+          //     {
+          //       return green[1];
+          //     }
 
       )
     );
@@ -40,7 +59,7 @@ class _HomepageState extends State<Homepage>{
   @override
   void initState(){
     super.initState();
-    _seriesPieData = List<charts.Series<Task, String>>();
+    _seriesPieData = List<charts.Series<Entry, String>>();
     _generateData();
   }
 
@@ -84,6 +103,7 @@ class _HomepageState extends State<Homepage>{
               ),
             )
           ),
+
 
           Container(
             height: 350,
