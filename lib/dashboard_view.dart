@@ -213,10 +213,10 @@ class _DashboardState extends State<Dashboard> {
        // ),
       body: Container(
         color: Color(0xffE5E5E5),
-        child: StaggeredGridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12.0,
-            mainAxisSpacing: 12.0,
+        child: ListView(
+//            crossAxisCount: 2,
+//            crossAxisSpacing: 12.0,
+//            mainAxisSpacing: 12.0,
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical:8.0),
           children: <Widget>[
             Container(
@@ -250,11 +250,11 @@ class _DashboardState extends State<Dashboard> {
             ),
 
           ],
-          staggeredTiles: [
-            StaggeredTile.extent(2, 225.0),
-            StaggeredTile.extent(2, 225.0),
-            StaggeredTile.extent(2, 225.0),
-          ],
+//          staggeredTiles: [
+//            StaggeredTile.extent(2, 225.0),
+//            StaggeredTile.extent(2, 225.0),
+//            StaggeredTile.extent(2, 225.0),
+//          ],
 
         ),
       )
