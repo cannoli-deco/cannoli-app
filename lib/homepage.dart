@@ -1,3 +1,4 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -57,7 +58,7 @@ class _HomepageState extends State<Homepage>{
                   Expanded(
                     //alignment: Alignment.centerLeft,
                     child: MaterialButton(
-                        child: Icon(FontAwesomeIcons.angleLeft, color: Colors.greenAccent, size: 75.0),
+                        child: Icon(FontAwesomeIcons.angleLeft, color: CustomMaterialColor.buttonColorBlue, size: 30.0),
                         onPressed: (){}
                     ),
                   ),
@@ -67,14 +68,14 @@ class _HomepageState extends State<Homepage>{
                     child: Text(
                     "Today",
                       style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold,
-                      color: Colors.green),
+                      color: CustomMaterialColor.emphasisColor),
                     ),
                   ),
 
                   Expanded(
                     //alignment: Alignment.centerRight,
                     child: MaterialButton(
-                        child: Icon(FontAwesomeIcons.angleRight, color: Colors.greenAccent, size: 75.0),
+                        child: Icon(FontAwesomeIcons.angleRight, color: CustomMaterialColor.buttonColorBlue, size: 30.0),
                         onPressed: (){}
                     ),
                   ),
@@ -109,7 +110,7 @@ class _HomepageState extends State<Homepage>{
           Container(
             padding: EdgeInsets.only(top: 5.0),
             child: Text(
-              "1000 kg of CO2",
+              "1000 kg of CO\u2082",
               style: TextStyle(fontSize: 26.0),
             ),
           )
