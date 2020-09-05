@@ -83,6 +83,12 @@ class DatabaseHelper {
     return await db.query(table);
   }
 
+
+  Future<List<Map<String, dynamic>>> queryEntryByDate(int timeStart, int timeEnd) async {
+    Database db = await instance.database;
+    return await db.query('Entry', where: 'entry_date BETWEEN ? AND ?', whereArgs: [timeStart, timeEnd]);
+  }
+
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> queryRowCount() async {
@@ -149,6 +155,24 @@ Future<List<Entry>> allEntries() async{
      });
 //     allRows.forEach((row) => entryList.add(Entry.fromQuery(row)));
    return entryList;
+   }
+
+   return _query();
+ }
+
+ Future<List<Entry>> entryFromDate(DateTime inputDay) async{
+   WidgetsFlutterBinding.ensureInitialized();
+
+   int epochDayLength = 2591999;
+   int startOfDay = inputDay.millisecondsSinceEpoch % epochDayLength;
+   int endOfDay = startOfDay + epochDayLength;
+
+   _query() async {
+     List<Entry> entryList = [];
+     final allRows = await dbHelper.queryEntryByDate(startOfDay, endOfDay);
+     await Future.forEach(allRows, (row) async {
+       entryList.add(Entry.fromQuery(row));
+     });
    }
 
    return _query();
