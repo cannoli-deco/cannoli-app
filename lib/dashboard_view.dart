@@ -220,24 +220,7 @@ class _DashboardState extends State<Dashboard> {
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical:8.0),
           children: <Widget>[
             Container(
-              child: Row(
-                children: <Widget>[
-                  myCircularItems("Today's Total Consumption", "250kg CO2"),
-                  Expanded(
-
-                    child: OutlineButton(
-                      shape: StadiumBorder(),
-                      color: Colors.white,
-                      child: Text("View Details"),
-                      borderSide: BorderSide(color: Color(0xFF9DD4D1)),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/graph');
-                      },
-                    ),
-                  ),
-
-                ],
-              ),
+              child: myCircularItems("Today's Total Consumption", "250kg CO2"),
 
             ),
 
