@@ -11,7 +11,7 @@ class DatabaseHelper {
 //  DatabaseHelper(this.)
 
   // Change the dbname to reset the db lol
-  static final _databaseName = "data2.sqlite";
+  static final _databaseName = "data5sqlite";
   static final _databaseVersion = 2;
 
   static final table = 'Source';
@@ -83,6 +83,12 @@ class DatabaseHelper {
     return await db.query(table);
   }
 
+
+  Future<List<Map<String, dynamic>>> queryEntryByDate(int timeStart, int timeEnd) async {
+    Database db = await instance.database;
+    return await db.rawQuery('SELECT * FROM Entry WHERE entry_date BETWEEN $timeStart and $timeEnd');
+  }
+
   // All of the methods (insert, query, update, delete) can also be done using
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> queryRowCount() async {
@@ -119,7 +125,9 @@ final dbHelper = DatabaseHelper.instance;
  Future<void> addEntry(int consumption, DateTime entryDate, String source) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-   Future<int> _getId() async {
+  entryDate = new DateTime(entryDate.year, entryDate.month, entryDate.day, entryDate.hour - 10);
+
+  Future<int> _getId() async {
     final row = await dbHelper.queryBySourceName(source);
     return row[0]['id'];
   }
@@ -154,6 +162,32 @@ Future<List<Entry>> allEntries() async{
    return _query();
  }
 
+ Future<List<Entry>> entryFromDate(DateTime inputDay) async{
+   WidgetsFlutterBinding.ensureInitialized();
+
+   // Converts Brisbane time to GST
+   // Bad practice :(
+   inputDay = new DateTime(inputDay.year, inputDay.month, inputDay.day, inputDay.hour - 10);
+
+   int epochDayLength = 86400000;
+   int startOfDay = inputDay.millisecondsSinceEpoch - (inputDay.millisecondsSinceEpoch % epochDayLength);
+   int endOfDay = startOfDay + epochDayLength;
+   print(inputDay.millisecondsSinceEpoch);
+   print(startOfDay);
+   print(endOfDay);
+
+   _query() async {
+     List<Entry> entryList = [];
+     final allRows = await dbHelper.queryEntryByDate(startOfDay, endOfDay);
+     await Future.forEach(allRows, (row) async {
+       entryList.add(Entry.fromQuery(row));
+     });
+     return entryList;
+   }
+
+   return _query();
+ }
+
  /// Run this to fill up db with examples
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -178,9 +212,6 @@ Future<void> main() async {
   }
 
   _insert();
-  addEntry(399, DateTime.now(), 'Electricity');
-  addEntry(500, DateTime.now(), 'Electricity');
-  addEntry(700, DateTime.now(), 'Gas');
 
 }
 
