@@ -92,7 +92,7 @@ class _HomepageState extends State<Homepage>{
                 charts.PieChart(
                   _seriesPieData,
                   animate: true,
-                  animationDuration: Duration(seconds: 5),
+                  animationDuration: Duration(milliseconds: 500),
                   defaultRenderer: new charts.ArcRendererConfig(
                     arcRendererDecorators: [charts.ArcLabelDecorator()]
                   //     arcWidth:100,
