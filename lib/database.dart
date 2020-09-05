@@ -11,7 +11,7 @@ class DatabaseHelper {
 //  DatabaseHelper(this.)
 
   // Change the dbname to reset the db lol
-  static final _databaseName = "data2.sqlite";
+  static final _databaseName = "data5sqlite";
   static final _databaseVersion = 2;
 
   static final table = 'Source';
@@ -86,7 +86,7 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> queryEntryByDate(int timeStart, int timeEnd) async {
     Database db = await instance.database;
-    return await db.query('Entry', where: 'entry_date BETWEEN ? AND ?', whereArgs: [timeStart, timeEnd]);
+    return await db.rawQuery('SELECT * FROM Entry WHERE entry_date BETWEEN $timeStart and $timeEnd');
   }
 
   // All of the methods (insert, query, update, delete) can also be done using
@@ -125,7 +125,9 @@ final dbHelper = DatabaseHelper.instance;
  Future<void> addEntry(int consumption, DateTime entryDate, String source) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-   Future<int> _getId() async {
+  entryDate = new DateTime(entryDate.year, entryDate.month, entryDate.day, entryDate.hour - 10);
+
+  Future<int> _getId() async {
     final row = await dbHelper.queryBySourceName(source);
     return row[0]['id'];
   }
@@ -163,9 +165,16 @@ Future<List<Entry>> allEntries() async{
  Future<List<Entry>> entryFromDate(DateTime inputDay) async{
    WidgetsFlutterBinding.ensureInitialized();
 
-   int epochDayLength = 2591999;
-   int startOfDay = inputDay.millisecondsSinceEpoch % epochDayLength;
+   // Converts Brisbane time to GST
+   // Bad practice :(
+   inputDay = new DateTime(inputDay.year, inputDay.month, inputDay.day, inputDay.hour - 10);
+
+   int epochDayLength = 86400000;
+   int startOfDay = inputDay.millisecondsSinceEpoch - (inputDay.millisecondsSinceEpoch % epochDayLength);
    int endOfDay = startOfDay + epochDayLength;
+   print(inputDay.millisecondsSinceEpoch);
+   print(startOfDay);
+   print(endOfDay);
 
    _query() async {
      List<Entry> entryList = [];
@@ -173,6 +182,7 @@ Future<List<Entry>> allEntries() async{
      await Future.forEach(allRows, (row) async {
        entryList.add(Entry.fromQuery(row));
      });
+     return entryList;
    }
 
    return _query();
@@ -202,9 +212,6 @@ Future<void> main() async {
   }
 
   _insert();
-  addEntry(399, DateTime.now(), 'Electricity');
-  addEntry(500, DateTime.now(), 'Electricity');
-  addEntry(700, DateTime.now(), 'Gas');
 
 }
 
