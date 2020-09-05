@@ -24,8 +24,7 @@ class _DashboardState extends State<Dashboard> {
   Material mychart1Items(String title, String priceVal, String subtitle){
     return Material(
       color: Colors.white,
-      elevation: 14.0,
-      shadowColor: Color(0x802196F3),
+      elevation: 1.0,
       borderRadius: BorderRadius.circular(24.0),
       child: Center(
         child: Padding(
@@ -82,9 +81,8 @@ class _DashboardState extends State<Dashboard> {
   Material mychart2Items(String title, String priceVal,String subtitle) {
     return Material(
       color: Colors.white,
-      elevation: 14.0,
+      elevation: 1.0,
       borderRadius: BorderRadius.circular(24.0),
-      shadowColor: Color(0x802196F3),
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(8.0),
@@ -154,9 +152,8 @@ class _DashboardState extends State<Dashboard> {
   Material myCircularItems(String title, String subtitle){
     return Material(
       color: Colors.white,
-      elevation: 14.0,
+      elevation: 1.0,
       borderRadius: BorderRadius.circular(24.0),
-      shadowColor: Color(0x802196F3),
       child: Center(
         child:Padding(
           padding: EdgeInsets.all(8.0),
@@ -217,18 +214,21 @@ class _DashboardState extends State<Dashboard> {
 //            crossAxisCount: 2,
 //            crossAxisSpacing: 12.0,
 //            mainAxisSpacing: 12.0,
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical:8.0),
+            padding: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
           children: <Widget>[
             Container(
+              padding: EdgeInsets.only(top: 8.0),
               child: myCircularItems("Today's Total Consumption", "250kg CO2"),
 
             ),
 
             Container(
+              padding: EdgeInsets.only(top: 8.0),
               child: mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
             ),
 
             Container(
+              padding: EdgeInsets.only(top: 8.0),
               child: mychart2Items("Public transport Consumption", "Weekly", "250kg CO2"),
             ),
 
