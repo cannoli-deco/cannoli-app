@@ -1,3 +1,4 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/homepage.dart';
 import 'package:cannoli_app/dashboard_view.dart';
@@ -28,7 +29,11 @@ class _NavigationBarState extends State<NavigationBar> {
       style: optionStyle,
     ),
     Text(
-      'Placeho',
+      'Placeholder',
+      style: optionStyle,
+    ),
+    Text(
+      'Placeholder',
       style: optionStyle,
     )
   ];
@@ -56,8 +61,9 @@ class _NavigationBarState extends State<NavigationBar> {
         physics: NeverScrollableScrollPhysics(),
       ),
       floatingActionButton: new FloatingActionButton(
-          elevation: 5.0,
-          child: new Icon(Icons.add),
+          elevation: 2.0,
+          backgroundColor: CustomMaterialColor.buttonColorWhite,
+          child: new Icon(Icons.add, color: CustomMaterialColor.bannerColor),
           onPressed: () {
             Navigator.pushNamed(context, '/input');
           }),
@@ -75,7 +81,7 @@ class _NavigationBarState extends State<NavigationBar> {
               icon: Icon(
                 Icons.favorite,
                 color: Colors.white,
-                size: 1
+                size: 0
               )
             ),
             BottomNavigationBarItem(
@@ -88,7 +94,7 @@ class _NavigationBarState extends State<NavigationBar> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Theme.of(context).accentColor,
+          selectedItemColor: CustomMaterialColor.bannerColor,
 //          backgroundColor: Colors.green,
           ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

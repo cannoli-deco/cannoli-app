@@ -244,7 +244,7 @@ class _HomeInputForm extends State<HomeInputForm> {
                     height: 40.0,
                     child: TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'kWh',
+                        hintText: 'kWh',
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
