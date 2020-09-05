@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cannoli_app/homepage.dart';
+import 'package:cannoli_app/dashboard_view.dart';
+
 
 class NavigationBar extends StatefulWidget {
   NavigationBar({Key key}) : super(key: key);
@@ -12,28 +15,25 @@ class _NavigationBarState extends State<NavigationBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
+  PageController _pageController = PageController();
+
   /// Import and add your components here
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Placeholder', style: optionStyle),
+  List<Widget> _screens = <Widget>[
+    /// Add home page here
+    Homepage(),
+    /// Add detail page here
+    Dashboard(),
     Text(
       'Placeholder',
       style: optionStyle,
     ),
     Text(
-      'Placeholder',
-      style: optionStyle,
-    ),
-    Text(
-      'Placeholder',
-      style: optionStyle,
-    ),
-    Text(
-      'Placeholder',
+      'Placeho',
       style: optionStyle,
     )
   ];
 
-  void _onItemTapped(int index) {
+  void _onPageChanged(int index){
     setState(() {
       if (index != 2) {
         _selectedIndex = index;
@@ -41,10 +41,20 @@ class _NavigationBarState extends State<NavigationBar> {
     });
   }
 
+  void _onItemTapped(int index) {
+    // print(index);
+    _pageController.jumpToPage(index);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      body: PageView(
+        controller: _pageController,
+        children: _screens,
+        onPageChanged: _onPageChanged,
+        physics: NeverScrollableScrollPhysics(),
+      ),
       floatingActionButton: new FloatingActionButton(
           elevation: 5.0,
           child: new Icon(Icons.add),
@@ -52,12 +62,14 @@ class _NavigationBarState extends State<NavigationBar> {
             Navigator.pushNamed(context, '/input');
           }),
       bottomNavigationBar: BottomNavigationBar(
+          onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home), title: Text('Home')),
             BottomNavigationBarItem(
                 icon: Icon(Icons.show_chart), title: Text('Detail')),
+
             BottomNavigationBarItem(
               title: Text(''),
               icon: Icon(
@@ -78,7 +90,7 @@ class _NavigationBarState extends State<NavigationBar> {
           currentIndex: _selectedIndex,
           selectedItemColor: Theme.of(context).accentColor,
 //          backgroundColor: Colors.green,
-          onTap: _onItemTapped),
+          ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
