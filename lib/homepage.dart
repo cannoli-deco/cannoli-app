@@ -16,10 +16,14 @@ class Homepage extends StatefulWidget{
 
 class _HomepageState extends State<Homepage>{
   List<charts.Series<Entry, String>> _seriesPieData;
+  int _total;
 
   _generateData() async{
 
     List<Entry> entrysData = await entryFromDate(DateTime.now());
+    int total = 0;
+    entrysData.forEach((element) {total += element.consumption;});
+
 
     final blue = charts.MaterialPalette.blue.makeShades(2);
     final red = charts.MaterialPalette.red.makeShades(2);
@@ -31,30 +35,43 @@ class _HomepageState extends State<Homepage>{
       new Task('Gas', 75.0, Color(0xFF93AB4B)),
     ];
 
-    _seriesPieData.add(
-      charts.Series(
-        data:entrysData,
-        domainFn: (Entry entry,_) => entry.source_id.toString(),
-        measureFn: (Entry entry,_) => entry.consumption,
-        colorFn: (Entry entry,_) => charts.MaterialPalette.blue.shadeDefault
-          // ignore: missing_return
-          // switch(entry.source_id){
-          //   case 1:
-          //     {
-          //       return blue[1];
-          //     }
-          //   case 2:
-          //     {
-          //       return red[1];
-          //     }
-          //   case 3:
-          //     {
-          //       return green[1];
-          //     }
+    setState(() {
+      _total = total;
 
-      )
-    );
+      _seriesPieData.add(
+          charts.Series(
+              data:entrysData,
+              domainFn: (Entry entry,_) => entry.source_id.toString(),
+              measureFn: (Entry entry,_) => entry.consumption,
+              colorFn: (Entry entry,_) => charts.MaterialPalette.blue.shadeDefault
+            // ignore: missing_return
+            // switch(entry.source_id){
+            //   case 1:
+            //     {
+            //       return blue[1];
+            //     }
+            //   case 2:
+            //     {
+            //       return red[1];
+            //     }
+            //   case 3:
+            //     {
+            //       return green[1];
+            //     }
+
+          )
+      );
+    });
   }
+
+  Future<int> getTotalEmission(DateTime date) async {
+    List<Entry> emissions = await entryFromDate(date);
+    int total = 0;
+    emissions.forEach((e) {total += e.consumption;});
+
+    return total;
+  }
+
 
   @override
   void initState(){
@@ -65,7 +82,6 @@ class _HomepageState extends State<Homepage>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -129,8 +145,9 @@ class _HomepageState extends State<Homepage>{
 
           Container(
             padding: EdgeInsets.only(top: 5.0),
-            child: Text(
-              "1000 kg of CO\u2082",
+            child:
+            Text(
+              "$_total kg of CO\u2082",
               style: TextStyle(fontSize: 26.0),
             ),
           )
