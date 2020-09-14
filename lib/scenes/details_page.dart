@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cannoli_app/comparison_graph.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
@@ -89,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Material mychart2Items(String title, String priceVal, String subtitle) {
+  Material comparisonCard(String title, String subTitle) {
     return Material(
       color: Colors.white,
       elevation: 1.0,
@@ -116,7 +118,7 @@ class _DashboardState extends State<Dashboard> {
                   Padding(
                     padding: EdgeInsets.all(1.0),
                     child: Text(
-                      priceVal,
+                      subTitle,
                       style: TextStyle(
                         fontSize: 30.0,
                       ),
@@ -124,37 +126,11 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueGrey,
-                      ),
-                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: new Sparkline(
-                      data: [
-                        0.0,
-                        -2.0,
-                        3.5,
-                        -2.0,
-                        0.5,
-                        0.7,
-                        0.8,
-                        1.0,
-                        2.0,
-                        3.0,
-                        3.2
-                      ],
-                      fillMode: FillMode.below,
-                      fillGradient: new LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.amber[800], Colors.amber[200]],
-                      ),
-                    ),
+                    child:
+                      ComparisonGraph()
                   ),
                 ],
               ),
@@ -246,8 +222,8 @@ class _DashboardState extends State<Dashboard> {
           ),
           Container(
             padding: EdgeInsets.only(top: 8.0),
-            child: mychart2Items(
-                "Public transport Consumption", "Weekly", "250kg CO2"),
+            child: comparisonCard(
+                "Comparison with ideal emission", "Weekly"),
           ),
         ],
       ),
