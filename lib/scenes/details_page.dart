@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:cannoli_app/homepage.dart';
+import 'package:cannoli_app/scenes/home_page.dart';
 
 import 'package:cannoli_app/color_scheme.dart';
 

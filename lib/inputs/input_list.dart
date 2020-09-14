@@ -1,4 +1,4 @@
-import 'package:cannoli_app/dividers.dart';
+import 'package:cannoli_app/widgets/dividers.dart';
 import 'package:flutter/material.dart';
 
 class InputList extends StatelessWidget {

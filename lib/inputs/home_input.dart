@@ -1,6 +1,6 @@
 import 'package:cannoli_app/database.dart';
 import 'package:flutter/material.dart';
-import 'package:cannoli_app/widgets.dart';
+import 'package:cannoli_app/widgets/textboxes.dart';
 
 final _title = 'Home Energy Input';
 

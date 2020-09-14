@@ -1,7 +1,7 @@
 import 'package:cannoli_app/color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:cannoli_app/homepage.dart';
-import 'package:cannoli_app/dashboard_view.dart';
+import 'package:cannoli_app/scenes/home_page.dart';
+import 'package:cannoli_app/scenes/details_page.dart';
 import 'package:flutter/rendering.dart';
 
 

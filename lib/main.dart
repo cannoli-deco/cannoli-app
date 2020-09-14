@@ -7,7 +7,7 @@ void main() {
   runApp(MyApp());
 }
 
-const AppName = 'Carbon Tracker';
+const AppName = 'eCO\u2082 Tracker';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
