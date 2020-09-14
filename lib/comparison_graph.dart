@@ -84,7 +84,7 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
                     spots: _entries,
                     isCurved: false,
                     isStrokeCapRound: true,
-                    barWidth: 5,
+                    barWidth: 3,
                     belowBarData: BarAreaData(
                       show: false,
                     ),
@@ -99,16 +99,18 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
                 axisTitleData: FlAxisTitleData(
                   leftTitle: AxisTitle(
                     showTitle: true,
-                    titleText: "Emission in grams"
+                    titleText: "Emission in kg",
                   )
                 ),
                 titlesData: FlTitlesData(
                   leftTitles: SideTitles(
+                    getTitles: (value) {
+                      return (value / 1000).toString();
+                    },
                     showTitles: true,
                     interval: 2000,
                     textStyle: const TextStyle(
                         color: Colors.green,
-                        fontWeight: FontWeight.bold,
                         fontSize: 18),
                     margin: 16,
                   ),

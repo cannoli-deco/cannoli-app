@@ -120,7 +120,7 @@ class _DashboardState extends State<Dashboard> {
                     child: Text(
                       subTitle,
                       style: TextStyle(
-                        fontSize: 30.0,
+                        fontSize: 20.0,
                       ),
                     ),
                   ),
