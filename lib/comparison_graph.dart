@@ -96,6 +96,9 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
                     ),
                   ),
                 ],
+                lineTouchData: LineTouchData(
+                  enabled: false
+                ),
                 axisTitleData: FlAxisTitleData(
                   leftTitle: AxisTitle(
                     showTitle: true,
@@ -109,9 +112,6 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
                     },
                     showTitles: true,
                     interval: 2000,
-                    textStyle: const TextStyle(
-                        color: Colors.green,
-                        fontSize: 18),
                     margin: 16,
                   ),
                   bottomTitles: SideTitles(
