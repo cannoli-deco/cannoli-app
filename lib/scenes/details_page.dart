@@ -125,7 +125,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(1.0),
+                    padding: EdgeInsets.all(6),
                   ),
                   Padding(
                     padding: EdgeInsets.all(1.0),
