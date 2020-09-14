@@ -34,6 +34,8 @@ dependencies:
   flutter_sparkline: ^0.1.0
   flutter_circular_chart: ^0.1.0
 
+  fl_chart: ^0.11.1
+
   # For font icons
   font_awesome_flutter: ^8.8.1
 

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cannoli_app/comparison_graph.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
@@ -8,20 +10,15 @@ import 'package:cannoli_app/scenes/home_page.dart';
 
 import 'package:cannoli_app/color_scheme.dart';
 
-
-
-class Dashboard extends StatefulWidget{
+class Dashboard extends StatefulWidget {
   Dashboard({Key key}) : super(key: key);
 
   @override
   _DashboardState createState() => _DashboardState();
-
-
 }
 
 class _DashboardState extends State<Dashboard> {
-
-  Material mychart1Items(String title, String priceVal, String subtitle){
+  Material mychart1Items(String title, String priceVal, String subtitle) {
     return Material(
       color: Colors.white,
       elevation: 1.0,
@@ -35,40 +32,56 @@ class _DashboardState extends State<Dashboard> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: Text(title, style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.blueAccent,
-                    ),),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
                   ),
-
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: Text(priceVal, style: TextStyle(
-                      fontSize: 30.0,
-                    ),),
+                    child: Text(
+                      priceVal,
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
                   ),
-
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: Text(subtitle, style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.blueGrey,
-                    ),),
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blueGrey,
+                      ),
+                    ),
                   ),
-
                   Padding(
                     padding: EdgeInsets.all(1.0),
                     child: new Sparkline(
-                      data: [0.0, 1.0, 1.5, 2.0, 0.0, 0.0, -0.5, -1.0, -0.5, 0.0, 0.0],
+                      data: [
+                        0.0,
+                        1.0,
+                        1.5,
+                        2.0,
+                        0.0,
+                        0.0,
+                        -0.5,
+                        -1.0,
+                        -0.5,
+                        0.0,
+                        0.0
+                      ],
                       lineColor: Color(0xffff6101),
                       pointsMode: PointsMode.all,
                       pointSize: 8.0,
                     ),
                   ),
-
                 ],
               )
             ],
@@ -78,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Material mychart2Items(String title, String priceVal,String subtitle) {
+  Material comparisonCard(String title, String subTitle) {
     return Material(
       color: Colors.white,
       elevation: 1.0,
@@ -92,40 +105,32 @@ class _DashboardState extends State<Dashboard> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child: Text(title, style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.blueAccent,
-                    ),),
-                  ),
-
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(priceVal, style: TextStyle(
-                      fontSize: 30.0,
-                    ),),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(subtitle, style: TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.blueGrey,
-                    ),),
-                  ),
-
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: new Sparkline(
-                      data: [0.0,-2.0,3.5,-2.0,0.5,0.7,0.8,1.0,2.0,3.0,3.2],
-                      fillMode: FillMode.below,
-                      fillGradient: new LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Colors.amber[800], Colors.amber[200]],
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blueAccent,
                       ),
                     ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(1.0),
+                    child: Text(
+                      subTitle,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(6),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(1.0),
+                    child:
+                      ComparisonGraph()
                   ),
                 ],
               ),
@@ -135,7 +140,6 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
-
 
   List<CircularStackEntry> circularData = <CircularStackEntry>[
     new CircularStackEntry(
@@ -149,45 +153,47 @@ class _DashboardState extends State<Dashboard> {
     ),
   ];
 
-  Material myCircularItems(String title, String subtitle){
+  Material myCircularItems(String title, String subtitle) {
     return Material(
       color: Colors.white,
       elevation: 1.0,
       borderRadius: BorderRadius.circular(24.0),
       child: Center(
-        child:Padding(
+        child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment:MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Column(
-                mainAxisAlignment:MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
                   Padding(
                     padding: EdgeInsets.all(3.0),
-                    child:Text(title,style:TextStyle(
-                      fontSize: 20.0,
-                      color: Colors.blueAccent,
-                    ),),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
                   ),
-
                   Padding(
                     padding: EdgeInsets.all(1.0),
-                    child:Text(subtitle,style:TextStyle(
-                      fontSize: 10.0,
-                    ),),
+                    child: Text(
+                      subtitle,
+                      style: TextStyle(
+                        fontSize: 10.0,
+                      ),
+                    ),
                   ),
-
                   Padding(
-                    padding:EdgeInsets.all(3.0),
-                    child:AnimatedCircularChart(
+                    padding: EdgeInsets.all(3.0),
+                    child: AnimatedCircularChart(
                       size: const Size(150.0, 150.0),
                       initialChartData: circularData,
                       chartType: CircularChartType.Pie,
                     ),
                   ),
-
                 ],
               ),
             ],
@@ -197,50 +203,30 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-       // appBar: AppBar(
-       //   title: Text('Dashboard',
-       //     style: TextStyle(
-       //       color: Colors.white,
-       //     )
-       //   ),
-       // ),
-      body: Container(
-        color: Color(0xffE5E5E5),
-        child: ListView(
-//            crossAxisCount: 2,
-//            crossAxisSpacing: 12.0,
-//            mainAxisSpacing: 12.0,
-            padding: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 8.0),
-              child: myCircularItems("Today's Total Consumption", "250kg CO2"),
-
-            ),
-
-            Container(
-              padding: EdgeInsets.only(top: 8.0),
-              child: mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
-            ),
-
-            Container(
-              padding: EdgeInsets.only(top: 8.0),
-              child: mychart2Items("Public transport Consumption", "Weekly", "250kg CO2"),
-            ),
-
-          ],
-//          staggeredTiles: [
-//            StaggeredTile.extent(2, 225.0),
-//            StaggeredTile.extent(2, 225.0),
-//            StaggeredTile.extent(2, 225.0),
-//          ],
-
-        ),
-      )
-    );
+        body: Container(
+      color: Color(0xffE5E5E5),
+      child: ListView(
+        padding: EdgeInsets.only(right: 8.0, left: 8.0, bottom: 8.0),
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 8.0),
+            child: myCircularItems("Today's Total Consumption", "250kg CO2"),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 8.0),
+            child:
+                mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 8.0),
+            child: comparisonCard(
+                "Comparison with ideal emission", "Weekly"),
+          ),
+        ],
+      ),
+    ));
   }
 }
