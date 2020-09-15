@@ -1,3 +1,4 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/database.dart';
 import 'package:flutter/material.dart';
 
@@ -34,20 +35,20 @@ class CarInput extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(title),
         ),
-        body: carInputForm(),
+        body: CarInputForm(),
       ),
     );
   }
 }
 
-class carInputForm extends StatefulWidget {
+class CarInputForm extends StatefulWidget {
   @override
-  carInputForm({Key key}) : super(key: key);
+  CarInputForm({Key key}) : super(key: key);
 
-  _carInputFormState createState() => _carInputFormState();
+  CarInputFormState createState() => CarInputFormState();
 }
 
-class _carInputFormState extends State<carInputForm> {
+class CarInputFormState extends State<CarInputForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
@@ -55,19 +56,21 @@ class _carInputFormState extends State<carInputForm> {
   // not a GlobalKey<MyCustomFormState>.
 
   final _formKey = GlobalKey<FormState>();
+  String dropdownValue = "Medium";
+  CarFormInput newCarInput = new CarFormInput();
 
-  void _showDialog(int emission) {
+  void showCalculatedDialog(BuildContext context, int emission) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: new Text("Your annual car emissions is $emission kg of CO2"),
+          content: new Text("Your annual car emissions is $emission kg of CO\u2082"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Ok"),
               onPressed: () {
                 // go back to home
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.pop(context);
               },
             ),
           ],
@@ -76,86 +79,99 @@ class _carInputFormState extends State<carInputForm> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    String dropdownValue = "Medium";
-    CarFormInput newCarInput = new CarFormInput();
-
-    return Form(
-        autovalidate: true,
-        key: _formKey,
-        child: ListView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+  void showCarInputForm(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                TextFormField(
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.directions),
-                      labelText: "Distance",
-                      hintText: "km"),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Please enter some number';
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.number,
-                  onSaved: (String value) =>
-                      {newCarInput.distance = double.parse(value)},
-                ),
-                DropdownButtonFormField(
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.directions_car),
-                      labelText: "Type of car"),
-                  style: TextStyle(color: Theme.of(context).accentColor),
-                  value: dropdownValue,
-                  iconSize: 24,
-                  elevation: 16,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropdownValue = newValue;
-                    });
-                  },
-                  items: <String>['Medium', 'Small', 'Large', 'Diesel']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onSaved: (String selection) {
-                    newCarInput.type = selection;
-                  },
-                ),
-                SizedBox(height: 25),
-                Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      RaisedButton(
-                        onPressed: () {
-                          // Validate returns true if the form is valid, or false
-                          // otherwise.
-                          if (_formKey.currentState.validate()) {
-                            // If the form is valid, display a Snackbar.
-                             Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
+
+                  /// Child of Alert Dialog
+                  Form(
+                /// Form
+                key: _formKey,
+                child:
+                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  Row(children: [
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.directions),
+                            labelText: "Distance",
+                            hintText: "km"),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some number';
                           }
-                          FormState form = _formKey.currentState;
-                          form.save();
-                          int calculatedEmission = calculateEmission(
-                              newCarInput.type, newCarInput.distance);
-                          addEntry(calculatedEmission, DateTime.now(), 'Car');
-                          _showDialog(calculatedEmission);
+                          return null;
                         },
-                        child: Text('Submit'),
+                        keyboardType: TextInputType.number,
+                        onSaved: (String value) =>
+                            {newCarInput.distance = double.parse(value)},
                       ),
-                      Container(height: 20.0)
-                    ]),
-              ],
-            )
-          ],
-        ));
+                    )
+                  ]),
+                  DropdownButtonFormField(
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.directions_car),
+                        labelText: "Type of car"),
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                    value: dropdownValue,
+                    iconSize: 24,
+                    elevation: 16,
+                    onChanged: (String newValue) {
+                      setState(() {
+                        dropdownValue = newValue;
+                      });
+                    },
+                    items: <String>['Medium', 'Small', 'Large', 'Diesel']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onSaved: (String selection) {
+                      newCarInput.type = selection;
+                    },
+                  ),
+                  SizedBox(height: 25),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        RaisedButton(
+                          color: CustomMaterialColor.emphasisColor,
+                          onPressed: () {
+                            // Validate returns true if the form is valid, or false
+                            // otherwise.
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a Snackbar.
+                            }
+                            FormState form = _formKey.currentState;
+                            form.save();
+                            int calculatedEmission = calculateEmission(
+                                newCarInput.type, newCarInput.distance);
+                            //TODO: addEntry(calculatedEmission, DateTime.now(), 'Car');
+                            Navigator.pop(context);
+                            showCalculatedDialog(context, calculatedEmission);
+                          },
+                          child: Text('Submit',
+                              style: TextStyle(
+                                  color: CustomMaterialColor.buttonColorWhite)),
+                        ),
+                        Container(height: 20.0)
+                      ]),
+                ]),
+              ),
+              ]
+            ),
+          );
+        });
   }
+
+  @override
+  Widget build(BuildContext context) {}
 }

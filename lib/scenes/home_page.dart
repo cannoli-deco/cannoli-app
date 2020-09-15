@@ -86,7 +86,7 @@ class _HomepageState extends State<Homepage>{
           ),
 
           Flexible(
-            flex: 10,
+            //flex: 10,
             child: Container(
             height: 350,
             width: 350,

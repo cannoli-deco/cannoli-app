@@ -1,5 +1,6 @@
 import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/inputs/home_input.dart';
+import 'package:cannoli_app/inputs/car_input.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/scenes/details_page.dart';
@@ -103,14 +104,14 @@ class _NavigationBarState extends State<NavigationBar> {
                 child: FloatingActionButton(
                 elevation: 1.0,
                 backgroundColor: CustomMaterialColor.buttonColorWhite,
-                child: new Icon(Icons.offline_bolt, color: CustomMaterialColor.bannerColor),
+                child: new Icon(Icons.local_gas_station, color: CustomMaterialColor.bannerColor),
                 onPressed: () {
                   //Navigator.pushNamed(context, '/input');           
                   setState(() {
                   });
                 }),
               ),
-              Text('Electricity', style: TextStyle(color: CustomMaterialColor.buttonColorWhite)),
+              Text('Gas', style: TextStyle(color: CustomMaterialColor.buttonColorWhite)),
             ]),
           ),
           Align ( /// left child button
@@ -127,7 +128,8 @@ class _NavigationBarState extends State<NavigationBar> {
                 backgroundColor: CustomMaterialColor.buttonColorWhite,
                 child: new Icon(Icons.drive_eta, color: CustomMaterialColor.bannerColor),
                 onPressed: () {
-                  //Navigator.pushNamed(context, '/input');           
+                  //Navigator.pushNamed(context, '/input');     
+                  CarInputFormState().showCarInputForm(context);
                   setState(() {
                   });
                 }),

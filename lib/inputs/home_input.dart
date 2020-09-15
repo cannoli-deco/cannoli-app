@@ -99,7 +99,7 @@ class HomeInputFormState extends State<HomeInputForm> {
       builder: (BuildContext context) {
         return AlertDialog(
           content: new Text("Your annual electrical consumption emission is "
-              "$emission kg of CO2"),
+              "$emission kg of CO\u2082"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Ok"),
@@ -115,12 +115,11 @@ class HomeInputFormState extends State<HomeInputForm> {
   }
 
   void showHomeInputForm(BuildContext context) {
-    BuildContext con = context;
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Expanded(
+          content: Container(
             child:
 
                 /// Child of Alert Dialog
