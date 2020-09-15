@@ -14,7 +14,7 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
-  /// Global variables for state change
+  // Global variables for state change
   bool _addActive = false;
 
   int _selectedIndex = 0;
@@ -23,12 +23,13 @@ class _NavigationBarState extends State<NavigationBar> {
 
   PageController _pageController = PageController();
 
-  /// Import and add your components here
+  // Import and add your components here
   List<Widget> _screens = <Widget>[
-    /// Add home page here
+    // Add home page here
     Homepage(),
 
     /// Add detail page here
+
     Dashboard(),
     Text(
       'Placeholder',
@@ -93,6 +94,7 @@ class _NavigationBarState extends State<NavigationBar> {
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       color: Colors.black.withAlpha(100),
+
                     ),
                   ),
                   Align(
@@ -108,6 +110,7 @@ class _NavigationBarState extends State<NavigationBar> {
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
                             child: new Icon(Icons.local_gas_station,
+
                                 color: CustomMaterialColor.bannerColor),
                             onPressed: () {
                               //Navigator.pushNamed(context, '/input');
@@ -115,6 +118,7 @@ class _NavigationBarState extends State<NavigationBar> {
                             }),
                       ),
                       Text('Gas',
+
                           style: TextStyle(
                               color: CustomMaterialColor.buttonColorWhite)),
                     ]),
@@ -128,6 +132,7 @@ class _NavigationBarState extends State<NavigationBar> {
                         width: 50,
                         height: 50,
                         child: FloatingActionButton(
+
                             elevation: 1.0,
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
@@ -136,6 +141,7 @@ class _NavigationBarState extends State<NavigationBar> {
                             onPressed: () {
                               //Navigator.pushNamed(context, '/input');
                               CarInputFormState().showCarInputForm(context);
+
                               setState(() {});
                             }),
                       ),
@@ -153,6 +159,7 @@ class _NavigationBarState extends State<NavigationBar> {
                         width: 50,
                         height: 50,
                         child: FloatingActionButton(
+
                             elevation: 1.0,
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
@@ -160,6 +167,7 @@ class _NavigationBarState extends State<NavigationBar> {
                                 color: CustomMaterialColor.bannerColor),
                             onPressed: () {
                               HomeInputFormState().showHomeInputForm(context);
+
                               setState(() {});
                             }),
                       ),
@@ -173,6 +181,7 @@ class _NavigationBarState extends State<NavigationBar> {
                   Align(
                     alignment: Alignment(0, 0.92),
                     child: FloatingActionButton(
+
                         elevation: 1.0,
                         backgroundColor: CustomMaterialColor.buttonColorWhite,
                         child: new Icon(Icons.add,
