@@ -13,13 +13,13 @@ class CarFormInput {
 int calculateEmission(String type, double distance) {
   switch (type) {
     case "Medium":
-      return (0.297 * distance).floor(); // emissions (kg/km) * distance
+      return (0.297 * distance).floor() * 1000; // emissions (kg/km) * distance * 1000 (gram conversion)
     case "Small":
-      return (0.228 * distance).floor();
+      return (0.228 * distance).floor() * 1000;
     case "Large":
-      return (0.411 * distance).floor();
+      return (0.411 * distance).floor() * 1000;
     case "Diesel":
-      return (0.401 * distance).floor();
+      return (0.401 * distance).floor() * 1000;
     default:
       return 0;
   }
@@ -65,7 +65,7 @@ class CarInputFormState extends State<CarInputForm> {
       builder: (BuildContext context) {
         return AlertDialog(
           content:
-              new Text("Your annual car emissions is $emission kg of CO\u2082"),
+              new Text("Your annual car emissions is $emission g of CO\u2082"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Ok"),
@@ -152,7 +152,7 @@ class CarInputFormState extends State<CarInputForm> {
                             form.save();
                             int calculatedEmission = calculateEmission(
                                 newCarInput.type, newCarInput.distance);
-                            //TODO: addEntry(calculatedEmission, DateTime.now(), 'Car');
+                            addEntry(calculatedEmission, DateTime.now(), 'Car');
                             Navigator.pop(context);
                             showCalculatedDialog(context, calculatedEmission);
                           },

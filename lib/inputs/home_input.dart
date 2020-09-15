@@ -40,13 +40,13 @@ double conversion(double val, double mul, String jurisdiction) {
 int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
   switch (billingCycle) {
     case "Monthly":
-      return (conversion(kwh, 12.0, jurisdiction)).floor();
+      return (conversion(kwh, 12.0, jurisdiction)).floor() * 1000;
     case "Quarterly":
-      return (conversion(kwh, 4.0, jurisdiction)).floor();
+      return (conversion(kwh, 4.0, jurisdiction)).floor() * 1000;
     case "Half-Yearly":
-      return (conversion(kwh, 2.0, jurisdiction)).floor();
+      return (conversion(kwh, 2.0, jurisdiction)).floor() * 1000;
     case "Yearly":
-      return (conversion(kwh, 1.0, jurisdiction)).floor();
+      return (conversion(kwh, 1.0, jurisdiction)).floor() * 1000;
     default:
       return 0;
   }
@@ -99,7 +99,7 @@ class HomeInputFormState extends State<HomeInputForm> {
       builder: (BuildContext context) {
         return AlertDialog(
           content: new Text("Your annual electrical consumption emission is "
-              "$emission kg of CO\u2082"),
+              "$emission g of CO\u2082"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Ok"),
@@ -289,8 +289,8 @@ class HomeInputFormState extends State<HomeInputForm> {
                                 newHomeInput.jurisdiction);
                             // Add lines below after DB implementation for Fields used
                             // -------------------------------------------------------
-                            //addEntry(
-                            //    calculatedEmission, DateTime.now(), 'Home Energy');
+                            addEntry(
+                                calculatedEmission, DateTime.now(), 'Home Energy');
                             // -------------------------------------------------------
 
                             Navigator.pop(context);
