@@ -64,7 +64,8 @@ class CarInputFormState extends State<CarInputForm> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: new Text("Your annual car emissions is $emission kg of CO\u2082"),
+          content:
+              new Text("Your annual car emissions is $emission kg of CO\u2082"),
           actions: <Widget>[
             new FlatButton(
               child: new Text("Ok"),
@@ -84,12 +85,9 @@ class CarInputFormState extends State<CarInputForm> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-
-                  /// Child of Alert Dialog
-                  Form(
+            content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              /// Child of Alert Dialog
+              Form(
                 /// Form
                 key: _formKey,
                 child:
@@ -166,8 +164,7 @@ class CarInputFormState extends State<CarInputForm> {
                       ]),
                 ]),
               ),
-              ]
-            ),
+            ]),
           );
         });
   }
