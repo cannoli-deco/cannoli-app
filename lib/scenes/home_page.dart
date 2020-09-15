@@ -49,10 +49,11 @@ class _HomepageState extends State<Homepage>{
     // TODO: implement build
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 30.0),
-            child:Center(
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -82,13 +83,13 @@ class _HomepageState extends State<Homepage>{
 
                 ],
               ),
-            )
           ),
 
-          Container(
+          Flexible(
+            //flex: 10,
+            child: Container(
             height: 350,
             width: 350,
-            child: Center(
                 child:
                 charts.PieChart(
                   _seriesPieData,
@@ -105,7 +106,7 @@ class _HomepageState extends State<Homepage>{
                   ),
                 )
             ),
-          ),
+            ),
 
           Container(
             padding: EdgeInsets.only(top: 5.0),
