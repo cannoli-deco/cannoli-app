@@ -40,13 +40,13 @@ double conversion(double val, double mul, String jurisdiction) {
 int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
   switch (billingCycle) {
     case "Monthly":
-      return (conversion(kwh, 12.0, jurisdiction)).floor() * 1000;
+      return (conversion(kwh, 12.0, jurisdiction) * 1000).floor();
     case "Quarterly":
-      return (conversion(kwh, 4.0, jurisdiction)).floor() * 1000;
+      return (conversion(kwh, 4.0, jurisdiction) * 1000).floor();
     case "Half-Yearly":
-      return (conversion(kwh, 2.0, jurisdiction)).floor() * 1000;
+      return (conversion(kwh, 2.0, jurisdiction) * 1000).floor();
     case "Yearly":
-      return (conversion(kwh, 1.0, jurisdiction)).floor() * 1000;
+      return (conversion(kwh, 1.0, jurisdiction) * 1000).floor();
     default:
       return 0;
   }

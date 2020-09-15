@@ -13,13 +13,13 @@ class CarFormInput {
 int calculateEmission(String type, double distance) {
   switch (type) {
     case "Medium":
-      return (0.297 * distance).floor() * 1000; // emissions (kg/km) * distance * 1000 (gram conversion)
+      return (0.297 * distance * 1000).floor(); // emissions (kg/km) * distance * 1000 (gram conversion)
     case "Small":
-      return (0.228 * distance).floor() * 1000;
+      return (0.228 * distance * 1000).floor();
     case "Large":
-      return (0.411 * distance).floor() * 1000;
+      return (0.411 * distance * 1000).floor();
     case "Diesel":
-      return (0.401 * distance).floor() * 1000;
+      return (0.401 * distance * 1000).floor();
     default:
       return 0;
   }
