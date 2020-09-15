@@ -1,3 +1,4 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/database.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
@@ -57,36 +58,42 @@ class HomeInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Home Energy Input',
         home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            title: Text(_title),
-          ),
-          body: Padding(
-            padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
-            child: HomeInputForm(),
-          ),
-        ));
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+        child: HomeInputForm(),
+      ),
+    ));
   }
 }
 
 class HomeInputForm extends StatefulWidget {
   @override
-  _HomeInputForm createState() {
-    return _HomeInputForm();
+  HomeInputFormState createState() {
+    return HomeInputFormState();
   }
 }
 
-class _HomeInputForm extends State<HomeInputForm> {
+class HomeInputFormState extends State<HomeInputForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
   //
   // Note: This is a GlobalKey<FormState>,
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  List<String> rowTitles = [
+    'Energy Type',
+    'Billing Cycle',
+    'Consumption',
+    'State or Territory'
+  ];
 
-  void _showDialog(int emission) {
+  String dropDownType = "Electricity Bill";
+  String dropDownBilling = "Monthly";
+  String dropDownJurisdiction = "QLD";
+  HomeFormInput newHomeInput = new HomeFormInput();
+
+  void showCalculatedDialog(BuildContext context, int emission) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -98,7 +105,7 @@ class _HomeInputForm extends State<HomeInputForm> {
               child: new Text("Ok"),
               onPressed: () {
                 // go back to home
-                Navigator.popUntil(context, ModalRoute.withName('/'));
+                Navigator.pop(context);
               },
             ),
           ],
@@ -107,249 +114,205 @@ class _HomeInputForm extends State<HomeInputForm> {
     );
   }
 
-  List<String> rowTitles = [
-    'Home Energy Type',
-    'Billing Cycle',
-    'Consumption',
-    'State or Territory'
-  ];
+  void showHomeInputForm(BuildContext context) {
+    BuildContext con = context;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Expanded(
+            child:
 
-  @override
-  Widget build(BuildContext context) {
-    String dropDownType = "Electricity Bill";
-    String dropDownBilling = "Monthly";
-    String dropDownJurisdiction = "QLD";
-    HomeFormInput newHomeInput = new HomeFormInput();
-    // Build a Form widget using the _formKey created above.
-    return Form(
-      key: _formKey,
-      child: ListView(
-        children: <Widget>[
-          // Each Row() contains a prompt and input.
-          // Home Energy Type
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Prompt
-              Column(
-                children: <Widget>[
-                  // Text Box of 200W x 40H Pixel Dimensions for prompt text
-                  formTextBoxWidget(context, rowTitles[0]),
-                ],
-              ),
-              // Input
-              Column(
+                /// Child of Alert Dialog
+                Form(
+              /// Form
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SizedBox(
-                    width: 120.0,
-                    height: 40.0,
-                    child: DropdownButtonFormField(
-                      style: TextStyle(color: Theme.of(context).accentColor),
-                      value: dropDownType,
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropDownType = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'Electricity Bill',
-                        'Water Bill',
-                        'Miscellaneous'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onSaved: (String selection) {
-                        newHomeInput.type = selection;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          // Billing Cycle
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Prompt
-              Column(
-                children: <Widget>[
-                  // Text Box of 200W x 40H Pixel Dimensions for prompt text
-                  formTextBoxWidget(context, rowTitles[1]),
-                ],
-              ),
-              // Input
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: 120.0,
-                    height: 40.0,
-                    child: DropdownButtonFormField(
-                      style: TextStyle(color: Theme.of(context).accentColor),
-                      value: dropDownBilling,
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropDownBilling = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'Monthly',
-                        'Quarterly',
-                        'Half-Yearly',
-                        'Yearly'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onSaved: (String selection) {
-                        newHomeInput.billingCycle = selection;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          // Consumption
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Prompt
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  formTextBoxWidget(context, rowTitles[2]),
-                ],
-              ),
-              // Input
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: 120.0,
-                    height: 40.0,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        hintText: 'kWh',
+                  /// Children of Form
+                  Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+                    Expanded(child: formTextBoxWidget(context, rowTitles[0])),
+                    Expanded(
+                      child: Container(
+                        child: DropdownButtonFormField(
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
+                          value: dropDownType,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropDownType = newValue;
+                            });
+                          },
+                          items: <String>[
+                            'Electricity Bill',
+                            'Water Bill',
+                            'Miscellaneous'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onSaved: (String selection) {
+                            newHomeInput.type = selection;
+                          },
+                        ),
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter number';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      onSaved: (String value) =>
-                          {newHomeInput.kwh = double.parse(value)},
-                    ),
+                    )
+                  ]),
+                  Row(
+                    /// Usage Frequency
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Expanded(child: formTextBoxWidget(context, rowTitles[1])),
+                      Expanded(
+                        child: Container(
+                          child: DropdownButtonFormField(
+                            style:
+                                TextStyle(color: Theme.of(context).accentColor),
+                            value: dropDownBilling,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropDownBilling = newValue;
+                              });
+                            },
+                            items: <String>[
+                              'Monthly',
+                              'Quarterly',
+                              'Half-Yearly',
+                              'Yearly'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onSaved: (String selection) {
+                              newHomeInput.billingCycle = selection;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  Row(
+                    /// Consumption
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(child: formTextBoxWidget(context, rowTitles[2])),
+                      Expanded(
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: 'kWh',
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter number';
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.number,
+                          onSaved: (String value) =>
+                              {newHomeInput.kwh = double.parse(value)},
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Input
+
+                  Row(
+                    /// State or Territory
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      // Text Box of 200W x 40H Pixel Dimensions for prompt text
+                      Expanded(child: formTextBoxWidget(context, rowTitles[3])),
+                      Expanded(
+                        child: DropdownButtonFormField(
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
+                          value: dropDownJurisdiction,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropDownJurisdiction = newValue;
+                            });
+                          },
+                          items: <String>[
+                            'NSW',
+                            'ACT',
+                            'VIC',
+                            'QLD',
+                            'SA',
+                            'WA',
+                            'TAS',
+                            'NT'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onSaved: (String selection) {
+                            newHomeInput.jurisdiction = selection;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Input
+
+                  Row(
+                    /// Submit button
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(top: 12),
+                        child: RaisedButton(
+                          color: CustomMaterialColor.emphasisColor,
+                          onPressed: () {
+                            // Validate returns true if the form is valid, or false
+                            // otherwise.
+
+                            if (_formKey.currentState.validate()) {
+                              // If the form is valid, display a Snackbar.
+                            }
+                            FormState form = _formKey.currentState;
+                            form.save();
+
+                            int calculatedEmission = calculateEmission(
+                                newHomeInput.billingCycle,
+                                newHomeInput.kwh,
+                                newHomeInput.jurisdiction);
+                            // Add lines below after DB implementation for Fields used
+                            // -------------------------------------------------------
+                            //addEntry(
+                            //    calculatedEmission, DateTime.now(), 'Home Energy');
+                            // -------------------------------------------------------
+
+                            Navigator.pop(context);
+                            showCalculatedDialog(context, calculatedEmission);
+                          },
+                          child: Text('Submit',
+                              style: TextStyle(
+                                  color: CustomMaterialColor.buttonColorWhite)),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-          // State or Territory
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Prompt
-              Column(
-                children: <Widget>[
-                  // Text Box of 200W x 40H Pixel Dimensions for prompt text
-                  formTextBoxWidget(context, rowTitles[3]),
-                ],
-              ),
-              // Input
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: 120.0,
-                    height: 40.0,
-                    child: DropdownButtonFormField(
-                      style: TextStyle(color: Theme.of(context).accentColor),
-                      value: dropDownJurisdiction,
-                      onChanged: (String newValue) {
-                        setState(() {
-                          dropDownJurisdiction = newValue;
-                        });
-                      },
-                      items: <String>[
-                        'NSW',
-                        'ACT',
-                        'VIC',
-                        'QLD',
-                        'SA',
-                        'WA',
-                        'TAS',
-                        'NT'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                      onSaved: (String selection) {
-                        newHomeInput.jurisdiction = selection;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          // Submit Button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  RaisedButton(
-                    onPressed: () {
-                      // Validate returns true if the form is valid, or false
-                      // otherwise.
-                      if (_formKey.currentState.validate()) {
-                        // If the form is valid, display a Snackbar.
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data')));
-                      }
-                      FormState form = _formKey.currentState;
-                      form.save();
-                      int calculatedEmission = calculateEmission(
-                          newHomeInput.billingCycle,
-                          newHomeInput.kwh,
-                          newHomeInput.jurisdiction);
-                      // Add lines below after DB implementation for Fields used
-                      // -------------------------------------------------------
-                      //addEntry(
-                      //    calculatedEmission, DateTime.now(), 'Home Energy');
-                      // -------------------------------------------------------
-                      _showDialog(calculatedEmission);
-                    },
-                    child: Text('Submit'),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
+
+  @override
+  Widget build(BuildContext context) {}
 }

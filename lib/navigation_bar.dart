@@ -1,4 +1,5 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/scenes/details_page.dart';
@@ -87,7 +88,7 @@ class _NavigationBarState extends State<NavigationBar> {
             child: Container (
               height: MediaQuery.of(context).size.height, 
               width: MediaQuery.of(context).size.width,
-              color: Colors.black.withAlpha(150),
+              color: Colors.black.withAlpha(100),
             ),
           ),
           Align ( /// center child button
@@ -99,7 +100,7 @@ class _NavigationBarState extends State<NavigationBar> {
                 padding: EdgeInsets.only(bottom: 5),
                 width: 50,
                 height: 50,
-                child: new FloatingActionButton(
+                child: FloatingActionButton(
                 elevation: 1.0,
                 backgroundColor: CustomMaterialColor.buttonColorWhite,
                 child: new Icon(Icons.offline_bolt, color: CustomMaterialColor.bannerColor),
@@ -121,7 +122,7 @@ class _NavigationBarState extends State<NavigationBar> {
                 padding: EdgeInsets.only(bottom: 5),
                 width: 50,
                 height: 50,
-                child: new FloatingActionButton(
+                child: FloatingActionButton(
                 elevation: 1.0,
                 backgroundColor: CustomMaterialColor.buttonColorWhite,
                 child: new Icon(Icons.drive_eta, color: CustomMaterialColor.bannerColor),
@@ -143,12 +144,12 @@ class _NavigationBarState extends State<NavigationBar> {
                 padding: EdgeInsets.only(bottom: 5),
                 width: 50,
                 height: 50,
-                child: new FloatingActionButton(
+                child: FloatingActionButton(
                 elevation: 1.0,
                 backgroundColor: CustomMaterialColor.buttonColorWhite,
                 child: new Icon(Icons.home, color: CustomMaterialColor.bannerColor),
                 onPressed: () {
-                  //Navigator.pushNamed(context, '/input');           
+                  HomeInputFormState().showHomeInputForm(context);
                   setState(() {
                   });
                 }),
@@ -160,7 +161,7 @@ class _NavigationBarState extends State<NavigationBar> {
         : <Widget>[
           Align (
             alignment: Alignment(0, 0.92),
-            child: new FloatingActionButton(
+            child: FloatingActionButton(
             elevation: 1.0,
             backgroundColor: CustomMaterialColor.buttonColorWhite,
             child: new Icon(Icons.add, color: CustomMaterialColor.bannerColor),
