@@ -188,8 +188,13 @@ Future<List<Entry>> allEntries() async{
    return _query();
  }
 
- /// Run this to fill up db with examples
 Future<void> main() async {
+}
+
+/// Fills db with sources
+// ignore: missing_return
+Future<void> instantiateDB() {
+
   WidgetsFlutterBinding.ensureInitialized();
 
   void _insert() async {
@@ -212,7 +217,6 @@ Future<void> main() async {
   }
 
   _insert();
-
 }
 
 class Entry {
