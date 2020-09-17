@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:cannoli_app/home_pie_chart.dart';
+
 
 
 class Homepage extends StatefulWidget{
@@ -88,33 +90,19 @@ class _HomepageState extends State<Homepage>{
           Flexible(
             //flex: 10,
             child: Container(
-            height: 350,
-            width: 350,
+                padding: EdgeInsets.only(top: 4.0),
                 child:
-                charts.PieChart(
-                  _seriesPieData,
-                  animate: true,
-                  animationDuration: Duration(milliseconds: 500),
-                  defaultRenderer: new charts.ArcRendererConfig(
-                    arcRendererDecorators: [charts.ArcLabelDecorator()]
-                  //     arcWidth:100,
-                  //     arcRendererDecorators: [
-                  //       new charts.ArcLabelDecorator(
-                  //           labelPosition: charts.ArcLabelPosition.inside
-                  //       )
-                  //     ]
-                  ),
-                )
+                HomePieChart(),
             ),
             ),
 
-          Container(
-            padding: EdgeInsets.only(top: 5.0),
-            child: Text(
-              "1000 kg of CO\u2082",
-              style: TextStyle(fontSize: 26.0),
-            ),
-          )
+          // Container(
+          //   padding: EdgeInsets.only(top: 5.0),
+          //   child: Text(
+          //     "1000 kg of CO\u2082",
+          //     style: TextStyle(fontSize: 26.0),
+          //   ),
+          // )
         ],
       ),
     );
