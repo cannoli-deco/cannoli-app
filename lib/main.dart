@@ -2,9 +2,11 @@ import 'package:cannoli_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'navigation_bar.dart';
 import 'color_scheme.dart';
+import 'package:cannoli_app/database.dart';
 
 void main() {
   runApp(MyApp());
+  instantiateDB();
 }
 
 const AppName = 'eCO\u2082 Tracker';
@@ -46,7 +48,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-
 
   // Add your views in navigation_bar
   @override
