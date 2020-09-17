@@ -111,7 +111,7 @@ class HomePieState extends State<HomePieChart>{
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
+            color: CustomMaterialColor.buttonColorBlue,
             value: _consumptions[0],
             title: 'Transport',
             radius: radius,
@@ -120,8 +120,8 @@ class HomePieState extends State<HomePieChart>{
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 2,
+            color: CustomMaterialColor.emphasisColor,
+            value: _consumptions[1],
             title: 'Gas',
             radius: radius,
             titleStyle: TextStyle(
@@ -129,8 +129,8 @@ class HomePieState extends State<HomePieChart>{
           );
         case 2:
           return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 2,
+            color: CustomMaterialColor.subColorGrass,
+            value: _consumptions[2],
             title: 'Home\n Energy',
             radius: radius,
             titleStyle: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,35 +17,7 @@ class Homepage extends StatefulWidget{
 
 
 class _HomepageState extends State<Homepage>{
-  List<charts.Series<Task, String>> _seriesPieData;
-
-  _generateData(){
-    var pieData=[
-      new Task('Car', 75.0, Color(0xFF04645A)),
-      new Task('Electricity', 100.0, Color(0xFF9DD4D1)),
-      new Task('Gas', 75.0, Color(0xFF93AB4B)),
-    ];
-
-    _seriesPieData.add(
-      charts.Series(
-        data:pieData,
-        domainFn: (Task task,_) => task.task,
-        measureFn: (Task task,_)=> task.taskvalue,
-        colorFn: (Task task,_)=>
-            charts.ColorUtil.fromDartColor(task.colorval),
-            id:'Daily Task',
-            labelAccessorFn: (Task row,_)=>'${row.taskvalue}',
-
-      )
-    );
-  }
-
-  @override
-  void initState(){
-    super.initState();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _generateData();
-  }
+  String _emissionGoal = 'Set emission goal';
 
   @override
   Widget build(BuildContext context) {
@@ -79,10 +52,10 @@ class _HomepageState extends State<Homepage>{
                     //alignment: Alignment.centerRight,
                     child: MaterialButton(
                         child: Icon(FontAwesomeIcons.angleRight, color: CustomMaterialColor.buttonColorBlue, size: 30.0),
-                        onPressed: (){}
+                        onPressed: (){
+                        }
                     ),
                   ),
-
                 ],
               ),
           ),
@@ -91,29 +64,75 @@ class _HomepageState extends State<Homepage>{
             //flex: 10,
             child: Container(
                 padding: EdgeInsets.only(top: 4.0),
-                child:
-                HomePieChart(),
+                child: HomePieChart(),
             ),
             ),
 
-          // Container(
-          //   padding: EdgeInsets.only(top: 5.0),
-          //   child: Text(
-          //     "1000 kg of CO\u2082",
-          //     style: TextStyle(fontSize: 26.0),
-          //   ),
-          // )
+          Container(
+            padding: EdgeInsets.only(top: 4.0),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    _emissionGoal,
+                    style:
+                    TextStyle(
+                      fontSize: 26.0,
+                      fontFamily: "Arial",
+                      fontWeight: FontWeight.bold,
+                      //decoration: TextDecoration.underline,
+                      decorationColor: CustomMaterialColor.buttonColorBlue,
+                      foreground: Paint()..color = CustomMaterialColor.buttonColorBlue,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.alarm_on),
+                    color: CustomMaterialColor.subColorRed,
+                    onPressed: (){
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                            return new AlertDialog(
+                              content: Container(
+                                height: 100,
+                                width: 250,
+                                child: Column(
+                                  children: <Widget>[
+                                    TextField(
+                                      decoration: InputDecoration(
+                                          hintText: "Please enter your emission goal"
+                                      ),
+                                      onChanged: (String value){
+                                        setState(() {
+                                            _emissionGoal = "$value KG CO\u2082";
+                                        });
+                                      },
+                                    ),
+
+                                    RaisedButton(
+                                      color: CustomMaterialColor.subColorRed,
+                                      child: Text('Save',
+                                          style: TextStyle(
+                                              color: CustomMaterialColor.buttonColorWhite)),
+                                      onPressed: (){
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                      );
+                    },
+                  ),
+                ],
+              ),
+            )
+          )
         ],
       ),
     );
   }
-}
-
-
-/// Test data container
-class Task{
-  String task;
-  double taskvalue;
-  Color colorval;
-    Task(this.task, this.taskvalue, this.colorval);
 }

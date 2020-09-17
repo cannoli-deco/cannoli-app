@@ -11,7 +11,7 @@ class DatabaseHelper {
 //  DatabaseHelper(this.)
 
   // Change the dbname to reset the db lol
-  static final _databaseName = "datasqlite";
+  static final _databaseName = "data10sqlite";
   static final _databaseVersion = 2;
 
   static final table = 'Source';
@@ -201,7 +201,7 @@ Future<void> instantiateDB() {
 
     var defaultSources = [
       {
-        'source_name': 'Electricity',
+        'source_name': 'Home Energy',
       },
       {
         'source_name': 'Gas'
