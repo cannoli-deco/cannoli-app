@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 // General widget for text in forms.
@@ -21,6 +23,19 @@ Widget formTextBoxWidget(BuildContext context, String op) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget pageLayoutTextBoxWidget(String title, double fSize) {
+  return SizedBox(
+    height: 40.0,
+    child: Text(
+      title,
+      style: TextStyle(
+        fontSize: fSize,
+        color: Colors.grey[600],
+      ),
     ),
   );
 }
