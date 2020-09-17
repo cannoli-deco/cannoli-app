@@ -3,7 +3,7 @@ import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
-import 'package:cannoli_app/scenes/details_chart_page.dart';
+
 import 'package:cannoli_app/scenes/details_page.dart';
 import 'package:flutter/rendering.dart';
 

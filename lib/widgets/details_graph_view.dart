@@ -14,6 +14,10 @@ Widget getTransportGraphWidgets() {
             pageLayoutTextBoxWidget('Transport Emissions', 18.0),
           ],
         ),
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: mychart1Items("Transport Emissions", "Weekly", "300kg CO2"),
+        ),
         // Add Widgets Here
       ],
     ),

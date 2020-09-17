@@ -1,14 +1,5 @@
-import 'dart:io';
-
-import 'package:cannoli_app/comparison_graph.dart';
 import 'package:cannoli_app/widgets/details_graph_view.dart';
-import 'package:cannoli_app/widgets/emission_chart.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 
 import 'package:cannoli_app/color_scheme.dart';
@@ -201,34 +192,3 @@ class _DetailsPageState extends State<DetailsPage> {
     ));
   }
 }
-
-/*
-Widget getAllGraphWidgets() {
-  return ListView(
-    children: <Widget>[
-      Container(
-        padding: EdgeInsets.only(top: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Page Layout Title Text Box
-            pageLayoutTextBoxWidget('General: Overview', 18.0),
-          ],
-        ),
-      ),
-      Container(
-        padding: EdgeInsets.only(top: 8.0),
-        child: myCircularItems("Today's Total Consumption", "250kg CO2"),
-      ),
-      Container(
-        padding: EdgeInsets.only(top: 8.0),
-        child: mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
-      ),
-      Container(
-        padding: EdgeInsets.only(top: 8.0),
-        child: comparisonCard("Comparison with ideal emission", "Weekly"),
-      ),
-    ],
-  );
-}
-*/

@@ -1,5 +1,4 @@
 import 'package:cannoli_app/comparison_graph.dart';
-import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
