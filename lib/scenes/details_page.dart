@@ -14,13 +14,13 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  // Color _chipNotSelected = Colors.grey[600];
-  // Color _chipSelected = CustomMaterialColor.bannerColor;
-  int widgetIndex = 0;
+  // List to toggle category buttons. [All, Transport, Home]
   List<bool> isCategorySelected = [true, false, false];
+  // List to toggle view buttons. [Graph, Log]
   List<bool> isViewSelected = [true, false];
   WidgetList widgetSelection = WidgetList.generalGraph;
 
+  // Widget for details page layout
   Material emissionsGeneral() {
     return Material(
       color: Color(0xffE5E5E5),
@@ -162,6 +162,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+  // Function to swtich between widget category groups
   Widget getWidgetGroup() {
     switch (widgetSelection) {
       case WidgetList.generalGraph:

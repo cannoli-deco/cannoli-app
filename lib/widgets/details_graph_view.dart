@@ -1,7 +1,10 @@
-import 'package:cannoli_app/widgets/emission_chart.dart';
+import 'package:cannoli_app/widgets/emission_charts.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 
+// [START]Details Page: Graph View Widgets
+// -------------------------------------------------------------------------------------------
+// Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
 Widget getTransportGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -24,6 +27,7 @@ Widget getTransportGraphWidgets() {
   );
 }
 
+// Widget: Details Page, Generates List of Home Energy Emission widgets needed for graph view
 Widget getHomeGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -47,6 +51,7 @@ Widget getHomeGraphWidgets() {
   );
 }
 
+// Widget: Details Page, Generates List of Important General Emission widgets needed for graph view
 Widget getAllGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -77,3 +82,5 @@ Widget getAllGraphWidgets() {
     ),
   );
 }
+// -------------------------------------------------------------------------------------------
+// [END]Details Page: Graph View Widgets
