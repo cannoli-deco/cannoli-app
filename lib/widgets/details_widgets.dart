@@ -84,3 +84,64 @@ Widget getAllGraphWidgets() {
 }
 // -------------------------------------------------------------------------------------------
 // [END]Details Page: Graph View Widgets
+
+// [START]Details Page: Og View Widgets
+// -------------------------------------------------------------------------------------------
+// Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
+Widget getTransportLogWidgets() {
+  return Container(
+    padding: EdgeInsets.only(top: 8.0),
+    child: Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Page Layout Title Text Box
+            pageLayoutTextBoxWidget('Transport Emissions Log', 18.0),
+          ],
+        ),
+        // Add Widgets Here
+      ],
+    ),
+  );
+}
+
+// Widget: Details Page, Generates List of Home Energy Emission widgets needed for Log view
+Widget getHomeLogWidgets() {
+  return Container(
+    padding: EdgeInsets.only(top: 8.0),
+    child: Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Page Layout Title Text Box
+            pageLayoutTextBoxWidget('Home Energy Emissions Log', 18.0),
+          ],
+        ),
+        // Add Widgets Here
+      ],
+    ),
+  );
+}
+
+// Widget: Details Page, Generates List of Important General Emission widgets needed for Log view
+Widget getAllLogWidgets() {
+  return Container(
+    padding: EdgeInsets.only(top: 8.0),
+    child: Column(
+      children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Page Layout Title Text Box
+            pageLayoutTextBoxWidget('All Emissions Log', 18.0),
+          ],
+        ),
+        // Add Widgets Here
+      ],
+    ),
+  );
+}
+// -------------------------------------------------------------------------------------------
+// [END]Details Page: Log View Widgets
