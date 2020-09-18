@@ -11,7 +11,7 @@ class DatabaseHelper {
 //  DatabaseHelper(this.)
 
   // Change the dbname to reset the db lol
-  static final _databaseName = "data10sqlite";
+  static final _databaseName = "data1sqlite";
   static final _databaseVersion = 2;
 
   static final table = 'Source';

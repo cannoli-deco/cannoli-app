@@ -10,6 +10,9 @@ class HomePieChart extends StatefulWidget {
 }
 
 class HomePieState extends State<HomePieChart>{
+  List<String> sources = ['Transport','Gas','Home\n Energy'];
+  List<Color> sourceColors = [CustomMaterialColor.buttonColorBlue[200],
+    CustomMaterialColor.emphasisColor[200],CustomMaterialColor.subColorGrass[200]];
   List<double> _consumptions;
   int touchedIndex;
 
@@ -102,36 +105,36 @@ class HomePieState extends State<HomePieChart>{
     );
   }
 
-  List<PieChartSectionData> showingSections(){
-
+  List<PieChartSectionData> allSections(){
     return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
       final double radius = isTouched ? 115 : 95;
+
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: CustomMaterialColor.buttonColorBlue,
+            color: sourceColors[0],
             value: _consumptions[0],
-            title: 'Transport',
+            title: sources[0],
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
-            color: CustomMaterialColor.emphasisColor,
+            color: sourceColors[1],
             value: _consumptions[1],
-            title: 'Gas',
+            title: sources[1],
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
           );
         case 2:
           return PieChartSectionData(
-            color: CustomMaterialColor.subColorGrass,
+            color: sourceColors[2],
             value: _consumptions[2],
-            title: 'Home\n Energy',
+            title: sources[2],
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
@@ -140,6 +143,106 @@ class HomePieState extends State<HomePieChart>{
           return null;
       }
     });
+  }
+
+
+  List<PieChartSectionData> oneSection(int index){
+    return List.generate(1, (i){
+      final isTouched = i == touchedIndex;
+      final double fontSize = isTouched ? 28 : 18;
+      final double radius = isTouched ? 115 : 95;
+      switch(i){
+        case 0:
+          return PieChartSectionData(
+            color: sourceColors[index],
+            value: _consumptions[index],
+            title: sources[index],
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+          );
+        default:
+          return null;
+      }
+    });
+  }
+
+  List<PieChartSectionData> twoSections(int index, int ind){
+    return List.generate(2, (i){
+      final isTouched = i == touchedIndex;
+      final double fontSize = isTouched ? 28 : 18;
+      final double radius = isTouched ? 115 : 95;
+      switch(i){
+        case 0:
+          return PieChartSectionData(
+            color: sourceColors[index],
+            value: _consumptions[index],
+            title: sources[index],
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+          );
+        case 1:
+          return PieChartSectionData(
+            color: sourceColors[ind],
+            value: _consumptions[ind],
+            title: sources[ind],
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+          );
+        default:
+          return null;
+      }
+    });
+  }
+
+
+  List<PieChartSectionData> showingSections(){
+    if(_consumptions[0] != 0.0 && _consumptions[1] != 0.0
+        && _consumptions[2] != 0.0){
+      return allSections();
+    }
+
+    if(_consumptions[0] != 0.0){
+      if(_consumptions[1] == 0.0
+          && _consumptions[2] == 0.0){
+        return oneSection(0);
+      }else{
+        if(_consumptions[1] == 0.0){
+          return twoSections(0, 2);
+        }else{
+          return twoSections(0, 1);
+        }
+      }
+    }
+
+    if(_consumptions[1] != 0.0){
+      if(_consumptions[0] == 0.0
+          && _consumptions[2] == 0.0){
+        return oneSection(1);
+      }else{
+        if(_consumptions[0] == 0.0){
+          return twoSections(1, 2);
+        }else{
+          return twoSections(1, 0);
+        }
+      }
+    }
+
+    if(_consumptions[2] != 0.0){
+      if(_consumptions[0] == 0.0
+          && _consumptions[1] == 0.0){
+        return oneSection(2);
+      }else{
+        if(_consumptions[0] == 0.0){
+          return twoSections(1, 2);
+        }else{
+          return twoSections(0, 2);
+        }
+      }
+    }
+
   }
 
 }
