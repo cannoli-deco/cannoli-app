@@ -70,39 +70,77 @@ class HomePieState extends State<HomePieChart>{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container(
-      child: Row(
-        children: <Widget>[
-          // const SizedBox(
-          //   height: 18,
-          // ),
-          Expanded(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: PieChart(
-                PieChartData(
-                    pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
-                      setState(() {
-                        if (pieTouchResponse.touchInput is FlLongPressEnd ||
-                            pieTouchResponse.touchInput is FlPanEnd) {
-                          touchedIndex = -1;
-                        } else {
-                          touchedIndex = pieTouchResponse.touchedSectionIndex;
-                        }
-                      });
-                    }),
-                    borderData: FlBorderData(
-                      show: false,
-                    ),
-                    sectionsSpace: 0,
-                    centerSpaceRadius: 80,
-                    sections: showingSections()),
+    if(_consumptions[0] == 0.0 && _consumptions[1] == 0.0
+        && _consumptions[2] == 0.0){
+      return Container(
+        child: Row(
+          children: <Widget>[
+            // const SizedBox(
+            //   height: 18,
+            // ),
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: PieChart(
+                  PieChartData(
+                      pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                        setState(() {
+                          if (pieTouchResponse.touchInput is FlLongPressEnd ||
+                              pieTouchResponse.touchInput is FlPanEnd) {
+                            touchedIndex = -1;
+                          } else {
+                            touchedIndex = pieTouchResponse.touchedSectionIndex;
+                          }
+                        });
+                      }),
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                      sectionsSpace: 0,
+                      centerSpaceRadius: 0,
+                      sections: showingSections()),
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
+    else{
+      return Container(
+        child: Row(
+          children: <Widget>[
+            // const SizedBox(
+            //   height: 18,
+            // ),
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: PieChart(
+                  PieChartData(
+                      pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                        setState(() {
+                          if (pieTouchResponse.touchInput is FlLongPressEnd ||
+                              pieTouchResponse.touchInput is FlPanEnd) {
+                            touchedIndex = -1;
+                          } else {
+                            touchedIndex = pieTouchResponse.touchedSectionIndex;
+                          }
+                        });
+                      }),
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                      sectionsSpace: 0,
+                      centerSpaceRadius: 80,
+                      sections: showingSections()),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   List<PieChartSectionData> allSections(){
@@ -145,6 +183,27 @@ class HomePieState extends State<HomePieChart>{
     });
   }
 
+  List<PieChartSectionData> noSection(){
+    return List.generate(1, (i){
+      final isTouched = i == touchedIndex;
+      final double fontSize = isTouched ? 34 : 30;
+      final double radius = isTouched ? 115 : 115;
+      switch(i){
+        case 0:
+          return PieChartSectionData(
+            titlePositionPercentageOffset: 0,
+            color: CustomMaterialColor.buttonColorWhite,
+            value: 1,
+            title: "No emission",
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: CustomMaterialColor.emphasisColor),
+          );
+        default:
+          return null;
+      }
+    });
+  }
 
   List<PieChartSectionData> oneSection(int index){
     return List.generate(1, (i){
@@ -241,6 +300,11 @@ class HomePieState extends State<HomePieChart>{
           return twoSections(0, 2);
         }
       }
+    }
+
+    if(_consumptions[0] == 0.0 && _consumptions[1] == 0.0
+        && _consumptions[2] == 0.0){
+      return noSection();
     }
 
   }
