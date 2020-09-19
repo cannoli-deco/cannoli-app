@@ -1,207 +1,376 @@
-import 'dart:io';
-
-import 'package:cannoli_app/comparison_graph.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:cannoli_app/widgets/details_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_sparkline/flutter_sparkline.dart';
-import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-import 'package:cannoli_app/scenes/home_page.dart';
+import 'package:cannoli_app/widgets/textboxes.dart';
 
 import 'package:cannoli_app/color_scheme.dart';
 
-class Dashboard extends StatefulWidget {
-  Dashboard({Key key}) : super(key: key);
-
-  @override
-  _DashboardState createState() => _DashboardState();
+enum WidgetList {
+  allGraph,
+  allLog,
+  transportGraph,
+  transportLog,
+  homeGraph,
+  homeLog,
 }
 
-class _DashboardState extends State<Dashboard> {
-  Material mychart1Items(String title, String priceVal, String subtitle) {
+class DetailsPage extends StatefulWidget {
+  DetailsPage({Key key}) : super(key: key);
+
+  @override
+  _DetailsPageState createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  // List to toggle category buttons. [All, Transport, Home]
+  List<bool> isCategorySelected = [true, false, false];
+  // List to toggle view buttons. [Graph, Log]
+  List<bool> isViewSelected = [true, false];
+  WidgetList widgetSelection = WidgetList.allGraph;
+
+  // Widget for details page layout
+  Material emissionsGeneral() {
     return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueAccent,
+      color: Color(0xffE5E5E5),
+      child: Container(
+        padding: EdgeInsets.all(8.0),
+        child: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Row for Page Title Text Box
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // Page Layout Title Text Box
+                pageLayoutTextBoxWidget('Emission Categories', 20.0),
+              ],
+            ),
+            // Row for Toggle Button controls
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                // Emission Category Selection Button Group
+                // All emissions
+                FlatButton(
+                  child: Text(
+                    'All',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: isCategorySelected[0]
+                          ? Colors.white
+                          : Colors.grey[500],
+                    ),
+                  ),
+                  color: isCategorySelected[0]
+                      ? CustomMaterialColor.bannerColor
+                      : Color(0xffE5E5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: BorderSide(
+                      color: isCategorySelected[0]
+                          ? CustomMaterialColor.bannerColor
+                          : Colors.grey[500],
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      int flag = 0;
+                      for (int index = 0;
+                          index < isCategorySelected.length;
+                          index++) {
+                        if (index == 0) {
+                          isCategorySelected[index] = true;
+                          flag = index;
+                        } else {
+                          isCategorySelected[index] = false;
+                        }
+                      }
+                      if (isViewSelected[0] == true) {
+                        switch (flag) {
+                          case 0:
+                            widgetSelection = WidgetList.allGraph;
+                            break;
+                          case 1:
+                            widgetSelection = WidgetList.transportGraph;
+                            break;
+                          case 2:
+                            widgetSelection = WidgetList.homeGraph;
+                            break;
+                        }
+                      } else {
+                        switch (flag) {
+                          case 0:
+                            widgetSelection = WidgetList.allLog;
+                            break;
+                          case 1:
+                            widgetSelection = WidgetList.transportLog;
+                            break;
+                          case 2:
+                            widgetSelection = WidgetList.homeLog;
+                            break;
+                        }
+                      }
+                    });
+                  },
+                ),
+                // Transport emissions
+                FlatButton(
+                  child: Text(
+                    'Transport',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: isCategorySelected[1]
+                          ? Colors.white
+                          : Colors.grey[500],
+                    ),
+                  ),
+                  color: isCategorySelected[1]
+                      ? CustomMaterialColor.bannerColor
+                      : Color(0xffE5E5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: BorderSide(
+                      color: isCategorySelected[1]
+                          ? CustomMaterialColor.bannerColor
+                          : Colors.grey[500],
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      int flag = 0;
+                      for (int index = 0;
+                          index < isCategorySelected.length;
+                          index++) {
+                        if (index == 1) {
+                          isCategorySelected[index] = true;
+                          flag = index;
+                        } else {
+                          isCategorySelected[index] = false;
+                        }
+                      }
+                      if (isViewSelected[0] == true) {
+                        switch (flag) {
+                          case 0:
+                            widgetSelection = WidgetList.allGraph;
+                            break;
+                          case 1:
+                            widgetSelection = WidgetList.transportGraph;
+                            break;
+                          case 2:
+                            widgetSelection = WidgetList.homeGraph;
+                            break;
+                        }
+                      } else {
+                        switch (flag) {
+                          case 0:
+                            widgetSelection = WidgetList.allLog;
+                            break;
+                          case 1:
+                            widgetSelection = WidgetList.transportLog;
+                            break;
+                          case 2:
+                            widgetSelection = WidgetList.homeLog;
+                            break;
+                        }
+                      }
+                    });
+                  },
+                ),
+                // Home emissions
+                FlatButton(
+                  child: Text(
+                    'Home',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: isCategorySelected[2]
+                          ? Colors.white
+                          : Colors.grey[500],
+                    ),
+                  ),
+                  color: isCategorySelected[2]
+                      ? CustomMaterialColor.bannerColor
+                      : Color(0xffE5E5E5),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    side: BorderSide(
+                      color: isCategorySelected[2]
+                          ? CustomMaterialColor.bannerColor
+                          : Colors.grey[500],
+                    ),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      int flag = 0;
+                      for (int index = 0;
+                          index < isCategorySelected.length;
+                          index++) {
+                        if (index == 2) {
+                          isCategorySelected[index] = true;
+                          flag = index;
+                        } else {
+                          isCategorySelected[index] = false;
+                        }
+                      }
+                      if (isViewSelected[0] == true) {
+                        switch (flag) {
+                          case 0:
+                            widgetSelection = WidgetList.allGraph;
+                            break;
+                          case 1:
+                            widgetSelection = WidgetList.transportGraph;
+                            break;
+                          case 2:
+                            widgetSelection = WidgetList.homeGraph;
+                            break;
+                        }
+                      } else {
+                        switch (flag) {
+                          case 0:
+                            widgetSelection = WidgetList.allLog;
+                            break;
+                          case 1:
+                            widgetSelection = WidgetList.transportLog;
+                            break;
+                          case 2:
+                            widgetSelection = WidgetList.homeLog;
+                            break;
+                        }
+                      }
+                    });
+                  },
+                ),
+                // Page View Button Group
+                // Graph View Button
+                Ink(
+                  decoration: ShapeDecoration(
+                    color: isViewSelected[0]
+                        ? CustomMaterialColor.bannerColor
+                        : Color(0xffE5E5E5),
+                    shape: CircleBorder(
+                      side: BorderSide(
+                        width: 1.0,
+                        color: isViewSelected[0]
+                            ? CustomMaterialColor.bannerColor
+                            : Colors.grey[500],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      priceVal,
-                      style: TextStyle(
-                        fontSize: 30.0,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.insert_chart,
+                      color:
+                          isViewSelected[0] ? Colors.white : Colors.grey[500],
+                    ),
+                    color: isViewSelected[0]
+                        ? CustomMaterialColor.bannerColor
+                        : Colors.grey[500],
+                    onPressed: () {
+                      setState(() {
+                        isViewSelected[0] = true;
+                        isViewSelected[1] = false;
+                        for (int index = 0;
+                            index < isCategorySelected.length;
+                            index++) {
+                          if (isCategorySelected[index] == true) {
+                            if (index == 0) {
+                              widgetSelection = WidgetList.allGraph;
+                            } else if (index == 1) {
+                              widgetSelection = WidgetList.transportGraph;
+                            } else if (index == 2) {
+                              widgetSelection = WidgetList.homeGraph;
+                            }
+                          }
+                        }
+                      });
+                    },
+                  ),
+                ),
+                // Log View Button
+                Ink(
+                  decoration: ShapeDecoration(
+                    color: isViewSelected[1]
+                        ? CustomMaterialColor.bannerColor
+                        : Color(0xffE5E5E5),
+                    shape: CircleBorder(
+                      side: BorderSide(
+                        width: 1.0,
+                        color: isViewSelected[1]
+                            ? CustomMaterialColor.bannerColor
+                            : Colors.grey[500],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueGrey,
-                      ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.list,
+                      color:
+                          isViewSelected[1] ? Colors.white : Colors.grey[500],
                     ),
+                    color: isViewSelected[1]
+                        ? CustomMaterialColor.bannerColor
+                        : Color(0xffE5E5E5),
+                    onPressed: () {
+                      setState(() {
+                        isViewSelected[1] = true;
+                        isViewSelected[0] = false;
+                        for (int index = 0;
+                            index < isCategorySelected.length;
+                            index++) {
+                          if (isCategorySelected[index] == true) {
+                            if (index == 0) {
+                              widgetSelection = WidgetList.allLog;
+                            } else if (index == 1) {
+                              widgetSelection = WidgetList.transportLog;
+                            } else if (index == 2) {
+                              widgetSelection = WidgetList.homeLog;
+                            }
+                          }
+                        }
+                      });
+                    },
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: new Sparkline(
-                      data: [
-                        0.0,
-                        1.0,
-                        1.5,
-                        2.0,
-                        0.0,
-                        0.0,
-                        -0.5,
-                        -1.0,
-                        -0.5,
-                        0.0,
-                        0.0
-                      ],
-                      lineColor: Color(0xffff6101),
-                      pointsMode: PointsMode.all,
-                      pointSize: 8.0,
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
+                ),
+              ],
+            ),
+          ],
+        )),
       ),
     );
   }
 
-  Material comparisonCard(String title, String subTitle) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      subTitle,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(6),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child:
-                      ComparisonGraph()
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  // Function to swtich between widget category groups for Graph View
+  Widget getGraphWidgetGroup() {
+    switch (widgetSelection) {
+      case WidgetList.allGraph:
+        return getAllGraphWidgets();
+      case WidgetList.transportGraph:
+        return getTransportGraphWidgets();
+      case WidgetList.homeGraph:
+        return getHomeGraphWidgets();
+      case WidgetList.allLog:
+        return getAllLogWidgets();
+      case WidgetList.transportLog:
+        return getTransportLogWidgets();
+      case WidgetList.homeLog:
+        return getHomeLogWidgets();
+    }
+    return getAllGraphWidgets();
   }
 
-  List<CircularStackEntry> circularData = <CircularStackEntry>[
-    new CircularStackEntry(
-      <CircularSegmentEntry>[
-        new CircularSegmentEntry(700.0, Color(0xff4285F4), rankKey: 'Q1'),
-        new CircularSegmentEntry(1000.0, Color(0xfff3af00), rankKey: 'Q2'),
-        new CircularSegmentEntry(1800.0, Color(0xffec3337), rankKey: 'Q3'),
-        new CircularSegmentEntry(1000.0, Color(0xff40b24b), rankKey: 'Q4'),
-      ],
-      rankKey: 'Quarterly Profits',
-    ),
-  ];
-
-  Material myCircularItems(String title, String subtitle) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(3.0),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blueAccent,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(1.0),
-                    child: Text(
-                      subtitle,
-                      style: TextStyle(
-                        fontSize: 10.0,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(3.0),
-                    child: AnimatedCircularChart(
-                      size: const Size(150.0, 150.0),
-                      initialChartData: circularData,
-                      chartType: CircularChartType.Pie,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  // UNUSED: Function to swtich between widget category groups for Log View
+  /*
+  Widget getLogWidgetGroup() {
+    switch (widgetSelection) {
+      case WidgetList.generalLog:
+        return getAllLogWidgets();
+      case WidgetList.transportLog:
+        return getTransportLogWidgets();
+      case WidgetList.homeLog:
+        return getHomeLogWidgets();
+    }
+    return getAllGraphWidgets();
   }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -213,18 +382,9 @@ class _DashboardState extends State<Dashboard> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 8.0),
-            child: myCircularItems("Today's Total Consumption", "250kg CO2"),
+            child: emissionsGeneral(),
           ),
-          Container(
-            padding: EdgeInsets.only(top: 8.0),
-            child:
-                mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 8.0),
-            child: comparisonCard(
-                "Comparison with ideal emission", "Weekly"),
-          ),
+          getGraphWidgetGroup(),
         ],
       ),
     ));

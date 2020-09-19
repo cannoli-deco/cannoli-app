@@ -7,14 +7,13 @@ import 'package:cannoli_app/database.dart';
 
 import 'package:cannoli_app/home_pie_chart.dart';
 
-
-
-class Homepage extends StatefulWidget{
+class Homepage extends StatefulWidget {
   Homepage({Key key}) : super(key: key);
 
   @override
   _HomepageState createState() => _HomepageState();
 }
+
 
 
 class _HomepageState extends State<Homepage>{
@@ -23,6 +22,7 @@ class _HomepageState extends State<Homepage>{
 
   @override
   Future<void> initState() {
+
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadEntries();
@@ -49,7 +49,6 @@ class _HomepageState extends State<Homepage>{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -85,8 +84,8 @@ class _HomepageState extends State<Homepage>{
                   ),
                 ],
               ),
-          ),
 
+          ),
           Flexible(
             //flex: 10,
             child: Container(
@@ -94,6 +93,7 @@ class _HomepageState extends State<Homepage>{
                 child: HomePieChart(),
             ),
             ),
+
 
           Container(
             //padding: EdgeInsets.only(top: 4.0),
@@ -185,3 +185,4 @@ class _HomepageState extends State<Homepage>{
     );
   }
 }
+

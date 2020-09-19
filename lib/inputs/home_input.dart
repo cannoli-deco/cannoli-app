@@ -3,7 +3,7 @@ import 'package:cannoli_app/database.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 
-final _title = 'Home Energy Input';
+// final _title = 'Home Energy Input';
 
 class HomeFormInput {
   String type;
@@ -289,8 +289,8 @@ class HomeInputFormState extends State<HomeInputForm> {
                                 newHomeInput.jurisdiction);
                             // Add lines below after DB implementation for Fields used
                             // -------------------------------------------------------
-                            addEntry(
-                                calculatedEmission, DateTime.now(), 'Home Energy');
+                            addEntry(calculatedEmission, DateTime.now(),
+                                'Home Energy');
                             // -------------------------------------------------------
 
                             Navigator.pop(context);
