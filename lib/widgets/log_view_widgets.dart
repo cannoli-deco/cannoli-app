@@ -15,7 +15,7 @@ class _HomeEnergyLogsState extends State<HomeEnergyLogs> {
   // Widget: Breakdown of Home Energy, Log widget
   Widget homeEnergyGeneralLog() {
     return Text(
-      'Home Energy General Log',
+      'Home General Log',
     );
   }
 
