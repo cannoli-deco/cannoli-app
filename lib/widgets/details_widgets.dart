@@ -1,10 +1,10 @@
-import 'package:cannoli_app/widgets/emission_charts.dart';
+import 'package:cannoli_app/widgets/all_emission_charts.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 
-import 'home_energy_charts.dart';
+import 'graph_view_widgets.dart';
 
-// [START]Details Page: Graph View Widgets
+// TODO: [START]Details Page: Graph View Widgets
 // -------------------------------------------------------------------------------------------
 // Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
 Widget getTransportGraphWidgets() {
@@ -21,7 +21,7 @@ Widget getTransportGraphWidgets() {
         ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
-          child: mychart1Items("Transport Emissions", "Weekly", "300kg CO2"),
+          child: TransportCharts(),
         ),
         // Add Widgets Here
       ],
@@ -97,7 +97,7 @@ Widget getAllGraphWidgets() {
 // -------------------------------------------------------------------------------------------
 // [END]Details Page: Graph View Widgets
 
-// [START]Details Page: Og View Widgets
+// TODO: [START]Details Page: Log View Widgets
 // -------------------------------------------------------------------------------------------
 // Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
 Widget getTransportLogWidgets() {
@@ -131,6 +131,13 @@ Widget getHomeLogWidgets() {
             pageLayoutTextBoxWidget('Home Energy Emissions Log', 18.0),
           ],
         ),
+        // TODO: Remove multi-line comment
+        /*
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: HomeEnergyLogs(),
+        ),
+        */
         // Add Widgets Here
       ],
     ),
