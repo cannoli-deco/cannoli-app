@@ -1,6 +1,9 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:cannoli_app/community.dart';
+import 'package:cannoli_app/comparison_graph.dart';
 import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
+import 'package:cannoli_app/setup/login.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/scenes/details_page.dart';
@@ -18,6 +21,14 @@ class _NavigationBarState extends State<NavigationBar> {
   bool _addActive = false;
 
   int _selectedIndex = 0;
+  // List of pages
+  final List<Widget> _children = [
+    NavigationBar(),
+    ComparisonGraph(),
+    NavigationBar(),
+    CommunityPage(),
+    LoginPage(),
+  ];
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -54,8 +65,10 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 
   void _onItemTapped(int index) {
-    // print(index);
-    _pageController.jumpToPage(index);
+    //_pageController.jumpToPage(index);
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
@@ -94,7 +107,6 @@ class _NavigationBarState extends State<NavigationBar> {
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       color: Colors.black.withAlpha(100),
-
                     ),
                   ),
                   Align(
@@ -110,7 +122,6 @@ class _NavigationBarState extends State<NavigationBar> {
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
                             child: new Icon(Icons.local_gas_station,
-
                                 color: CustomMaterialColor.bannerColor),
                             onPressed: () {
                               //Navigator.pushNamed(context, '/input');
@@ -118,7 +129,6 @@ class _NavigationBarState extends State<NavigationBar> {
                             }),
                       ),
                       Text('Gas',
-
                           style: TextStyle(
                               color: CustomMaterialColor.buttonColorWhite)),
                     ]),
@@ -132,7 +142,6 @@ class _NavigationBarState extends State<NavigationBar> {
                         width: 50,
                         height: 50,
                         child: FloatingActionButton(
-
                             elevation: 1.0,
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
@@ -159,7 +168,6 @@ class _NavigationBarState extends State<NavigationBar> {
                         width: 50,
                         height: 50,
                         child: FloatingActionButton(
-
                             elevation: 1.0,
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
@@ -181,7 +189,6 @@ class _NavigationBarState extends State<NavigationBar> {
                   Align(
                     alignment: Alignment(0, 0.92),
                     child: FloatingActionButton(
-
                         elevation: 1.0,
                         backgroundColor: CustomMaterialColor.buttonColorWhite,
                         child: new Icon(Icons.add,
@@ -196,6 +203,7 @@ class _NavigationBarState extends State<NavigationBar> {
                 ]),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
+        currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
@@ -212,7 +220,6 @@ class _NavigationBarState extends State<NavigationBar> {
             title: Text('User'),
           ),
         ],
-        currentIndex: _selectedIndex,
         selectedItemColor: CustomMaterialColor.bannerColor,
 //          backgroundColor: Colors.green,
       ),
