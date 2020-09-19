@@ -3,6 +3,7 @@ import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
+
 import 'package:cannoli_app/scenes/details_page.dart';
 import 'package:flutter/rendering.dart';
 
@@ -30,7 +31,7 @@ class _NavigationBarState extends State<NavigationBar> {
 
     /// Add detail page here
 
-    Dashboard(),
+    DetailsPage(),
     Text(
       'Placeholder',
       style: optionStyle,
@@ -94,7 +95,6 @@ class _NavigationBarState extends State<NavigationBar> {
                       height: MediaQuery.of(context).size.height,
                       width: MediaQuery.of(context).size.width,
                       color: Colors.black.withAlpha(100),
-
                     ),
                   ),
                   Align(
@@ -110,7 +110,6 @@ class _NavigationBarState extends State<NavigationBar> {
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
                             child: new Icon(Icons.local_gas_station,
-
                                 color: CustomMaterialColor.bannerColor),
                             onPressed: () {
                               //Navigator.pushNamed(context, '/input');
@@ -118,7 +117,6 @@ class _NavigationBarState extends State<NavigationBar> {
                             }),
                       ),
                       Text('Gas',
-
                           style: TextStyle(
                               color: CustomMaterialColor.buttonColorWhite)),
                     ]),
@@ -132,7 +130,6 @@ class _NavigationBarState extends State<NavigationBar> {
                         width: 50,
                         height: 50,
                         child: FloatingActionButton(
-
                             elevation: 1.0,
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
@@ -159,7 +156,6 @@ class _NavigationBarState extends State<NavigationBar> {
                         width: 50,
                         height: 50,
                         child: FloatingActionButton(
-
                             elevation: 1.0,
                             backgroundColor:
                                 CustomMaterialColor.buttonColorWhite,
@@ -181,7 +177,6 @@ class _NavigationBarState extends State<NavigationBar> {
                   Align(
                     alignment: Alignment(0, 0.92),
                     child: FloatingActionButton(
-
                         elevation: 1.0,
                         backgroundColor: CustomMaterialColor.buttonColorWhite,
                         child: new Icon(Icons.add,
