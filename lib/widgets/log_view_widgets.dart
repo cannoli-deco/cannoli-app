@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 
-enum HomeEnergyWidgetList {
-  graphBreakdown,
-  graphConsumption,
+enum HomeWidgetList {
+  generalLog,
 }
 
-class HomeEnergyCharts extends StatefulWidget {
+class HomeEnergyLogs extends StatefulWidget {
   @override
-  _HomeEnergyChartsState createState() => _HomeEnergyChartsState();
+  _HomeEnergyLogsState createState() => _HomeEnergyLogsState();
 }
 
-class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
+class _HomeEnergyLogsState extends State<HomeEnergyLogs> {
   // TODO: implement live db data
-  // TODO: Add graph widgets here
-  // Widget: Breakdown of Home Energy, Pie chart (Category Comparison)
-  Widget homeEnergyPieBreakdown() {
+  // TODO: Add log widgets here
+  // Widget: Breakdown of Home Energy, Log widget
+  Widget homeEnergyGeneralLog() {
     return Text(
-      'HOME ENERGY BREAKDOWN PIE',
+      'Home Energy General Log',
     );
   }
 
@@ -37,7 +36,7 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
                 icon: Icon(Icons.keyboard_arrow_left),
                 onPressed: null,
               ),
-              homeEnergyPieBreakdown(),
+              homeEnergyGeneralLog(),
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
                 onPressed: null,
@@ -51,22 +50,21 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
 }
 
 enum TransportWidgetList {
-  graphBreakdown,
-  graphConsumption,
+  generalLog,
 }
 
-class TransportCharts extends StatefulWidget {
+class TransportLogs extends StatefulWidget {
   @override
-  _TransportChartsState createState() => _TransportChartsState();
+  _TransportLogsState createState() => _TransportLogsState();
 }
 
-class _TransportChartsState extends State<TransportCharts> {
+class _TransportLogsState extends State<TransportLogs> {
   // TODO: implement live db data
-  // TODO: Add graph widgets here
-  // Widget: Breakdown of Home Energy, Pie chart (Category Comparison)
-  Widget transportPieBreakdown() {
+  // TODO: Add log widgets here
+  // Widget: Breakdown of Home Energy, Log widget
+  Widget transportGeneralLog() {
     return Text(
-      'TRANSPORT BREAKDOWN PIE',
+      'Transport General Log',
     );
   }
 
@@ -87,7 +85,7 @@ class _TransportChartsState extends State<TransportCharts> {
                 icon: Icon(Icons.keyboard_arrow_left),
                 onPressed: null,
               ),
-              transportPieBreakdown(),
+              transportGeneralLog(),
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
                 onPressed: null,
@@ -99,7 +97,6 @@ class _TransportChartsState extends State<TransportCharts> {
     );
   }
 }
-
 /*
 AnimatedSwitcher(
       duration: const Duration(seconds: 1),

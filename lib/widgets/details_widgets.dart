@@ -1,4 +1,5 @@
 import 'package:cannoli_app/widgets/all_emission_charts.dart';
+import 'package:cannoli_app/widgets/log_view_widgets.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 
@@ -112,6 +113,10 @@ Widget getTransportLogWidgets() {
             pageLayoutTextBoxWidget('Transport Emissions Log', 18.0),
           ],
         ),
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: TransportLogs(),
+        ),
         // Add Widgets Here
       ],
     ),
@@ -131,13 +136,10 @@ Widget getHomeLogWidgets() {
             pageLayoutTextBoxWidget('Home Energy Emissions Log', 18.0),
           ],
         ),
-        // TODO: Remove multi-line comment
-        /*
         Container(
           padding: EdgeInsets.only(top: 8.0),
           child: HomeEnergyLogs(),
         ),
-        */
         // Add Widgets Here
       ],
     ),
