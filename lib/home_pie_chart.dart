@@ -14,6 +14,8 @@ class HomePieState extends State<HomePieChart>{
   List<Color> sourceColors = [CustomMaterialColor.buttonColorBlue[200],
     CustomMaterialColor.emphasisColor[200],CustomMaterialColor.subColorGrass[200]];
   List<double> _consumptions;
+  int _totalEmission;
+
   int touchedIndex;
 
   @override
@@ -63,9 +65,10 @@ class HomePieState extends State<HomePieChart>{
 
     setState(() {
       _consumptions = temp;
+      _totalEmission = (totalConsumption/1000).round();
     });
-
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +107,19 @@ class HomePieState extends State<HomePieChart>{
             ),
           ],
         ),
+
+            // Text(
+            //   "Total emission: $_totalEmission KG/CO\u2082",
+            //   style:
+            //   TextStyle(
+            //     fontSize: 28.0,
+            //     fontFamily: "Arial",
+            //     fontWeight: FontWeight.bold,
+            //     decoration: TextDecoration.underline,
+            //     decorationColor: CustomMaterialColor.buttonColorBlue,
+            //     foreground: Paint()..color = CustomMaterialColor.subColorArmy,
+            //   ),
+            // )
       );
     }
     else{
@@ -139,6 +155,20 @@ class HomePieState extends State<HomePieChart>{
             ),
           ],
         ),
+            // Text(
+            //   "Total emission: $_totalEmission KG/CO\u2082",
+            //   style:
+            //   TextStyle(
+            //     fontSize: 28.0,
+            //     fontFamily: "Arial",
+            //     fontWeight: FontWeight.bold,
+            //     decoration: TextDecoration.underline,
+            //     decorationColor: CustomMaterialColor.buttonColorBlue,
+            //     foreground: Paint()..color = CustomMaterialColor.subColorArmy,
+            //   ),
+            // ),
+
+
       );
     }
   }
