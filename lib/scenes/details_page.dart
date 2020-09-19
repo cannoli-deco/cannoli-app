@@ -28,7 +28,7 @@ class _DetailsPageState extends State<DetailsPage> {
   WidgetList widgetSelection = WidgetList.allGraph;
 
   // Widget for details page layout
-  Material emissionsGeneral() {
+  Widget emissionsGeneral() {
     return Material(
       color: Color(0xffE5E5E5),
       child: Container(
@@ -338,7 +338,7 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
-  // Function to swtich between widget category groups for Graph View
+  // Function to swtich between widget category groups for Graph/Log View
   Widget getGraphWidgetGroup() {
     switch (widgetSelection) {
       case WidgetList.allGraph:
@@ -356,21 +356,6 @@ class _DetailsPageState extends State<DetailsPage> {
     }
     return getAllGraphWidgets();
   }
-
-  // UNUSED: Function to swtich between widget category groups for Log View
-  /*
-  Widget getLogWidgetGroup() {
-    switch (widgetSelection) {
-      case WidgetList.generalLog:
-        return getAllLogWidgets();
-      case WidgetList.transportLog:
-        return getTransportLogWidgets();
-      case WidgetList.homeLog:
-        return getHomeLogWidgets();
-    }
-    return getAllGraphWidgets();
-  }
-  */
 
   @override
   Widget build(BuildContext context) {

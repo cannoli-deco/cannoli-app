@@ -2,6 +2,8 @@ import 'package:cannoli_app/widgets/emission_charts.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 
+import 'home_energy_charts.dart';
+
 // [START]Details Page: Graph View Widgets
 // -------------------------------------------------------------------------------------------
 // Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
@@ -42,9 +44,19 @@ Widget getHomeGraphWidgets() {
         ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
+          child: HomeEnergyCharts(),
+        ),
+        /*
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
           child:
               mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
         ),
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: homeEnergyPieBreakdown('Home Energy Breakdown', 'Weekly'),
+        ),
+        */
         // Add Widgets Here
       ],
     ),
@@ -138,6 +150,7 @@ Widget getAllLogWidgets() {
             pageLayoutTextBoxWidget('All Emissions Log', 18.0),
           ],
         ),
+
         // Add Widgets Here
       ],
     ),
