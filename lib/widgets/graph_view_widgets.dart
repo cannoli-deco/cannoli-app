@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum HomeEnergyWidgetList {
+enum CategoryWidgetList {
   graphBreakdown,
-  graphConsumption,
+  graphComparison,
 }
 
 class HomeEnergyCharts extends StatefulWidget {
@@ -11,6 +11,24 @@ class HomeEnergyCharts extends StatefulWidget {
 }
 
 class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
+  // List to switch between graph widgets. [Breakdown, Comparison]
+  List<CategoryWidgetList> _widgetList = [
+    CategoryWidgetList.graphBreakdown,
+    CategoryWidgetList.graphComparison
+  ];
+  CategoryWidgetList _currentWidget = CategoryWidgetList.graphBreakdown;
+
+  // Function to switch between widget category groups Graph View
+  Widget getWidgetGroup() {
+    switch (_currentWidget) {
+      case CategoryWidgetList.graphBreakdown:
+        return homeEnergyPieBreakdown();
+      case CategoryWidgetList.graphComparison:
+        return homeEnergyBreakdownComparison();
+    }
+    return homeEnergyPieBreakdown();
+  }
+
   // TODO: implement live db data
   // TODO: Add graph widgets here
   // Widget: Breakdown of Home Energy, Pie chart (Category Comparison)
@@ -20,6 +38,13 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
     );
   }
 
+  // Widget: Breakdown of Transport, Breakdown Comparison with ideal target
+  Widget homeEnergyBreakdownComparison() {
+    return Text(
+      'TRANSPORT Comparison',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -35,12 +60,42 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
             children: <Widget>[
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    for (int index = _widgetList.length - 1;
+                        index > -1;
+                        index--) {
+                      if (index == 0) {
+                        _currentWidget = _widgetList[_widgetList.length - 1];
+                        break;
+                      } else if (_currentWidget == _widgetList[index]) {
+                        index = index - 1;
+                        _currentWidget = _widgetList[index];
+                        break;
+                      }
+                    }
+                  });
+                },
               ),
-              homeEnergyPieBreakdown(),
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                child: getWidgetGroup(),
+              ),
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    for (int index = 0; index < _widgetList.length; index++) {
+                      if (index == _widgetList.length - 1) {
+                        _currentWidget = _widgetList[0];
+                      } else if (_currentWidget == _widgetList[index]) {
+                        index = index + 1;
+                        _currentWidget = _widgetList[index];
+                        break;
+                      }
+                    }
+                  });
+                },
               ),
             ],
           ),
@@ -48,11 +103,6 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
       ),
     );
   }
-}
-
-enum TransportWidgetList {
-  graphBreakdown,
-  graphConsumption,
 }
 
 class TransportCharts extends StatefulWidget {
@@ -61,12 +111,37 @@ class TransportCharts extends StatefulWidget {
 }
 
 class _TransportChartsState extends State<TransportCharts> {
+  // List to switch between graph widgets. [Breakdown, Comparison]
+  List<CategoryWidgetList> _widgetList = [
+    CategoryWidgetList.graphBreakdown,
+    CategoryWidgetList.graphComparison
+  ];
+  CategoryWidgetList _currentWidget = CategoryWidgetList.graphBreakdown;
+
+  // Function to switch between widget category groups Graph View
+  Widget getWidgetGroup() {
+    switch (_currentWidget) {
+      case CategoryWidgetList.graphBreakdown:
+        return transportPieBreakdown();
+      case CategoryWidgetList.graphComparison:
+        return transportBreakdownComparison();
+    }
+    return transportPieBreakdown();
+  }
+
   // TODO: implement live db data
   // TODO: Add graph widgets here
-  // Widget: Breakdown of Home Energy, Pie chart (Category Comparison)
+  // Widget: Breakdown of Transport, Pie chart (Category Comparison)
   Widget transportPieBreakdown() {
     return Text(
       'TRANSPORT BREAKDOWN PIE',
+    );
+  }
+
+  // Widget: Breakdown of Transport, Breakdown Comparison with ideal target
+  Widget transportBreakdownComparison() {
+    return Text(
+      'TRANSPORT Comparison',
     );
   }
 
@@ -85,12 +160,42 @@ class _TransportChartsState extends State<TransportCharts> {
             children: <Widget>[
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    for (int index = _widgetList.length - 1;
+                        index > -1;
+                        index--) {
+                      if (index == 0) {
+                        _currentWidget = _widgetList[_widgetList.length - 1];
+                        break;
+                      } else if (_currentWidget == _widgetList[index]) {
+                        index = index - 1;
+                        _currentWidget = _widgetList[index];
+                        break;
+                      }
+                    }
+                  });
+                },
               ),
-              transportPieBreakdown(),
+              AnimatedSwitcher(
+                duration: const Duration(seconds: 1),
+                child: getWidgetGroup(),
+              ),
               IconButton(
                 icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: null,
+                onPressed: () {
+                  setState(() {
+                    for (int index = 0; index < _widgetList.length; index++) {
+                      if (index == _widgetList.length - 1) {
+                        _currentWidget = _widgetList[0];
+                      } else if (_currentWidget == _widgetList[index]) {
+                        index = index + 1;
+                        _currentWidget = _widgetList[index];
+                        break;
+                      }
+                    }
+                  });
+                },
               ),
             ],
           ),
@@ -99,10 +204,3 @@ class _TransportChartsState extends State<TransportCharts> {
     );
   }
 }
-
-/*
-AnimatedSwitcher(
-      duration: const Duration(seconds: 1),
-      child: homeEnergyPieBreakdown(),
-    )
-*/
