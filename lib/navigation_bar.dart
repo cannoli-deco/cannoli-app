@@ -1,9 +1,8 @@
 import 'package:cannoli_app/color_scheme.dart';
-import 'package:cannoli_app/community.dart';
 import 'package:cannoli_app/comparison_graph.dart';
 import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
-import 'package:cannoli_app/setup/login.dart';
+import 'package:cannoli_app/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/scenes/details_page.dart';
@@ -21,14 +20,7 @@ class _NavigationBarState extends State<NavigationBar> {
   bool _addActive = false;
 
   int _selectedIndex = 0;
-  // List of pages
-  final List<Widget> _children = [
-    NavigationBar(),
-    ComparisonGraph(),
-    NavigationBar(),
-    CommunityPage(),
-    LoginPage(),
-  ];
+  
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -40,8 +32,8 @@ class _NavigationBarState extends State<NavigationBar> {
     Homepage(),
 
     /// Add detail page here
-
     Dashboard(),
+
     Text(
       'Placeholder',
       style: optionStyle,
@@ -50,10 +42,9 @@ class _NavigationBarState extends State<NavigationBar> {
       'Placeholder',
       style: optionStyle,
     ),
-    Text(
-      'Placeholder',
-      style: optionStyle,
-    )
+
+    // Add login page here
+    LoginPage()
   ];
 
   void _onPageChanged(int index) {
@@ -65,10 +56,7 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 
   void _onItemTapped(int index) {
-    //_pageController.jumpToPage(index);
-    setState(() {
-      _selectedIndex = index;
-    });
+    _pageController.jumpToPage(index);
   }
 
   @override
