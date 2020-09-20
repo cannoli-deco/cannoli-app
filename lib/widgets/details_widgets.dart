@@ -1,4 +1,3 @@
-import 'package:cannoli_app/widgets/all_emission_charts.dart';
 import 'package:cannoli_app/widgets/log_view_widgets.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'graph_view_widgets.dart';
 
 // TODO: [START]Details Page: Graph View Widgets
+// Add new Graph Widgets in graph_view_widgets.dart
 // -------------------------------------------------------------------------------------------
 // Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
 Widget getTransportGraphWidgets() {
@@ -24,7 +24,6 @@ Widget getTransportGraphWidgets() {
           padding: EdgeInsets.only(top: 8.0),
           child: TransportCharts(),
         ),
-        // Add Widgets Here
       ],
     ),
   );
@@ -47,18 +46,6 @@ Widget getHomeGraphWidgets() {
           padding: EdgeInsets.only(top: 8.0),
           child: HomeEnergyCharts(),
         ),
-        /*
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child:
-              mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child: homeEnergyPieBreakdown('Home Energy Breakdown', 'Weekly'),
-        ),
-        */
-        // Add Widgets Here
       ],
     ),
   );
@@ -77,20 +64,7 @@ Widget getAllGraphWidgets() {
             pageLayoutTextBoxWidget('All Emissions: Overview', 18.0),
           ],
         ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child: myCircularItems("Today's Total Consumption", "250kg CO2"),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child:
-              mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child: comparisonCard("Comparison with ideal emission", "Weekly"),
-        ),
-        // Add Widgets Here
+        AllCharts(),
       ],
     ),
   );
@@ -99,6 +73,7 @@ Widget getAllGraphWidgets() {
 // [END]Details Page: Graph View Widgets
 
 // TODO: [START]Details Page: Log View Widgets
+// Add new Log Widgets in log_view_widgets.dart
 // -------------------------------------------------------------------------------------------
 // Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
 Widget getTransportLogWidgets() {

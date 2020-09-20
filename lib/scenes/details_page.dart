@@ -28,7 +28,7 @@ class _DetailsPageState extends State<DetailsPage> {
   WidgetList widgetSelection = WidgetList.allGraph;
 
   // Widget for details page layout
-  Widget emissionsGeneral() {
+  Widget detailsPageLayout() {
     return Material(
       color: Color(0xffE5E5E5),
       child: Container(
@@ -367,7 +367,7 @@ class _DetailsPageState extends State<DetailsPage> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 8.0),
-            child: emissionsGeneral(),
+            child: detailsPageLayout(),
           ),
           getGraphWidgetGroup(),
         ],
