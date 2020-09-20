@@ -115,36 +115,34 @@ class _AllChartsState extends State<AllCharts> {
 
   // Widget: Compares user to ideal australian
   Widget comparisonCard(String title, String subTitle) {
-    return Row(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blueAccent,
-                ),
-              ),
+        Padding(
+          padding: EdgeInsets.all(1.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 20.0,
+              color: Colors.blueAccent,
             ),
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: Text(
-                subTitle,
-                style: TextStyle(
-                  fontSize: 20.0,
-                ),
-              ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(1.0),
+          child: Text(
+            subTitle,
+            style: TextStyle(
+              fontSize: 20.0,
             ),
-            Padding(
-              padding: EdgeInsets.all(6),
-            ),
-            Padding(padding: EdgeInsets.all(1.0), child: ComparisonGraph()),
-          ],
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(6),
+        ),
+        Padding(
+          padding: EdgeInsets.all(1.0),
+          child: ComparisonGraph(),
         ),
       ],
     );
