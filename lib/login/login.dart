@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     if (formState.validate()) {
       formState.save();
       try {
-        FirebaseUser user = (await FirebaseAuth.instance
+        User user = (await FirebaseAuth.instance
                 .signInWithEmailAndPassword(email: _email, password: _password))
             .user; // changed from type FirebaseUser
         Navigator.push(

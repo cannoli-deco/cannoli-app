@@ -2,8 +2,11 @@ import 'package:cannoli_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'navigation_bar.dart';
 import 'color_scheme.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
