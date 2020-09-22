@@ -11,7 +11,7 @@ class DatabaseHelper {
 //  DatabaseHelper(this.)
 
   // Change the dbname to reset the db lol
-  static final _databaseName = "data5sqlite";
+  static final _databaseName = "data23sqlite";
   static final _databaseVersion = 2;
 
   static final table = 'Source';
@@ -188,15 +188,20 @@ Future<List<Entry>> allEntries() async{
    return _query();
  }
 
- /// Run this to fill up db with examples
 Future<void> main() async {
+}
+
+/// Fills db with sources
+// ignore: missing_return
+Future<void> instantiateDB() {
+
   WidgetsFlutterBinding.ensureInitialized();
 
   void _insert() async {
 
     var defaultSources = [
       {
-        'source_name': 'Electricity',
+        'source_name': 'Home Energy',
       },
       {
         'source_name': 'Gas'
@@ -212,7 +217,6 @@ Future<void> main() async {
   }
 
   _insert();
-
 }
 
 class Entry {

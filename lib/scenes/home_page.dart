@@ -1,11 +1,13 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cannoli_app/database.dart';
 
+import 'package:cannoli_app/home_pie_chart.dart';
 
-
-class Homepage extends StatefulWidget{
+class Homepage extends StatefulWidget {
   Homepage({Key key}) : super(key: key);
 
   @override
@@ -13,47 +15,47 @@ class Homepage extends StatefulWidget{
 }
 
 
+
 class _HomepageState extends State<Homepage>{
-  List<charts.Series<Task, String>> _seriesPieData;
-
-  _generateData(){
-    var pieData=[
-      new Task('Car', 75.0, Color(0xFF04645A)),
-      new Task('Electricity', 100.0, Color(0xFF9DD4D1)),
-      new Task('Gas', 75.0, Color(0xFF93AB4B)),
-    ];
-
-    _seriesPieData.add(
-      charts.Series(
-        data:pieData,
-        domainFn: (Task task,_) => task.task,
-        measureFn: (Task task,_)=> task.taskvalue,
-        colorFn: (Task task,_)=>
-            charts.ColorUtil.fromDartColor(task.colorval),
-            id:'Daily Task',
-            labelAccessorFn: (Task row,_)=>'${row.taskvalue}',
-
-      )
-    );
-  }
+  String _emissionGoal = '1000 KG/CO\u2082';
+  int _totalEmission = 0;
 
   @override
-  void initState(){
+  Future<void> initState() {
+
     super.initState();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _generateData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadEntries();
+    });
+  }
+
+  void _loadEntries() async {
+    double totalConsumption = 0;
+
+    DateTime today = DateTime.now();
+    var allEntries = await entryFromDate(today);
+    print(allEntries);
+
+    if(allEntries.length != 0){
+      for(int i=0; i < allEntries.length; i++){
+        totalConsumption += allEntries[i].consumption;
+      }
+    }
+
+    setState(() {
+      _totalEmission = (totalConsumption/1000).round();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(top: 30.0),
+            padding: EdgeInsets.only(top: 20.0),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -65,7 +67,6 @@ class _HomepageState extends State<Homepage>{
                   ),
 
                   Center(
-
                     child: Text(
                     "Today",
                       style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold,
@@ -77,43 +78,107 @@ class _HomepageState extends State<Homepage>{
                     //alignment: Alignment.centerRight,
                     child: MaterialButton(
                         child: Icon(FontAwesomeIcons.angleRight, color: CustomMaterialColor.buttonColorBlue, size: 30.0),
-                        onPressed: (){}
+                        onPressed: (){
+                        }
                     ),
                   ),
-
                 ],
               ),
-          ),
 
+          ),
           Flexible(
             //flex: 10,
             child: Container(
-            height: 350,
-            width: 350,
-                child:
-                charts.PieChart(
-                  _seriesPieData,
-                  animate: true,
-                  animationDuration: Duration(milliseconds: 500),
-                  defaultRenderer: new charts.ArcRendererConfig(
-                    arcRendererDecorators: [charts.ArcLabelDecorator()]
-                  //     arcWidth:100,
-                  //     arcRendererDecorators: [
-                  //       new charts.ArcLabelDecorator(
-                  //           labelPosition: charts.ArcLabelPosition.inside
-                  //       )
-                  //     ]
-                  ),
-                )
+                //padding: EdgeInsets.only(top: 4.0),
+                child: HomePieChart(),
             ),
             ),
 
+
           Container(
-            padding: EdgeInsets.only(top: 5.0),
-            child: Text(
-              "1000 kg of CO\u2082",
-              style: TextStyle(fontSize: 26.0),
-            ),
+            //padding: EdgeInsets.only(top: 4.0),
+            child: Center(
+              child: Column(
+
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top:4.0),
+                    child: Text(
+                      "Total emission: $_totalEmission KG/CO\u2082",
+                      style:
+                      TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: "Arial",
+                        fontWeight: FontWeight.bold,
+                        decoration: TextDecoration.underline,
+                        decorationColor: CustomMaterialColor.buttonColorBlue,
+                        foreground: Paint()..color = CustomMaterialColor.bannerColor,
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(top:24.0),
+                    child: Text(
+                      _emissionGoal,
+                      style:
+                      TextStyle(
+                        fontSize: 30.0,
+                        fontFamily: "Arial",
+                        fontWeight: FontWeight.bold,
+                        //decoration: TextDecoration.underline,
+                        decorationColor: CustomMaterialColor.buttonColorBlue,
+                        foreground: Paint()..color = CustomMaterialColor.subColorBlack,
+                      ),
+                    ),
+                  )
+
+                  /// Add emission goal button is disabled for now
+                  // IconButton(
+                  //   icon: Icon(Icons.alarm_on),
+                  //   color: CustomMaterialColor.subColorRed,
+                  //   onPressed: (){
+                  //     showDialog(
+                  //         context: context,
+                  //         builder: (BuildContext context){
+                  //           return new AlertDialog(
+                  //             content: Container(
+                  //               height: 100,
+                  //               width: 250,
+                  //               child: Column(
+                  //                 children: <Widget>[
+                  //                   TextField(
+                  //                     decoration: InputDecoration(
+                  //                         hintText: "Please enter your emission goal"
+                  //                     ),
+                  //                     onChanged: (String value){
+                  //                       setState(() {
+                  //                           _emissionGoal = "$value KG CO\u2082";
+                  //                       });
+                  //                     },
+                  //                   ),
+                  //
+                  //                   RaisedButton(
+                  //                     color: CustomMaterialColor.subColorRed,
+                  //                     child: Text('Save',
+                  //                         style: TextStyle(
+                  //                             color: CustomMaterialColor.emphasisColor)),
+                  //                     onPressed: (){
+                  //                       Navigator.pop(context);
+                  //                     },
+                  //                   )
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           );
+                  //         }
+                  //     );
+                  //   },
+                  // ),
+                ],
+              ),
+            )
           )
         ],
       ),
@@ -121,11 +186,3 @@ class _HomepageState extends State<Homepage>{
   }
 }
 
-
-/// Test data container
-class Task{
-  String task;
-  double taskvalue;
-  Color colorval;
-    Task(this.task, this.taskvalue, this.colorval);
-}

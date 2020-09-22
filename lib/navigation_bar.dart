@@ -6,6 +6,7 @@ import 'package:cannoli_app/login/login.dart';
 import 'package:cannoli_app/scenes/community_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
+
 import 'package:cannoli_app/scenes/details_page.dart';
 import 'package:flutter/rendering.dart';
 
@@ -33,8 +34,9 @@ class _NavigationBarState extends State<NavigationBar> {
     Homepage(),
 
     /// Add detail page here
-    Dashboard(),
 
+
+    DetailsPage(),
     Text(
       'Placeholder',
       style: optionStyle,
