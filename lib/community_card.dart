@@ -10,8 +10,6 @@ class CommunityCard extends StatefulWidget {
 }
 
 class _CommunityCardState extends State<CommunityCard> {
-  String _content;
-  String _userName;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +48,7 @@ class _CommunityCardState extends State<CommunityCard> {
                                                 )),
                                           ),
                                          Text(
-                                           _userName != null ? _userName : "User"
+                                           widget.userName
                                          )
                                         ],
                                       ),
@@ -58,7 +56,7 @@ class _CommunityCardState extends State<CommunityCard> {
                                       Row(
                                         children: [
                                           Text(
-                                           _content != null ? _content : "Content"
+                                            widget.content
                                           )
                                         ],
                                       ),

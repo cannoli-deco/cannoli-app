@@ -4,30 +4,30 @@ import 'package:flutter/material.dart';
 
 class CommunityPage extends StatefulWidget {
   @override
-
   _CommunityPageState createState() => _CommunityPageState();
 }
 
 class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-        body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("posts").snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            print(snapshot);
-            if (snapshot.hasData) {
-              return CommunityCard(
-                userName: "test",
-                content: "testcontent",
-              );
-            } else {
-              return Text("none");
-            }
-          },
-
-        )
-    );
+    return
+        ListView  (
+          padding: EdgeInsets.all(8),
+            children: [StreamBuilder(
+              stream: FirebaseFirestore.instance.collection("posts")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                DocumentSnapshot item = snapshot.data.documents[0];
+                return CommunityCard(
+                userName: item.data()["owner_name"],
+                content: item.data()["content"],
+                );
+                } else {
+                return Text("none");
+                }
+              },
+            )]
+        );
   }
 }
