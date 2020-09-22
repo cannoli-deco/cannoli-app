@@ -5,9 +5,13 @@ buildscript {
         jcenter()
     }
 
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.3'// add the Firebase SDK for Google Analytics
+        // add SDKs for any other desired Firebase products
+        // https://firebase.google.com/docs/android/setup#available-libraries
     }
 }
 

@@ -1,6 +1,9 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:cannoli_app/comparison_graph.dart';
 import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
+import 'package:cannoli_app/login/login.dart';
+import 'package:cannoli_app/scenes/community_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
 
@@ -19,6 +22,7 @@ class _NavigationBarState extends State<NavigationBar> {
   bool _addActive = false;
 
   int _selectedIndex = 0;
+  
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -31,19 +35,16 @@ class _NavigationBarState extends State<NavigationBar> {
 
     /// Add detail page here
 
+
     DetailsPage(),
     Text(
       'Placeholder',
       style: optionStyle,
     ),
-    Text(
-      'Placeholder',
-      style: optionStyle,
-    ),
-    Text(
-      'Placeholder',
-      style: optionStyle,
-    )
+      CommunityPage()
+    ,
+    // Add login page here
+    LoginPage()
   ];
 
   void _onPageChanged(int index) {
@@ -55,7 +56,6 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 
   void _onItemTapped(int index) {
-    // print(index);
     _pageController.jumpToPage(index);
   }
 
@@ -191,6 +191,7 @@ class _NavigationBarState extends State<NavigationBar> {
                 ]),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
+        currentIndex: _selectedIndex,
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
@@ -207,7 +208,6 @@ class _NavigationBarState extends State<NavigationBar> {
             title: Text('User'),
           ),
         ],
-        currentIndex: _selectedIndex,
         selectedItemColor: CustomMaterialColor.bannerColor,
 //          backgroundColor: Colors.green,
       ),
