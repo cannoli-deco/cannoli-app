@@ -98,32 +98,8 @@ class _NavigationBarState extends State<NavigationBar> {
                     ),
                   ),
                   Align(
-                    /// center child button
-                    alignment: Alignment(0, 0.7),
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Container(
-                        padding: EdgeInsets.only(bottom: 5),
-                        width: 50,
-                        height: 50,
-                        child: FloatingActionButton(
-                            elevation: 1.0,
-                            backgroundColor:
-                                CustomMaterialColor.buttonColorWhite,
-                            child: new Icon(Icons.local_gas_station,
-                                color: CustomMaterialColor.bannerColor),
-                            onPressed: () {
-                              //Navigator.pushNamed(context, '/input');
-                              setState(() {});
-                            }),
-                      ),
-                      Text('Gas',
-                          style: TextStyle(
-                              color: CustomMaterialColor.buttonColorWhite)),
-                    ]),
-                  ),
-                  Align(
                     /// left child button
-                    alignment: Alignment(-0.45, 0.8),
+                    alignment: Alignment(-0.3, 0.7),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 5),
@@ -149,7 +125,7 @@ class _NavigationBarState extends State<NavigationBar> {
                   ),
                   Align(
                     /// right child button
-                    alignment: Alignment(0.45, 0.8),
+                    alignment: Alignment(0.3, 0.7),
                     child: Column(mainAxisSize: MainAxisSize.min, children: [
                       Container(
                         padding: EdgeInsets.only(bottom: 5),
