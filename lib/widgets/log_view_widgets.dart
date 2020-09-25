@@ -1,105 +1,61 @@
 import 'package:flutter/material.dart';
 
-enum HomeWidgetList {
-  generalLog,
-}
-
-class HomeEnergyLogs extends StatefulWidget {
+class LogWidgets extends StatefulWidget {
   @override
-  _HomeEnergyLogsState createState() => _HomeEnergyLogsState();
+  _LogWidgets createState() => _LogWidgets();
 }
 
-class _HomeEnergyLogsState extends State<HomeEnergyLogs> {
+class _LogWidgets extends State<LogWidgets> {
   // TODO: implement live db data
   // TODO: Add log widgets here
-  // Widget: Breakdown of Home Energy, Log widget
-  Widget homeEnergyGeneralLog() {
-    return Text(
-      'Home Energy General Log',
-    );
-  }
+  List<Widget> widgetList = [
+    buildLogWidget(['Car', '436', getTimeFormat("2020-09-25 10:18:04Z")]),
+    buildLogWidget(
+        ['Electricity Bill', '5698', getTimeFormat("2020-09-24 21:04:46Z")]),
+    buildLogWidget(
+        ['Water Bill', '2354', getTimeFormat("2020-09-24 18:46:56Z")]),
+    buildLogWidget(['Gas Bill', '1043', getTimeFormat("2020-09-24 09:19:26Z")]),
+    buildLogWidget(['Car', '203', getTimeFormat("2020-09-23 17:41:02Z")]),
+    buildLogWidget(['Car', '274', getTimeFormat("2020-09-23 08:37:51Z")]),
+    buildLogWidget(
+        ['Miscellaneous', '140', getTimeFormat("2020-09-22 10:18:04Z")])
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: null,
-              ),
-              homeEnergyGeneralLog(),
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: null,
-              ),
-            ],
-          ),
-        ),
-      ),
+    return ListView.builder(
+      itemCount: widgetList.length,
+      itemBuilder: (BuildContext ctxt, int index) {
+        return ListTile(
+          leading: Icon(Icons.home),
+          title: Text('Log Widget: ' + index.toString()),
+          subtitle: Text('CO2\nDate/Time'),
+          trailing: Icon(Icons.more_vert),
+        );
+      },
     );
   }
 }
 
-enum TransportWidgetList {
-  generalLog,
+String getTimeFormat(String time) {
+  var timeParse = DateTime.parse(time);
+  var rString =
+      "${timeParse.weekday}, ${timeParse.hour}:${timeParse.minute} hrs";
+  return rString;
 }
 
-class TransportLogs extends StatefulWidget {
-  @override
-  _TransportLogsState createState() => _TransportLogsState();
-}
-
-class _TransportLogsState extends State<TransportLogs> {
-  // TODO: implement live db data
-  // TODO: Add log widgets here
-  // Widget: Breakdown of Home Energy, Log widget
-  Widget transportGeneralLog() {
-    return Text(
-      'Transport General Log',
-    );
+bool getType(String type) {
+  if (type == 'Car') {
+    return true;
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: null,
-              ),
-              transportGeneralLog(),
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: null,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  return false;
 }
-/*
-AnimatedSwitcher(
-      duration: const Duration(seconds: 1),
-      child: homeEnergyPieBreakdown(),
-    )
-*/
+
+Widget buildLogWidget(List<String> list) {
+  return ListTile(
+    leading: getType(list[0]) ? Icon(Icons.home) : Icon(Icons.drive_eta),
+    title: Text(list[0]),
+    subtitle: Text(list[1] + ' CO2\n' + list[2]),
+    trailing: Icon(Icons.more_vert),
+  );
+}

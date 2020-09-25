@@ -58,12 +58,13 @@ class HomeInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
-        child: HomeInputForm(),
+      home: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+          child: HomeInputForm(),
+        ),
       ),
-    ));
+    );
   }
 }
 
@@ -132,7 +133,9 @@ class HomeInputFormState extends State<HomeInputForm> {
                 children: <Widget>[
                   /// Children of Form
                   Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    Expanded(child: formTextBoxWidget(context, rowTitles[0])),
+                    Expanded(
+                      child: formTextBoxWidget(context, rowTitles[0]),
+                    ),
                     Expanded(
                       child: Container(
                         child: DropdownButtonFormField(

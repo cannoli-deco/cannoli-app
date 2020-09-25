@@ -90,7 +90,9 @@ Widget getTransportLogWidgets() {
         ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
-          child: TransportLogs(),
+          child: Text(
+            'Log widget',
+          ),
         ),
         // Add Widgets Here
       ],
@@ -113,7 +115,9 @@ Widget getHomeLogWidgets() {
         ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
-          child: HomeEnergyLogs(),
+          child: Text(
+            'Log widget',
+          ),
         ),
         // Add Widgets Here
       ],
