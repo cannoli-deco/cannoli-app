@@ -1,7 +1,20 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/widgets/details_widgets.dart';
 import 'package:cannoli_app/widgets/graph_view_widgets.dart';
 import 'package:cannoli_app/widgets/log_view_widgets.dart';
 import 'package:flutter/material.dart';
+
+final List<Tab> tabLabels = <Tab>[
+  Tab(
+    text: 'All',
+  ),
+  Tab(
+    text: 'Transport',
+  ),
+  Tab(
+    text: 'Home Energy',
+  )
+];
 
 enum WidgetList {
   allGraph,
@@ -20,27 +33,31 @@ class NewDetailsPage extends StatefulWidget {
 class _NewDetailsPageState extends State<NewDetailsPage>
     with SingleTickerProviderStateMixin {
   WidgetList widgetSelection = WidgetList.allGraph;
-  AnimationController _controller;
+  // AnimationController _controller;
+  TabController _detailsTabController;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
+    _detailsTabController = new TabController(length: 3, vsync: this);
+    // _controller = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _detailsTabController.dispose();
+    // _controller.dispose();
   }
 
-  Widget getWidgetStack() {
+  Widget tabPageAll() {
     return Stack(
       children: <Widget>[
         Column(
           children: [
             Container(
               height: 400,
+              padding: EdgeInsets.all(20.0),
               child: AllCharts(),
             ),
           ],
@@ -52,16 +69,32 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           builder: (BuildContext context, ScrollController scrollController) {
             return SingleChildScrollView(
               controller: scrollController,
-              child: ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Log Widget: 1'),
-                subtitle: Text('CO2\nDate/Time'),
-                trailing: Icon(Icons.more_vert),
+              child: Container(
+                child: ListView(
+                  padding: EdgeInsets.all(10.0),
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.home),
+                      title: Text('Log Widget: 1'),
+                      subtitle: Text('CO2\nDate/Time'),
+                      trailing: Icon(Icons.more_vert),
+                    ),
+                  ],
+                ),
               ),
             );
           },
         ),
       ],
+    );
+    ;
+  }
+
+  Widget tabPage() {
+    return Container(
+      height: 200.0,
+      padding: EdgeInsets.all(20.0),
+      child: Text('Page'),
     );
   }
 
@@ -85,8 +118,36 @@ class _NewDetailsPageState extends State<NewDetailsPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: getWidgetStack(),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Material(
+          color: CustomMaterialColor.bannerColor,
+          child: TabBar(
+            controller: _detailsTabController,
+            indicatorColor: CustomMaterialColor.emphasisColor,
+            labelColor: CustomMaterialColor.emphasisColor,
+            unselectedLabelColor: Colors.white,
+            tabs: tabLabels,
+          ),
+        ),
+        Container(
+          height: 602.0,
+          color: Colors.blue,
+          child: TabBarView(
+            controller: _detailsTabController,
+            children: [
+              tabPageAll(),
+              tabPage(),
+              tabPage(),
+            ],
+          ),
+        ),
+        Container(
+          height: 26.0,
+          color: Colors.amber,
+        ),
+      ],
     );
   }
 }
