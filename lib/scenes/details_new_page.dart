@@ -48,6 +48,50 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     return icon;
   }
 
+  Widget getLogWidget() {
+    return Container(
+      height: 50.0,
+      width: 290.0,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Title: Log Widget',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  '08:08 pm',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey[400],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 3.0,
+            ),
+            Text(
+              'Car - 302 CO\u2082 emitted',
+              style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.grey[500],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -77,9 +121,8 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           ],
         ),
         DraggableScrollableSheet(
-            initialChildSize: 0.2,
-            minChildSize: 0.2,
-            maxChildSize: 0.4,
+            initialChildSize: 0.35,
+            minChildSize: 0.35,
             builder: (context, scrollController) {
               return ListView(
                 padding: EdgeInsets.all(20.0),
@@ -105,48 +148,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                             ),
                           ),
                           getLogDivider(),
-                          Container(
-                            height: 50.0,
-                            width: 290.0,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Title: Log Widget',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Text(
-                                        '08:08 pm',
-                                        style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.grey[400],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Container(
-                                    height: 3.0,
-                                  ),
-                                  Text(
-                                    'Car - 302 CO\u2082 emitted',
-                                    style: TextStyle(
-                                      fontSize: 14.0,
-                                      color: Colors.grey[500],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          getLogWidget(),
                           getLogDivider(),
                           Icon(
                             Icons.more_vert,
