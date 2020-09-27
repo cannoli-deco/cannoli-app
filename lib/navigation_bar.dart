@@ -74,9 +74,9 @@ class _NavigationBarState extends State<NavigationBar> {
                     alignment: Alignment(0, 0.92),
                     child: new FloatingActionButton(
                         elevation: 1.0,
-                        backgroundColor: CustomMaterialColor.buttonColorWhite,
+                        backgroundColor: CustomMaterialColor.bannerColor,
                         child: new Icon(Icons.add,
-                            color: CustomMaterialColor.bannerColor),
+                            color: CustomMaterialColor.buttonColorWhite),
                         onPressed: () {
                           //Navigator.pushNamed(context, '/input');
                           setState(() {
@@ -153,9 +153,9 @@ class _NavigationBarState extends State<NavigationBar> {
                     alignment: Alignment(0, 0.92),
                     child: FloatingActionButton(
                         elevation: 1.0,
-                        backgroundColor: CustomMaterialColor.buttonColorWhite,
+                        backgroundColor: CustomMaterialColor.bannerColor,
                         child: new Icon(Icons.add,
-                            color: CustomMaterialColor.bannerColor),
+                            color: CustomMaterialColor.buttonColorWhite),
                         onPressed: () {
                           //Navigator.pushNamed(context, '/input');
                           setState(() {

@@ -1,8 +1,10 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/comparison_graph.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 
+final Color subTextColor = Colors.grey[600];
 // enum: For every graph widget in All/General Category
 enum AllGraphWidgetList {
   graphUserEmissions,
@@ -54,95 +56,91 @@ class _AllChartsState extends State<AllCharts> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: Text(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
                 title,
                 style: TextStyle(
                   fontSize: 20.0,
-                  color: Colors.blueAccent,
+                  color: CustomMaterialColor.bannerColor,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: Text(
-                priceVal,
-                style: TextStyle(
-                  fontSize: 30.0,
-                ),
+              SizedBox(
+                height: 6.0,
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: Text(
+              Text(
                 subtitle,
                 style: TextStyle(
-                  fontSize: 20.0,
-                  color: Colors.blueGrey,
+                  fontSize: 16.0,
+                  color: subTextColor,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: new Sparkline(
-                data: [
-                  0.0,
-                  1.0,
-                  1.5,
-                  2.0,
-                  0.0,
-                  0.0,
-                  -0.5,
-                  -1.0,
-                  -0.5,
-                  0.0,
-                  0.0
-                ],
-                lineColor: Color(0xffff6101),
-                pointsMode: PointsMode.all,
-                pointSize: 8.0,
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                child: Sparkline(
+                  data: [
+                    0.0,
+                    1.0,
+                    1.5,
+                    2.0,
+                    0.0,
+                    0.0,
+                    -0.5,
+                    -1.0,
+                    -0.5,
+                    0.0,
+                    0.0
+                  ],
+                  lineColor: Color(0xffff6101),
+                  pointsMode: PointsMode.all,
+                  pointSize: 8.0,
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
       ],
     );
   }
 
   // Widget: Compares user to ideal australian
   Widget comparisonCard(String title, String subTitle) {
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.all(1.0),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.blueAccent,
-            ),
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: CustomMaterialColor.bannerColor,
+                ),
+              ),
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(
+                '',
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: subTextColor,
+                ),
+              ),
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                child: ComparisonGraph(),
+              ),
+            ],
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(1.0),
-          child: Text(
-            subTitle,
-            style: TextStyle(
-              fontSize: 20.0,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.all(6),
-        ),
-        Padding(
-          padding: EdgeInsets.all(1.0),
-          child: ComparisonGraph(),
         ),
       ],
     );
@@ -153,37 +151,39 @@ class _AllChartsState extends State<AllCharts> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(3.0),
-              child: Text(
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
                 title,
                 style: TextStyle(
                   fontSize: 20.0,
-                  color: Colors.blueAccent,
+                  color: CustomMaterialColor.bannerColor,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(1.0),
-              child: Text(
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(
                 subtitle,
                 style: TextStyle(
-                  fontSize: 10.0,
+                  fontSize: 16.0,
+                  color: subTextColor,
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(3.0),
-              child: AnimatedCircularChart(
-                size: const Size(150.0, 150.0),
-                initialChartData: circularData,
-                chartType: CircularChartType.Pie,
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                child: AnimatedCircularChart(
+                  size: const Size(300, 300),
+                  initialChartData: circularData,
+                  chartType: CircularChartType.Pie,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
@@ -191,59 +191,52 @@ class _AllChartsState extends State<AllCharts> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: () {
-                  setState(() {
-                    for (int index = _widgetList.length - 1;
-                        index > -1;
-                        index--) {
-                      if (index == 0) {
-                        _currentWidget = _widgetList[_widgetList.length - 1];
-                        break;
-                      } else if (_currentWidget == _widgetList[index]) {
-                        index = index - 1;
-                        _currentWidget = _widgetList[index];
-                        break;
-                      }
-                    }
-                  });
-                },
-              ),
-              AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
-                child: getWidgetGroup(),
-              ),
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {
-                  setState(() {
-                    for (int index = 0; index < _widgetList.length; index++) {
-                      if (index == _widgetList.length - 1) {
-                        _currentWidget = _widgetList[0];
-                      } else if (_currentWidget == _widgetList[index]) {
-                        index = index + 1;
-                        _currentWidget = _widgetList[index];
-                        break;
-                      }
-                    }
-                  });
-                },
-              ),
-            ],
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.keyboard_arrow_left),
+            onPressed: () {
+              setState(() {
+                for (int index = _widgetList.length - 1; index > -1; index--) {
+                  if (index == 0) {
+                    _currentWidget = _widgetList[_widgetList.length - 1];
+                    break;
+                  } else if (_currentWidget == _widgetList[index]) {
+                    index = index - 1;
+                    _currentWidget = _widgetList[index];
+                    break;
+                  }
+                }
+              });
+            },
           ),
-        ),
+          AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: Container(
+              color: subTextColor,
+              width: 320.0,
+              child: getWidgetGroup(),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.keyboard_arrow_right),
+            onPressed: () {
+              setState(() {
+                for (int index = 0; index < _widgetList.length; index++) {
+                  if (index == _widgetList.length - 1) {
+                    _currentWidget = _widgetList[0];
+                  } else if (_currentWidget == _widgetList[index]) {
+                    index = index + 1;
+                    _currentWidget = _widgetList[index];
+                    break;
+                  }
+                }
+              });
+            },
+          ),
+        ],
       ),
     );
   }

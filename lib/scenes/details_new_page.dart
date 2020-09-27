@@ -57,7 +57,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Title: Log Widget',
+                  'Home Energy',
                   style: TextStyle(
                     fontSize: 16.0,
                     color: Colors.black,
@@ -76,7 +76,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
               height: 3.0,
             ),
             Text(
-              'Car - 302 CO\u2082 emitted',
+              'Car, 302 CO\u2082 footprint  ',
               style: TextStyle(
                 fontSize: 14.0,
                 color: Colors.grey[500],
@@ -157,7 +157,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey[100],
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30.0),
                       topRight: Radius.circular(20.0),
@@ -229,7 +229,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           ),
         ),
         Container(
-          height: 602.0,
+          height: 628.0,
           color: Colors.grey[200],
           child: TabBarView(
             controller: _detailsTabController,
