@@ -35,6 +35,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   WidgetList widgetSelection = WidgetList.allGraph;
   // AnimationController _controller;
   TabController _detailsTabController;
+  ScrollController _scrollController;
 
   @override
   void initState() {
@@ -57,37 +58,36 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           children: [
             Container(
               height: 400,
-              padding: EdgeInsets.all(20.0),
-              child: AllCharts(),
+              child: Container(
+                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                child: AllCharts(),
+              ),
             ),
           ],
         ),
         DraggableScrollableSheet(
-          initialChildSize: 0.15,
-          minChildSize: 0.10,
-          expand: true,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return SingleChildScrollView(
-              controller: scrollController,
-              child: Container(
-                child: ListView(
-                  padding: EdgeInsets.all(10.0),
-                  children: <Widget>[
-                    ListTile(
+            initialChildSize: 0.2,
+            minChildSize: 0.2,
+            maxChildSize: 0.4,
+            builder: (context, scrollController) {
+              return ListView(
+                padding: EdgeInsets.all(20.0),
+                controller: scrollController,
+                children: [
+                  Card(
+                    color: Colors.white,
+                    child: ListTile(
                       leading: Icon(Icons.home),
                       title: Text('Log Widget: 1'),
                       subtitle: Text('CO2\nDate/Time'),
                       trailing: Icon(Icons.more_vert),
                     ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
+                  ),
+                ],
+              );
+            }),
       ],
     );
-    ;
   }
 
   Widget tabPage() {
