@@ -44,11 +44,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     );
   }
 
-  Widget getIcon(Icon icon) {
-    return icon;
-  }
-
-  Widget getLogWidget() {
+  Widget getLogTextBody() {
     return Container(
       height: 50.0,
       width: 290.0,
@@ -92,6 +88,39 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     );
   }
 
+  Widget getLogWidget() {
+    return Card(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              height: 50.0,
+              width: 50.0,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.home,
+                color: Colors.grey[800],
+              ),
+            ),
+            getLogDivider(),
+            getLogTextBody(),
+            getLogDivider(),
+            Icon(
+              Icons.more_vert,
+              color: Colors.grey[800],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -124,41 +153,24 @@ class _NewDetailsPageState extends State<NewDetailsPage>
             initialChildSize: 0.35,
             minChildSize: 0.35,
             builder: (context, scrollController) {
-              return ListView(
-                padding: EdgeInsets.all(20.0),
-                controller: scrollController,
-                children: [
-                  Card(
+              return Container(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
                     color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 50.0,
-                            width: 50.0,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              Icons.home,
-                              color: Colors.grey[800],
-                            ),
-                          ),
-                          getLogDivider(),
-                          getLogWidget(),
-                          getLogDivider(),
-                          Icon(
-                            Icons.more_vert,
-                            color: Colors.grey[800],
-                          ),
-                        ],
-                      ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(20.0),
                     ),
                   ),
-                ],
+                  child: ListView(
+                    padding: EdgeInsets.all(20.0),
+                    controller: scrollController,
+                    children: [
+                      getLogWidget(),
+                    ],
+                  ),
+                ),
               );
             }),
       ],
@@ -208,7 +220,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
         ),
         Container(
           height: 602.0,
-          color: Colors.blue,
+          color: Colors.grey[200],
           child: TabBarView(
             controller: _detailsTabController,
             children: [
@@ -217,10 +229,6 @@ class _NewDetailsPageState extends State<NewDetailsPage>
               tabPage(),
             ],
           ),
-        ),
-        Container(
-          height: 26.0,
-          color: Colors.amber,
         ),
       ],
     );
