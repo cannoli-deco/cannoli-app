@@ -37,6 +37,17 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   TabController _detailsTabController;
   ScrollController _scrollController;
 
+  Widget getLogDivider() {
+    return Container(
+      height: 50.0,
+      width: 10.0,
+    );
+  }
+
+  Widget getIcon(Icon icon) {
+    return icon;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -76,11 +87,73 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 children: [
                   Card(
                     color: Colors.white,
-                    child: ListTile(
-                      leading: Icon(Icons.home),
-                      title: Text('Log Widget: 1'),
-                      subtitle: Text('CO2\nDate/Time'),
-                      trailing: Icon(Icons.more_vert),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 50.0,
+                            width: 50.0,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.home,
+                              color: Colors.grey[800],
+                            ),
+                          ),
+                          getLogDivider(),
+                          Container(
+                            height: 50.0,
+                            width: 290.0,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Title: Log Widget',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        '08:08 pm',
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 3.0,
+                                  ),
+                                  Text(
+                                    'Car - 302 CO\u2082 emitted',
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey[500],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          getLogDivider(),
+                          Icon(
+                            Icons.more_vert,
+                            color: Colors.grey[800],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
