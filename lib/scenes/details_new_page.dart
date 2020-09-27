@@ -47,40 +47,40 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   Widget getLogTextBody() {
     return Container(
       height: 50.0,
-      width: 290.0,
+      width: 300.0,
       child: Padding(
         padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              'Home Energy',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+            ),
+            Container(
+              height: 3.0,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Home Energy',
+                  'Car, 465 CO\u2082 footprint',
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.black,
+                    fontSize: 14.0,
+                    color: Colors.grey[500],
                   ),
                 ),
                 Text(
                   '08:08 pm',
                   style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.grey[400],
+                    fontSize: 14.0,
+                    color: Colors.grey[500],
                   ),
                 ),
               ],
-            ),
-            Container(
-              height: 3.0,
-            ),
-            Text(
-              'Car, 302 CO\u2082 footprint  ',
-              style: TextStyle(
-                fontSize: 14.0,
-                color: Colors.grey[500],
-              ),
             ),
           ],
         ),
@@ -89,34 +89,39 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   }
 
   Widget getLogWidget() {
-    return Card(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: 50.0,
-              width: 50.0,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.home,
-                color: Colors.grey[800],
-              ),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey[300],
+            width: 0.5,
+          ),
+        ),
+      ),
+      padding: EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            height: 50.0,
+            width: 50.0,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              shape: BoxShape.circle,
             ),
-            getLogDivider(),
-            getLogTextBody(),
-            getLogDivider(),
-            Icon(
-              Icons.more_vert,
+            child: Icon(
+              Icons.home,
               color: Colors.grey[800],
             ),
-          ],
-        ),
+          ),
+          getLogDivider(),
+          getLogTextBody(),
+          getLogDivider(),
+          Icon(
+            Icons.more_vert,
+            color: Colors.grey[800],
+          ),
+        ],
       ),
     );
   }
@@ -142,9 +147,30 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           children: [
             Container(
               height: 400,
-              child: Container(
-                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                child: AllCharts(),
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+              child: AllCharts(),
+            ),
+            Container(
+              height: 35.0,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Swipe up for more',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_up,
+                      color: Colors.grey[500],
+                      size: 15.0,
+                    )
+                  ],
+                ),
               ),
             ),
           ],
@@ -157,11 +183,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 color: Colors.transparent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30.0),
-                      topRight: Radius.circular(20.0),
-                    ),
+                    color: Colors.white,
                   ),
                   child: ListView(
                     padding: EdgeInsets.all(20.0),
@@ -187,11 +209,141 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     );
   }
 
-  Widget tabPage() {
-    return Container(
-      height: 200.0,
-      padding: EdgeInsets.all(20.0),
-      child: Text('Page'),
+  Widget tabPageTransport() {
+    return Stack(
+      children: <Widget>[
+        Column(
+          children: [
+            Container(
+              height: 400,
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+              child: AllCharts(),
+            ),
+            Container(
+              height: 35.0,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Swipe up for more',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_up,
+                      color: Colors.grey[500],
+                      size: 15.0,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        DraggableScrollableSheet(
+            initialChildSize: 0.30,
+            minChildSize: 0.30,
+            builder: (context, scrollController) {
+              return Container(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.all(20.0),
+                    controller: scrollController,
+                    children: [
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                    ],
+                  ),
+                ),
+              );
+            }),
+      ],
+    );
+  }
+
+  Widget tabPageHome() {
+    return Stack(
+      children: <Widget>[
+        Column(
+          children: [
+            Container(
+              height: 400,
+              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+              child: AllCharts(),
+            ),
+            Container(
+              height: 35.0,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Swipe up for more',
+                      style: TextStyle(
+                        fontSize: 10.0,
+                        color: Colors.grey[500],
+                      ),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_up,
+                      color: Colors.grey[500],
+                      size: 15.0,
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        DraggableScrollableSheet(
+            initialChildSize: 0.30,
+            minChildSize: 0.30,
+            builder: (context, scrollController) {
+              return Container(
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.all(20.0),
+                    controller: scrollController,
+                    children: [
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                    ],
+                  ),
+                ),
+              );
+            }),
+      ],
     );
   }
 
@@ -235,8 +387,8 @@ class _NewDetailsPageState extends State<NewDetailsPage>
             controller: _detailsTabController,
             children: [
               tabPageAll(),
-              tabPage(),
-              tabPage(),
+              tabPageTransport(),
+              tabPageHome(),
             ],
           ),
         ),

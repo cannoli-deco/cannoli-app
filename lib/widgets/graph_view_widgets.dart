@@ -215,7 +215,6 @@ class _AllChartsState extends State<AllCharts> {
           AnimatedSwitcher(
             duration: const Duration(seconds: 1),
             child: Container(
-              color: subTextColor,
               width: 320.0,
               child: getWidgetGroup(),
             ),
