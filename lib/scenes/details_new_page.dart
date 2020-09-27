@@ -150,8 +150,8 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           ],
         ),
         DraggableScrollableSheet(
-            initialChildSize: 0.35,
-            minChildSize: 0.35,
+            initialChildSize: 0.30,
+            minChildSize: 0.30,
             builder: (context, scrollController) {
               return Container(
                 color: Colors.transparent,
@@ -167,6 +167,16 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                     padding: EdgeInsets.all(20.0),
                     controller: scrollController,
                     children: [
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
+                      getLogWidget(),
                       getLogWidget(),
                     ],
                   ),
