@@ -184,6 +184,10 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
                   ),
                   child: ListView(
                     padding: EdgeInsets.all(20.0),
@@ -253,6 +257,10 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
                   ),
                   child: ListView(
                     padding: EdgeInsets.all(20.0),
@@ -322,6 +330,10 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
                   ),
                   child: ListView(
                     padding: EdgeInsets.all(20.0),

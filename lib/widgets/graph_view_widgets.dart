@@ -30,13 +30,13 @@ class _AllChartsState extends State<AllCharts> {
   Widget getWidgetGroup() {
     switch (_currentWidget) {
       case AllGraphWidgetList.graphUserEmissions:
-        return myCircularItems("Today's Total Consumption", "250kg CO2");
+        return getPieChart("Today's Total Consumption", "250kg CO2");
       case AllGraphWidgetList.graphIdealAustralian:
-        return mychart1Items("Home energy Consumption", "Weekly", "300kg CO2");
+        return getLineChart("Home energy Consumption", "Weekly", "300kg CO2");
       case AllGraphWidgetList.graphCategoryEmissions:
-        return comparisonCard("Comparison with ideal emission", "Weekly");
+        return getComparisonChart("Comparison with ideal emission", "Weekly");
     }
-    return myCircularItems("Today's Total Consumption", "250kg CO2");
+    return getPieChart("Today's Total Consumption", "250kg CO2");
   }
 
   List<CircularStackEntry> circularData = <CircularStackEntry>[
@@ -52,7 +52,7 @@ class _AllChartsState extends State<AllCharts> {
   ];
 
   // Widget: Generates line chart to depict user emissions
-  Widget mychart1Items(String title, String priceVal, String subtitle) {
+  Widget getLineChart(String title, String priceVal, String subtitle) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -108,7 +108,7 @@ class _AllChartsState extends State<AllCharts> {
   }
 
   // Widget: Compares user to ideal australian
-  Widget comparisonCard(String title, String subTitle) {
+  Widget getComparisonChart(String title, String subTitle) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -147,7 +147,7 @@ class _AllChartsState extends State<AllCharts> {
   }
 
   // Widget: Pie chart to show daily total user emissions, classified by categories
-  Widget myCircularItems(String title, String subtitle) {
+  Widget getPieChart(String title, String subtitle) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
