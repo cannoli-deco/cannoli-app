@@ -265,84 +265,147 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
   Widget getWidgetGroup() {
     switch (_currentWidget) {
       case GraphWidgetList.graphBreakdown:
-        return homeEnergyPieBreakdown();
+        return homeEnergyPieBreakdown(
+            'Category Breakdown', 'Home Energy Categories');
       case GraphWidgetList.graphComparison:
-        return homeEnergyBreakdownComparison();
+        return homeEnergyBreakdownComparison(
+            'Category Comparison', 'Home Energy Categories');
     }
-    return homeEnergyPieBreakdown();
+    return homeEnergyPieBreakdown(
+        'Category Breakdown', 'Home Energy Categories');
   }
 
   // TODO: implement live db data
   // TODO: Add graph widgets here
   // Widget: Breakdown of Home Energy, Pie chart (Category Comparison)
-  Widget homeEnergyPieBreakdown() {
-    return Text(
-      'HOME ENERGY BREAKDOWN PIE',
+  Widget homeEnergyPieBreakdown(String title, String subtitle) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: CustomMaterialColor.bannerColor,
+                ),
+              ),
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: subTextColor,
+                ),
+              ),
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                child: Text(
+                  'HOME ENERGY Pie',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   // Widget: Breakdown of Transport, Breakdown Comparison with ideal target
-  Widget homeEnergyBreakdownComparison() {
-    return Text(
-      'TRANSPORT Comparison',
+  Widget homeEnergyBreakdownComparison(String title, String subtitle) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: CustomMaterialColor.bannerColor,
+                ),
+              ),
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: subTextColor,
+                ),
+              ),
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                child: Text(
+                  'HOME ENERGY Comparison',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: () {
-                  setState(() {
-                    for (int index = _widgetList.length - 1;
-                        index > -1;
-                        index--) {
-                      if (index == 0) {
-                        _currentWidget = _widgetList[_widgetList.length - 1];
-                        break;
-                      } else if (_currentWidget == _widgetList[index]) {
-                        index = index - 1;
-                        _currentWidget = _widgetList[index];
-                        break;
-                      }
-                    }
-                  });
-                },
-              ),
-              AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
-                child: getWidgetGroup(),
-              ),
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {
-                  setState(() {
-                    for (int index = 0; index < _widgetList.length; index++) {
-                      if (index == _widgetList.length - 1) {
-                        _currentWidget = _widgetList[0];
-                      } else if (_currentWidget == _widgetList[index]) {
-                        index = index + 1;
-                        _currentWidget = _widgetList[index];
-                        break;
-                      }
-                    }
-                  });
-                },
-              ),
-            ],
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.keyboard_arrow_left),
+            onPressed: () {
+              setState(() {
+                for (int index = _widgetList.length - 1; index > -1; index--) {
+                  if (index == 0) {
+                    _currentWidget = _widgetList[_widgetList.length - 1];
+                    break;
+                  } else if (_currentWidget == _widgetList[index]) {
+                    index = index - 1;
+                    _currentWidget = _widgetList[index];
+                    break;
+                  }
+                }
+              });
+            },
           ),
-        ),
+          AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: Container(
+              width: 320.0,
+              child: getWidgetGroup(),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.keyboard_arrow_right),
+            onPressed: () {
+              setState(() {
+                for (int index = 0; index < _widgetList.length; index++) {
+                  if (index == _widgetList.length - 1) {
+                    _currentWidget = _widgetList[0];
+                  } else if (_currentWidget == _widgetList[index]) {
+                    index = index + 1;
+                    _currentWidget = _widgetList[index];
+                    break;
+                  }
+                }
+              });
+            },
+          ),
+        ],
       ),
     );
   }
@@ -366,84 +429,146 @@ class _TransportChartsState extends State<TransportCharts> {
   Widget getWidgetGroup() {
     switch (_currentWidget) {
       case GraphWidgetList.graphBreakdown:
-        return transportPieBreakdown();
+        return transportPieBreakdown(
+            'Category Breakdown', 'Transport Categories');
       case GraphWidgetList.graphComparison:
-        return transportBreakdownComparison();
+        return transportBreakdownComparison(
+            'Category Comparison', 'Transport Categories');
     }
-    return transportPieBreakdown();
+    return transportPieBreakdown('Category Breakdown', 'Transport Categories');
   }
 
   // TODO: implement live db data
   // TODO: Add graph widgets here
   // Widget: Breakdown of Transport, Pie chart (Category Comparison)
-  Widget transportPieBreakdown() {
-    return Text(
-      'TRANSPORT BREAKDOWN PIE',
+  Widget transportPieBreakdown(String title, String subtitle) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: CustomMaterialColor.bannerColor,
+                ),
+              ),
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: subTextColor,
+                ),
+              ),
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                child: Text(
+                  'TRANSPORT Breakdown Pie',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   // Widget: Breakdown of Transport, Breakdown Comparison with ideal target
-  Widget transportBreakdownComparison() {
-    return Text(
-      'TRANSPORT Comparison',
+  Widget transportBreakdownComparison(String title, String subtitle) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: CustomMaterialColor.bannerColor,
+                ),
+              ),
+              SizedBox(
+                height: 6.0,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(
+                  fontSize: 16.0,
+                  color: subTextColor,
+                ),
+              ),
+              Container(
+                height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                child: Text(
+                  'TRANSPORT Comparison',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.white,
-      elevation: 1.0,
-      borderRadius: BorderRadius.circular(24.0),
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_left),
-                onPressed: () {
-                  setState(() {
-                    for (int index = _widgetList.length - 1;
-                        index > -1;
-                        index--) {
-                      if (index == 0) {
-                        _currentWidget = _widgetList[_widgetList.length - 1];
-                        break;
-                      } else if (_currentWidget == _widgetList[index]) {
-                        index = index - 1;
-                        _currentWidget = _widgetList[index];
-                        break;
-                      }
-                    }
-                  });
-                },
-              ),
-              AnimatedSwitcher(
-                duration: const Duration(seconds: 1),
-                child: getWidgetGroup(),
-              ),
-              IconButton(
-                icon: Icon(Icons.keyboard_arrow_right),
-                onPressed: () {
-                  setState(() {
-                    for (int index = 0; index < _widgetList.length; index++) {
-                      if (index == _widgetList.length - 1) {
-                        _currentWidget = _widgetList[0];
-                      } else if (_currentWidget == _widgetList[index]) {
-                        index = index + 1;
-                        _currentWidget = _widgetList[index];
-                        break;
-                      }
-                    }
-                  });
-                },
-              ),
-            ],
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.keyboard_arrow_left),
+            onPressed: () {
+              setState(() {
+                for (int index = _widgetList.length - 1; index > -1; index--) {
+                  if (index == 0) {
+                    _currentWidget = _widgetList[_widgetList.length - 1];
+                    break;
+                  } else if (_currentWidget == _widgetList[index]) {
+                    index = index - 1;
+                    _currentWidget = _widgetList[index];
+                    break;
+                  }
+                }
+              });
+            },
           ),
-        ),
+          AnimatedSwitcher(
+            duration: const Duration(seconds: 1),
+            child: Container(
+              width: 320.0,
+              child: getWidgetGroup(),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.keyboard_arrow_right),
+            onPressed: () {
+              setState(() {
+                for (int index = 0; index < _widgetList.length; index++) {
+                  if (index == _widgetList.length - 1) {
+                    _currentWidget = _widgetList[0];
+                  } else if (_currentWidget == _widgetList[index]) {
+                    index = index + 1;
+                    _currentWidget = _widgetList[index];
+                    break;
+                  }
+                }
+              });
+            },
+          ),
+        ],
       ),
     );
   }

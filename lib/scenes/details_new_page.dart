@@ -217,7 +217,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
             Container(
               height: 400,
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-              child: AllCharts(),
+              child: TransportCharts(),
             ),
             Container(
               height: 35.0,
@@ -286,7 +286,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
             Container(
               height: 400,
               padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-              child: AllCharts(),
+              child: HomeEnergyCharts(),
             ),
             Container(
               height: 35.0,
