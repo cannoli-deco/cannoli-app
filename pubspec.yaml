@@ -52,6 +52,14 @@ dependencies:
   path: ^1.7.0
   path_provider: ^0.4.1
 
+  # Retrieving articles
+  webfeed: ^0.6.0
+
+  # Retrieving rss xml
+  http: ^0.12.2
+
+  # Opening webpages in app
+  flutter_web_browser: "^0.12.0"
 
 dev_dependencies:
   flutter_test:
