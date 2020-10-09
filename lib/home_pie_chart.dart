@@ -11,7 +11,7 @@ class HomePieChart extends StatefulWidget {
 }
 
 class HomePieState extends State<HomePieChart> {
-  List<String> sources = ['Transport', 'Home\n Energy'];
+  List<String> sources = ['Transport', 'Gas', 'Home\n Energy'];
   List<Color> sourceColors = [
     CustomMaterialColor.buttonColorBlue[200],
     CustomMaterialColor.emphasisColor[200],

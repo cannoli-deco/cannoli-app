@@ -1,5 +1,6 @@
 import 'package:cannoli_app/color_scheme.dart';
-import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/database.dart';
+import 'package:cannoli_app/data_models.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 
@@ -292,8 +293,8 @@ class HomeInputFormState extends State<HomeInputForm> {
                                 newHomeInput.jurisdiction);
                             // Add lines below after DB implementation for Fields used
                             // -------------------------------------------------------
-                            addEntry(calculatedEmission, DateTime.now(),
-                                'Home Energy');
+                            addEntry(newHomeInput.type, calculatedEmission,
+                                DateTime.now(), 'Home Energy');
                             // -------------------------------------------------------
 
                             Navigator.pop(context);

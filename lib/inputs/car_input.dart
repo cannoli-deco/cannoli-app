@@ -1,5 +1,6 @@
 import 'package:cannoli_app/color_scheme.dart';
-import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/database.dart';
+import 'package:cannoli_app/data_models.dart';
 import 'package:flutter/material.dart';
 
 final title = "Car input";
@@ -13,7 +14,8 @@ class CarFormInput {
 int calculateEmission(String type, double distance) {
   switch (type) {
     case "Medium":
-      return (0.297 * distance * 1000).floor(); // emissions (kg/km) * distance * 1000 (gram conversion)
+      return (0.297 * distance * 1000)
+          .floor(); // emissions (kg/km) * distance * 1000 (gram conversion)
     case "Small":
       return (0.228 * distance * 1000).floor();
     case "Large":
@@ -152,7 +154,8 @@ class CarInputFormState extends State<CarInputForm> {
                             form.save();
                             int calculatedEmission = calculateEmission(
                                 newCarInput.type, newCarInput.distance);
-                            addEntry(calculatedEmission, DateTime.now(), 'Car');
+                            addEntry('Car', calculatedEmission, DateTime.now(),
+                                'Transport');
                             Navigator.pop(context);
                             showCalculatedDialog(context, calculatedEmission);
                           },
