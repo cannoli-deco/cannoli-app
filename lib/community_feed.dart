@@ -1,7 +1,11 @@
+import 'package:cannoli_app/community_submission.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'community_card.dart';
+
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 class CommunityFeed extends StatelessWidget {
   @override
@@ -27,8 +31,11 @@ class CommunityFeed extends StatelessWidget {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+        floatingActionButton: auth.currentUser.uid == null ? null : FloatingActionButton(
+          heroTag: "submissionButton",
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) =>  CommunitySubmission()));
+          },
           child: Icon(Icons.add_comment),
           backgroundColor: Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(
