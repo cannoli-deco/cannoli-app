@@ -146,6 +146,16 @@ Future<void> addEntry(
   _insert();
 }
 
+Future<void> deleteEntry(int id) {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  void _delete() async {
+    await dbHelper.delete('Entry', id);
+  }
+
+  _delete();
+}
+
 Future<List<Entry>> allEntries() async {
   WidgetsFlutterBinding.ensureInitialized();
 

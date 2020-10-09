@@ -66,8 +66,11 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     List<Widget> widgets = [];
     var currentEntries = await allEntries();
     for (int i = 0; i < currentEntries.length; i++) {
-      widgets.add(getLogWidget(getType(currentEntries[i].source_id),
-          currentEntries[i].consumption, currentEntries[i].entry_date));
+      widgets.add(getLogWidget(
+          currentEntries[i].id,
+          getType(currentEntries[i].source_id),
+          currentEntries[i].consumption,
+          currentEntries[i].entry_date));
     }
     setState(() {
       _allWidgetEntries = widgets;
@@ -79,8 +82,11 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     var currentEntries = await allEntries();
     for (int i = 0; i < currentEntries.length; i++) {
       if (getType(currentEntries[i].source_id) == 'Transport') {
-        widgets.add(getLogWidget(getType(currentEntries[i].source_id),
-            currentEntries[i].consumption, currentEntries[i].entry_date));
+        widgets.add(getLogWidget(
+            currentEntries[i].id,
+            getType(currentEntries[i].source_id),
+            currentEntries[i].consumption,
+            currentEntries[i].entry_date));
       }
     }
     setState(() {
@@ -93,8 +99,11 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     var currentEntries = await allEntries();
     for (int i = 0; i < currentEntries.length; i++) {
       if (getType(currentEntries[i].source_id) == 'Home Energy') {
-        widgets.add(getLogWidget(getType(currentEntries[i].source_id),
-            currentEntries[i].consumption, currentEntries[i].entry_date));
+        widgets.add(getLogWidget(
+            currentEntries[i].id,
+            getType(currentEntries[i].source_id),
+            currentEntries[i].consumption,
+            currentEntries[i].entry_date));
       }
     }
     setState(() {
