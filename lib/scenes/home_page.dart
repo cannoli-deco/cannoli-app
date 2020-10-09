@@ -118,21 +118,22 @@ class _HomepageState extends State<Homepage>{
                     ),
                   ),
 
-                  Padding(
-                    padding: EdgeInsets.only(top:24.0),
-                    child: Text(
-                      _emissionGoal,
-                      style:
-                      TextStyle(
-                        fontSize: 30.0,
-                        fontFamily: "Arial",
-                        fontWeight: FontWeight.bold,
-                        //decoration: TextDecoration.underline,
-                        decorationColor: CustomMaterialColor.buttonColorBlue,
-                        foreground: Paint()..color = CustomMaterialColor.subColorBlack,
-                      ),
-                    ),
-                  )
+              // Max emission text disabled
+//                  Padding(
+//                    padding: EdgeInsets.only(top:24.0),
+//                    child: Text(
+//                      _emissionGoal,
+//                      style:
+//                      TextStyle(
+//                        fontSize: 30.0,
+//                        fontFamily: "Arial",
+//                        fontWeight: FontWeight.bold,
+//                        //decoration: TextDecoration.underline,
+//                        decorationColor: CustomMaterialColor.buttonColorBlue,
+//                        foreground: Paint()..color = CustomMaterialColor.subColorBlack,
+//                      ),
+//                    ),
+//                  )
 
                   /// Add emission goal button is disabled for now
                   // IconButton(
