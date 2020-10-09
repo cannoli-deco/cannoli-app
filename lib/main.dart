@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'navigation_bar.dart';
 import 'color_scheme.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:cannoli_app/database.dart';
-import 'package:cannoli_app/data_models.dart';
+import 'package:cannoli_app/database.dart';
+//import 'package:cannoli_app/data_models.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

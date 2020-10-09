@@ -1,6 +1,6 @@
 import 'package:cannoli_app/color_scheme.dart';
-// import 'package:cannoli_app/database.dart';
-import 'package:cannoli_app/data_models.dart';
+import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/data_models.dart';
 import 'package:flutter/material.dart';
 
 final title = "Car input";
@@ -154,7 +154,7 @@ class CarInputFormState extends State<CarInputForm> {
                             form.save();
                             int calculatedEmission = calculateEmission(
                                 newCarInput.type, newCarInput.distance);
-                            addEntry('Car', calculatedEmission, DateTime.now(),
+                            addEntry(calculatedEmission, DateTime.now(),
                                 'Transport');
                             Navigator.pop(context);
                             showCalculatedDialog(context, calculatedEmission);

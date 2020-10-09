@@ -5,6 +5,36 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
+class Entry {
+  // naming scheme based on db
+  int id;
+  String type;
+  int consumption;
+  DateTime entry_date;
+  int source_id;
+
+  // use this for db input
+  int get entryDate {
+    return entry_date.millisecondsSinceEpoch;
+  }
+
+  Entry.fromQuery(Map<String, dynamic> query) {
+    this.id = query['id'];
+    this.type = query['type'];
+    this.consumption = query['consumption'];
+    this.entry_date = DateTime.fromMillisecondsSinceEpoch(query['entry_date']);
+    this.source_id = query['source_id'];
+  }
+
+  Entry(
+      {this.id, this.type, this.consumption, this.entry_date, this.source_id});
+
+  @override
+  String toString() {
+    return "Entry " + this.consumption.toString();
+  }
+}
+
 class DatabaseHelper {
 //  List<Map<String, dynamic>> columns;
 //  DatabaseHelper(this.)
@@ -212,34 +242,4 @@ Future<void> instantiateDB() {
   }
 
   _insert();
-}
-
-class Entry {
-  // naming scheme based on db
-  int id;
-  String type;
-  int consumption;
-  DateTime entry_date;
-  int source_id;
-
-  // use this for db input
-  int get entryDate {
-    return entry_date.millisecondsSinceEpoch;
-  }
-
-  Entry.fromQuery(Map<String, dynamic> query) {
-    this.id = query['id'];
-    this.type = query['type'];
-    this.consumption = query['consumption'];
-    this.entry_date = DateTime.fromMillisecondsSinceEpoch(query['entry_date']);
-    this.source_id = query['source_id'];
-  }
-
-  Entry(
-      {this.id, this.type, this.consumption, this.entry_date, this.source_id});
-
-  @override
-  String toString() {
-    return "Entry " + this.consumption.toString();
-  }
 }

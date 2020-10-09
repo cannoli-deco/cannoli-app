@@ -1,4 +1,6 @@
 import 'package:cannoli_app/color_scheme.dart';
+import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/data_models.dart';
 import 'package:cannoli_app/widgets/details_widgets.dart';
 import 'package:cannoli_app/widgets/graph_view_widgets.dart';
 import 'package:cannoli_app/widgets/log_view_widgets.dart';
@@ -36,6 +38,9 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   // AnimationController _controller;
   TabController _detailsTabController;
   ScrollController _scrollController;
+  List<Widget> _allWidgetEntries = [Text('Test')];
+  List<Widget> _transportWidgetEntries = [Text('Test')];
+  List<Widget> _homeWidgetEntries = [Text('Test')];
 
   Widget getLogDivider() {
     return Container(
@@ -44,7 +49,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     );
   }
 
-  Widget getLogTextBody() {
+  Widget getLogTextBody(String source, int consumption) {
     return Container(
       height: 50.0,
       width: 300.0,
@@ -54,7 +59,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Home Energy',
+              source,
               style: TextStyle(
                 fontSize: 16.0,
                 color: Colors.black,
@@ -67,7 +72,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Car, 465 CO\u2082 footprint',
+                  consumption.toString() + ' CO\u2082 footprint',
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.grey[500],
@@ -88,7 +93,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     );
   }
 
-  Widget getLogWidget() {
+  Widget getLogWidget(String source, int consumption) {
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -115,7 +120,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
             ),
           ),
           getLogDivider(),
-          getLogTextBody(),
+          getLogTextBody(source, consumption),
           getLogDivider(),
           Icon(
             Icons.more_vert,
@@ -126,11 +131,64 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     );
   }
 
+  String getType(int id) {
+    if (id == 383) {
+      return 'Transport';
+    } else {
+      return 'Home Energy';
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _detailsTabController = new TabController(length: 3, vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadAllEntries();
+      _loadTransportEntries();
+      _loadHomeEntries();
+    });
     // _controller = AnimationController(vsync: this);
+  }
+
+  void _loadAllEntries() async {
+    List<Widget> widgets = [];
+    var currentEntries = await allEntries();
+    for (int i = 0; i < currentEntries.length; i++) {
+      widgets.add(getLogWidget(
+          getType(currentEntries[i].source_id), currentEntries[i].consumption));
+    }
+    setState(() {
+      _allWidgetEntries = widgets;
+    });
+  }
+
+  void _loadTransportEntries() async {
+    List<Widget> widgets = [];
+    var currentEntries = await allEntries();
+    for (int i = 0; i < currentEntries.length; i++) {
+      if (getType(currentEntries[i].source_id) == 'Transport') {
+        widgets.add(getLogWidget(getType(currentEntries[i].source_id),
+            currentEntries[i].consumption));
+      }
+    }
+    setState(() {
+      _transportWidgetEntries = widgets;
+    });
+  }
+
+  void _loadHomeEntries() async {
+    List<Widget> widgets = [];
+    var currentEntries = await allEntries();
+    for (int i = 0; i < currentEntries.length; i++) {
+      if (getType(currentEntries[i].source_id) == 'Home Energy') {
+        widgets.add(getLogWidget(getType(currentEntries[i].source_id),
+            currentEntries[i].consumption));
+      }
+    }
+    setState(() {
+      _homeWidgetEntries = widgets;
+    });
   }
 
   @override
@@ -192,19 +250,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                   child: ListView(
                     padding: EdgeInsets.all(20.0),
                     controller: scrollController,
-                    children: [
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                    ],
+                    children: _allWidgetEntries,
                   ),
                 ),
               );
@@ -265,19 +311,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                   child: ListView(
                     padding: EdgeInsets.all(20.0),
                     controller: scrollController,
-                    children: [
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                    ],
+                    children: _transportWidgetEntries,
                   ),
                 ),
               );
@@ -338,19 +372,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                   child: ListView(
                     padding: EdgeInsets.all(20.0),
                     controller: scrollController,
-                    children: [
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                      getLogWidget(),
-                    ],
+                    children: _homeWidgetEntries,
                   ),
                 ),
               );

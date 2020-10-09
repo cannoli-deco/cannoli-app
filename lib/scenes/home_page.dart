@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:cannoli_app/database.dart';
-import 'package:cannoli_app/data_models.dart';
+import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/data_models.dart';
 import 'package:cannoli_app/home_pie_chart.dart';
 
 class Homepage extends StatefulWidget {
@@ -86,9 +86,9 @@ class _HomepageState extends State<Homepage> {
           Flexible(
             //flex: 10,
             child: Container(
-              //padding: EdgeInsets.only(top: 4.0),
-              child: HomePieChart(),
-            ),
+                //padding: EdgeInsets.only(top: 4.0),
+                // child: HomePieChart(),
+                ),
           ),
           Container(
               //padding: EdgeInsets.only(top: 4.0),
