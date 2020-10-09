@@ -42,95 +42,6 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   List<Widget> _transportWidgetEntries = [Text('Test')];
   List<Widget> _homeWidgetEntries = [Text('Test')];
 
-  Widget getLogDivider() {
-    return Container(
-      height: 50.0,
-      width: 10.0,
-    );
-  }
-
-  Widget getLogTextBody(String source, int consumption) {
-    return Container(
-      height: 50.0,
-      width: 300.0,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              source,
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
-            ),
-            Container(
-              height: 3.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  consumption.toString() + ' CO\u2082 footprint',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[500],
-                  ),
-                ),
-                Text(
-                  '08:08 pm',
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget getLogWidget(String source, int consumption) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[300],
-            width: 0.5,
-          ),
-        ),
-      ),
-      padding: EdgeInsets.all(10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            height: 50.0,
-            width: 50.0,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.home,
-              color: Colors.grey[800],
-            ),
-          ),
-          getLogDivider(),
-          getLogTextBody(source, consumption),
-          getLogDivider(),
-          Icon(
-            Icons.more_vert,
-            color: Colors.grey[800],
-          ),
-        ],
-      ),
-    );
-  }
-
   String getType(int id) {
     if (id == 383) {
       return 'Transport';
@@ -155,8 +66,8 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     List<Widget> widgets = [];
     var currentEntries = await allEntries();
     for (int i = 0; i < currentEntries.length; i++) {
-      widgets.add(getLogWidget(
-          getType(currentEntries[i].source_id), currentEntries[i].consumption));
+      widgets.add(getLogWidget(getType(currentEntries[i].source_id),
+          currentEntries[i].consumption, currentEntries[i].entry_date));
     }
     setState(() {
       _allWidgetEntries = widgets;
@@ -169,7 +80,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     for (int i = 0; i < currentEntries.length; i++) {
       if (getType(currentEntries[i].source_id) == 'Transport') {
         widgets.add(getLogWidget(getType(currentEntries[i].source_id),
-            currentEntries[i].consumption));
+            currentEntries[i].consumption, currentEntries[i].entry_date));
       }
     }
     setState(() {
@@ -183,7 +94,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
     for (int i = 0; i < currentEntries.length; i++) {
       if (getType(currentEntries[i].source_id) == 'Home Energy') {
         widgets.add(getLogWidget(getType(currentEntries[i].source_id),
-            currentEntries[i].consumption));
+            currentEntries[i].consumption, currentEntries[i].entry_date));
       }
     }
     setState(() {

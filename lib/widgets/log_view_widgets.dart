@@ -1,61 +1,105 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class LogWidgets extends StatefulWidget {
-  @override
-  _LogWidgets createState() => _LogWidgets();
-}
-
-class _LogWidgets extends State<LogWidgets> {
-  // TODO: implement live db data
-  // TODO: Add log widgets here
-  List<Widget> widgetList = [
-    buildLogWidget(['Car', '436', getTimeFormat("2020-09-25 10:18:04Z")]),
-    buildLogWidget(
-        ['Electricity Bill', '5698', getTimeFormat("2020-09-24 21:04:46Z")]),
-    buildLogWidget(
-        ['Water Bill', '2354', getTimeFormat("2020-09-24 18:46:56Z")]),
-    buildLogWidget(['Gas Bill', '1043', getTimeFormat("2020-09-24 09:19:26Z")]),
-    buildLogWidget(['Car', '203', getTimeFormat("2020-09-23 17:41:02Z")]),
-    buildLogWidget(['Car', '274', getTimeFormat("2020-09-23 08:37:51Z")]),
-    buildLogWidget(
-        ['Miscellaneous', '140', getTimeFormat("2020-09-22 10:18:04Z")])
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widgetList.length,
-      itemBuilder: (BuildContext ctxt, int index) {
-        return ListTile(
-          leading: Icon(Icons.home),
-          title: Text('Log Widget: ' + index.toString()),
-          subtitle: Text('CO2\nDate/Time'),
-          trailing: Icon(Icons.more_vert),
-        );
-      },
-    );
+String getTimeStamp(DateTime time) {
+  print(time);
+  print(DateTime.now());
+  DateTime justNow = DateTime.now().subtract(Duration(minutes: 1));
+  if (!time.difference(justNow).isNegative) {
+    return 'Just now';
   }
-}
-
-String getTimeFormat(String time) {
-  var timeParse = DateTime.parse(time);
-  var rString =
-      "${timeParse.weekday}, ${timeParse.hour}:${timeParse.minute} hrs";
-  return rString;
-}
-
-bool getType(String type) {
-  if (type == 'Car') {
-    return true;
+  DateTime today = DateTime.now().subtract(Duration(days: 1));
+  if (!time.difference(today).isNegative) {
+    return 'Today, ' + DateFormat.jm().format(time);
   }
-  return false;
+  return 'More than a day ago';
 }
 
-Widget buildLogWidget(List<String> list) {
-  return ListTile(
-    leading: getType(list[0]) ? Icon(Icons.home) : Icon(Icons.drive_eta),
-    title: Text(list[0]),
-    subtitle: Text(list[1] + ' CO2\n' + list[2]),
-    trailing: Icon(Icons.more_vert),
+Widget getLogDivider() {
+  return Container(
+    height: 50.0,
+    width: 10.0,
+  );
+}
+
+Widget getLogTextBody(String source, int consumption, DateTime time) {
+  return Container(
+    height: 50.0,
+    width: 300.0,
+    child: Padding(
+      padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            source,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.black,
+            ),
+          ),
+          Container(
+            height: 3.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                consumption.toString() + ' CO\u2082 footprint',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.grey[500],
+                ),
+              ),
+              Text(
+                getTimeStamp(time),
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.grey[500],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget getLogWidget(String source, int consumption, DateTime time) {
+  return Container(
+    decoration: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(
+          color: Colors.grey[300],
+          width: 0.5,
+        ),
+      ),
+    ),
+    padding: EdgeInsets.all(10.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: 50.0,
+          width: 50.0,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            shape: BoxShape.circle,
+          ),
+          child: Icon(
+            Icons.home,
+            color: Colors.grey[800],
+          ),
+        ),
+        getLogDivider(),
+        getLogTextBody(source, consumption, time),
+        getLogDivider(),
+        Icon(
+          Icons.more_vert,
+          color: Colors.grey[800],
+        ),
+      ],
+    ),
   );
 }
