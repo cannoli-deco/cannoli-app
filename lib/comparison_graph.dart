@@ -28,7 +28,6 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
     for (var i = 0; i < 7; i++) {
       var currentEntries =
           await entryFromDate(firstDayOfTheweek.add(Duration(days: i)));
-      print(currentEntries);
 
       // Add sum of the days as FlSpots.
       entries.add(FlSpot(
