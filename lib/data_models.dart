@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -52,14 +51,15 @@ class DatabaseHelper {
      """);
 
     await db.execute("""
-    CREATE TABLE Entry (
+      CREATE TABLE Entry (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-       consumption INTEGER,
-       entry_date INTEGER,
+        type TEXT
+        consumption INTEGER,
+        entry_date INTEGER,
         source_id INTEGER,
-         FOREIGN KEY (source_id) REFERENCES Source(id)
-         )
-           """);
+        FOREIGN KEY (source_id) REFERENCES Source(id)
+      )
+      """);
 
 //    await db.batch()
   }
@@ -122,7 +122,7 @@ class DatabaseHelper {
 final dbHelper = DatabaseHelper.instance;
 
 Future<void> addEntry(
-    int consumption, DateTime entryDate, String source) async {
+    String type, int consumption, DateTime entryDate, String source) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   entryDate = new DateTime(
@@ -135,6 +135,7 @@ Future<void> addEntry(
 
   void _insert() async {
     Map<String, dynamic> row = {
+      'type': type,
       'consumption': consumption,
       'entry_date': entryDate.millisecondsSinceEpoch,
       'source_id': await _getId()
@@ -202,8 +203,7 @@ Future<void> instantiateDB() {
       {
         'source_name': 'Home Energy',
       },
-      {'source_name': 'Gas'},
-      {'source_name': 'Car'}
+      {'source_name': 'Transport'}
     ];
 
     await Future.forEach(defaultSources, (source) async {
@@ -217,6 +217,7 @@ Future<void> instantiateDB() {
 class Entry {
   // naming scheme based on db
   int id;
+  String type;
   int consumption;
   DateTime entry_date;
   int source_id;
@@ -228,12 +229,14 @@ class Entry {
 
   Entry.fromQuery(Map<String, dynamic> query) {
     this.id = query['id'];
+    this.type = query['type'];
     this.consumption = query['consumption'];
     this.entry_date = DateTime.fromMillisecondsSinceEpoch(query['entry_date']);
     this.source_id = query['source_id'];
   }
 
-  Entry({this.id, this.consumption, this.entry_date, this.source_id});
+  Entry(
+      {this.id, this.type, this.consumption, this.entry_date, this.source_id});
 
   @override
   String toString() {
