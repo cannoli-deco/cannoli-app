@@ -83,6 +83,50 @@ class _AllLogSheetState extends State<AllLogSheet> {
   //AnimationController _controller;
   List<Widget> _allWidgetEntries = [Text('Test')];
 
+  showConfirmationDialog(BuildContext context, int id) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text(
+        "Cancel",
+        style: TextStyle(color: Colors.grey[600]),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text(
+        "Delete",
+        style: TextStyle(color: Colors.red[500]),
+      ),
+      onPressed: () {
+        deleteEntry(id);
+        Navigator.pop(context);
+        setState(() {
+          _loadAllEntries();
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Confirmation"),
+      content: Text("Are you sure you want to permanently delete this item?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   void _loadAllEntries() async {
     List<Widget> widgets = [];
     var currentEntries = await allEntries();
@@ -186,13 +230,10 @@ class _AllLogSheetState extends State<AllLogSheet> {
               },
               onSelected: (value) {
                 if (value == 1) {
-                  //editEntry()
+                  editEntry(id, consumption, time, source);
                 } else {
-                  deleteEntry(id);
+                  showConfirmationDialog(context, id);
                 }
-                setState(() {
-                  _loadAllEntries();
-                });
               },
               icon: Container(
                 width: 4.0,
@@ -282,6 +323,50 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
     });
   }
 
+  showConfirmationDialog(BuildContext context, int id) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text(
+        "Cancel",
+        style: TextStyle(color: Colors.grey[600]),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text(
+        "Delete",
+        style: TextStyle(color: Colors.red[500]),
+      ),
+      onPressed: () {
+        deleteEntry(id);
+        Navigator.pop(context);
+        setState(() {
+          _loadTransportEntries();
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Confirmation"),
+      content: Text("Are you sure you want to permanently delete this item?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   Widget getLogWidget(int id, String source, int consumption, DateTime time) {
     return Container(
       decoration: BoxDecoration(
@@ -372,11 +457,8 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
                 if (value == 1) {
                   //editEntry()
                 } else {
-                  deleteEntry(id);
+                  showConfirmationDialog(context, id);
                 }
-                setState(() {
-                  _loadTransportEntries();
-                });
               },
               icon: Container(
                 width: 4.0,
@@ -466,6 +548,50 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
     });
   }
 
+  showConfirmationDialog(BuildContext context, int id) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text(
+        "Cancel",
+        style: TextStyle(color: Colors.grey[600]),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text(
+        "Delete",
+        style: TextStyle(color: Colors.red[500]),
+      ),
+      onPressed: () {
+        deleteEntry(id);
+        Navigator.pop(context);
+        setState(() {
+          _loadHomeEntries();
+        });
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Confirmation"),
+      content: Text("Are you sure you want to permanently delete this item?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   Widget getLogWidget(int id, String source, int consumption, DateTime time) {
     return Container(
       decoration: BoxDecoration(
@@ -556,11 +682,8 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
                 if (value == 1) {
                   //editEntry()
                 } else {
-                  deleteEntry(id);
+                  showConfirmationDialog(context, id);
                 }
-                setState(() {
-                  _loadHomeEntries();
-                });
               },
               icon: Container(
                 width: 4.0,

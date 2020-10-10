@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'dart:async';
+import 'package:cannoli_app/inputs/car_input.dart';
+import 'package:cannoli_app/inputs/edit_entry.dart';
+import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -144,6 +147,22 @@ Future<void> addEntry(
   }
 
   _insert();
+}
+
+Future<void> editEntry(
+    int id, int consumption, DateTime entryDate, String source) {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  void _update() async {
+    Map<String, dynamic> row = {
+      'consumption': consumption,
+      'entry_date': entryDate.millisecondsSinceEpoch,
+      'source_id': await dbHelper.queryBySourceName(source),
+    };
+    await dbHelper.update('Entry', row);
+  }
+
+  _update();
 }
 
 Future<void> deleteEntry(int id) {
