@@ -261,7 +261,9 @@ class _AllLogSheetState extends State<AllLogSheet> {
                         deleteEntry(id);
                         addEntry(calculatedEmission, time, 'Transport');
                         setState(() {
-                          _loadAllEntries();
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _loadAllEntries();
+                          });
                         });
                         Navigator.pop(context);
                       },
@@ -481,7 +483,9 @@ class _AllLogSheetState extends State<AllLogSheet> {
                           deleteEntry(id);
                           addEntry(calculatedEmission, time, 'Home Energy');
                           setState(() {
-                            _loadAllEntries();
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              _loadAllEntries();
+                            });
                           });
                           Navigator.pop(context);
                         },
@@ -826,7 +830,9 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
                         deleteEntry(id);
                         addEntry(calculatedEmission, time, 'Transport');
                         setState(() {
-                          _loadTransportEntries();
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _loadTransportEntries();
+                          });
                         });
                         Navigator.pop(context);
                       },
@@ -1288,7 +1294,9 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
                           deleteEntry(id);
                           addEntry(calculatedEmission, time, 'Home Energy');
                           setState(() {
-                            _loadHomeEntries();
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              _loadHomeEntries();
+                            });
                           });
                           Navigator.pop(context);
                         },
