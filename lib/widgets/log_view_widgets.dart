@@ -1,6 +1,10 @@
+import 'package:cannoli_app/inputs/car_input.dart';
+import 'package:cannoli_app/inputs/home_input.dart';
+import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../color_scheme.dart';
 import '../database.dart';
 
 String getType(int id) {
@@ -9,6 +13,21 @@ String getType(int id) {
   } else {
     return 'Home Energy';
   }
+}
+
+int getSourceID(String source) {
+  if (source == 'Transport') {
+    return 383;
+  } else {
+    return 1;
+  }
+}
+
+bool getSourceBool(String source) {
+  if (source == 'Transport') {
+    return true;
+  }
+  return false;
 }
 
 String getTimeStamp(DateTime time) {
@@ -79,11 +98,34 @@ class AllLogSheet extends StatefulWidget {
   _AllLogSheetState createState() => _AllLogSheetState();
 }
 
+List<String> getTypeMenu(int sourceID) {
+  if (sourceID == 383) {
+    return ['Small', 'Medium', 'Large', 'Diesel'];
+  }
+  return ['Electricity Bill', 'Water Bill', 'Miscelleneous'];
+}
+
 class _AllLogSheetState extends State<AllLogSheet> {
   //AnimationController _controller;
   List<Widget> _allWidgetEntries = [Text('Test')];
+  final _formKey = GlobalKey<FormState>();
 
-  showConfirmationDialog(BuildContext context, int id) {
+  List<String> rowTitles = [
+    'Energy Type',
+    'Billing Cycle',
+    'Consumption',
+    'State or Territory'
+  ];
+
+  String dropDownType = "Electricity Bill";
+  String dropDownBilling = "Monthly";
+  String dropDownJurisdiction = "QLD";
+  HomeFormInput newHomeInput = new HomeFormInput();
+
+  String dropdownValue = "Medium";
+  CarFormInput newCarInput = new CarFormInput();
+
+  showDeleteConfirmation(BuildContext context, int id) {
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text(
@@ -116,6 +158,349 @@ class _AllLogSheetState extends State<AllLogSheet> {
         cancelButton,
         continueButton,
       ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showEditConfirmation(
+      BuildContext context, int id, String source, DateTime time) {
+    if (source == 'Transport') {
+      showTransportEditConfirmation(context, id, time);
+    } else if (source == 'Home Energy') {
+      showHomeEditConfirmation(context, id, time);
+    }
+  }
+
+  showTransportEditConfirmation(BuildContext context, int id, DateTime time) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Edit Entry"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text('Source'),
+              ),
+              Text(
+                'Transport',
+                style: TextStyle(fontSize: 14.0, color: Colors.grey[600]),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Form(
+            /// Form
+            key: _formKey,
+            child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+              Row(children: [
+                Expanded(
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.directions),
+                        labelText: "Distance",
+                        hintText: "km"),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please enter some number';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.number,
+                    onSaved: (String value) =>
+                        {newCarInput.distance = double.parse(value)},
+                  ),
+                )
+              ]),
+              DropdownButtonFormField(
+                decoration: InputDecoration(
+                    icon: Icon(Icons.directions_car), labelText: "Type of car"),
+                style: TextStyle(color: Theme.of(context).accentColor),
+                value: dropdownValue,
+                iconSize: 24,
+                elevation: 16,
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
+                },
+                items: <String>['Medium', 'Small', 'Large', 'Diesel']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onSaved: (String selection) {
+                  newCarInput.type = selection;
+                },
+              ),
+              SizedBox(height: 25),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    RaisedButton(
+                      color: CustomMaterialColor.emphasisColor,
+                      onPressed: () {
+                        // Validate returns true if the form is valid, or false
+                        // otherwise.
+                        if (_formKey.currentState.validate()) {
+                          // If the form is valid, display a Snackbar.
+                        }
+                        FormState form = _formKey.currentState;
+                        form.save();
+                        int calculatedEmission = calculateEmission(
+                            newCarInput.type, newCarInput.distance);
+                        addEntry(
+                            calculatedEmission, DateTime.now(), 'Transport');
+                        Navigator.pop(context);
+                      },
+                      child: Text('Save Changes',
+                          style: TextStyle(
+                              color: CustomMaterialColor.buttonColorWhite)),
+                    ),
+                    Container(height: 20.0)
+                  ]),
+            ]),
+          ),
+        ],
+      ),
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  showHomeEditConfirmation(BuildContext context, int id, DateTime time) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Edit Entry"),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text('Source'),
+              ),
+              Expanded(
+                child: Text(
+                  'Home Energy',
+                  style: TextStyle(fontSize: 14.0, color: Colors.grey[600]),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          Form(
+            /// Form
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                /// Children of Form
+                Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
+                  Expanded(
+                    child: formTextBoxWidget(context, rowTitles[0]),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: DropdownButtonFormField(
+                        style: TextStyle(color: Theme.of(context).accentColor),
+                        value: dropDownType,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropDownType = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'Electricity Bill',
+                          'Water Bill',
+                          'Miscellaneous'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onSaved: (String selection) {
+                          newHomeInput.type = selection;
+                        },
+                      ),
+                    ),
+                  )
+                ]),
+                Row(
+                  /// Usage Frequency
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Expanded(child: formTextBoxWidget(context, rowTitles[1])),
+                    Expanded(
+                      child: Container(
+                        child: DropdownButtonFormField(
+                          style:
+                              TextStyle(color: Theme.of(context).accentColor),
+                          value: dropDownBilling,
+                          onChanged: (String newValue) {
+                            setState(() {
+                              dropDownBilling = newValue;
+                            });
+                          },
+                          items: <String>[
+                            'Monthly',
+                            'Quarterly',
+                            'Half-Yearly',
+                            'Yearly'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onSaved: (String selection) {
+                            newHomeInput.billingCycle = selection;
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Row(
+                  /// Consumption
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(child: formTextBoxWidget(context, rowTitles[2])),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'kWh',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter number';
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.number,
+                        onSaved: (String value) =>
+                            {newHomeInput.kwh = double.parse(value)},
+                      ),
+                    ),
+                  ],
+                ),
+                // Input
+
+                Row(
+                  /// State or Territory
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    // Text Box of 200W x 40H Pixel Dimensions for prompt text
+                    Expanded(child: formTextBoxWidget(context, rowTitles[3])),
+                    Expanded(
+                      child: DropdownButtonFormField(
+                        style: TextStyle(color: Theme.of(context).accentColor),
+                        value: dropDownJurisdiction,
+                        onChanged: (String newValue) {
+                          setState(() {
+                            dropDownJurisdiction = newValue;
+                          });
+                        },
+                        items: <String>[
+                          'NSW',
+                          'ACT',
+                          'VIC',
+                          'QLD',
+                          'SA',
+                          'WA',
+                          'TAS',
+                          'NT'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onSaved: (String selection) {
+                          newHomeInput.jurisdiction = selection;
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                // Input
+
+                Row(
+                  /// Submit button
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(top: 12),
+                      child: RaisedButton(
+                        color: CustomMaterialColor.emphasisColor,
+                        onPressed: () {
+                          // Validate returns true if the form is valid, or false
+                          // otherwise.
+
+                          if (_formKey.currentState.validate()) {
+                            // If the form is valid, display a Snackbar.
+                          }
+                          FormState form = _formKey.currentState;
+                          form.save();
+
+                          int calculatedEmission = calculateHomeEmission(
+                              newHomeInput.billingCycle,
+                              newHomeInput.kwh,
+                              newHomeInput.jurisdiction);
+                          // Add lines below after DB implementation for Fields used
+                          // -------------------------------------------------------
+                          deleteEntry(id);
+                          addEntry(calculatedEmission, time, 'Home Energy');
+                          setState(() {
+                            _loadAllEntries();
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text('Save Changes',
+                            style: TextStyle(
+                                color: CustomMaterialColor.buttonColorWhite)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
 
     // show the dialog
@@ -230,9 +615,9 @@ class _AllLogSheetState extends State<AllLogSheet> {
               },
               onSelected: (value) {
                 if (value == 1) {
-                  editEntry(id, consumption, time, source);
+                  showEditConfirmation(context, id, source, time);
                 } else {
-                  showConfirmationDialog(context, id);
+                  showDeleteConfirmation(context, id);
                 }
               },
               icon: Container(
@@ -323,7 +708,7 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
     });
   }
 
-  showConfirmationDialog(BuildContext context, int id) {
+  showDeleteConfirmation(BuildContext context, int id) {
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text(
@@ -457,7 +842,7 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
                 if (value == 1) {
                   //editEntry()
                 } else {
-                  showConfirmationDialog(context, id);
+                  showDeleteConfirmation(context, id);
                 }
               },
               icon: Container(
@@ -548,7 +933,7 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
     });
   }
 
-  showConfirmationDialog(BuildContext context, int id) {
+  showDeleteConfirmation(BuildContext context, int id) {
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text(
@@ -682,7 +1067,7 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
                 if (value == 1) {
                   //editEntry()
                 } else {
-                  showConfirmationDialog(context, id);
+                  showDeleteConfirmation(context, id);
                 }
               },
               icon: Container(

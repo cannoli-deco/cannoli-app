@@ -38,7 +38,8 @@ double conversion(double val, double mul, String jurisdiction) {
   }
 }
 
-int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
+int calculateHomeEmission(
+    String billingCycle, double kwh, String jurisdiction) {
   switch (billingCycle) {
     case "Monthly":
       return (conversion(kwh, 12.0, jurisdiction) * 1000).floor();
@@ -287,7 +288,7 @@ class HomeInputFormState extends State<HomeInputForm> {
                             FormState form = _formKey.currentState;
                             form.save();
 
-                            int calculatedEmission = calculateEmission(
+                            int calculatedEmission = calculateHomeEmission(
                                 newHomeInput.billingCycle,
                                 newHomeInput.kwh,
                                 newHomeInput.jurisdiction);

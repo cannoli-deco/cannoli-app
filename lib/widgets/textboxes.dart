@@ -25,6 +25,28 @@ Widget formTextBoxWidget(BuildContext context, String op) {
   );
 }
 
+Widget textBoxWidget(String op) {
+  return SizedBox(
+    // Dimensions of text box
+    width: 200.0,
+    height: 40.0,
+    // Column child to allign text vertically
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          op,
+          style: TextStyle(
+            color: Colors.grey[800],
+            fontSize: 16.0,
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 Widget pageLayoutTextBoxWidget(String title, double fSize) {
   return SizedBox(
     height: 40.0,
