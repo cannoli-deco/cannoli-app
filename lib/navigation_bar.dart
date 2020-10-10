@@ -4,6 +4,7 @@ import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
 import 'package:cannoli_app/login/login.dart';
 import 'package:cannoli_app/scenes/community_page.dart';
+import 'package:cannoli_app/scenes/user_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/scenes/home_page.dart';
 
@@ -22,7 +23,7 @@ class _NavigationBarState extends State<NavigationBar> {
   bool _addActive = false;
 
   int _selectedIndex = 0;
-  
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
@@ -35,16 +36,14 @@ class _NavigationBarState extends State<NavigationBar> {
 
     /// Add detail page here
 
-
     DetailsPage(),
     Text(
       'Placeholder',
       style: optionStyle,
     ),
-      CommunityPage()
-    ,
-    // Add login page here
-    LoginPage()
+    CommunityPage(),
+    // Add user page here
+    UserPage()
   ];
 
   void _onPageChanged(int index) {
