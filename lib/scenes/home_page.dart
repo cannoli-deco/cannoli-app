@@ -86,9 +86,9 @@ class _HomepageState extends State<Homepage> {
           Flexible(
             //flex: 10,
             child: Container(
-                //padding: EdgeInsets.only(top: 4.0),
-                //child: HomePieChart(),
-                ),
+              //padding: EdgeInsets.only(top: 4.0),
+              child: HomePieChart(),
+            ),
           ),
           Container(
               //padding: EdgeInsets.only(top: 4.0),

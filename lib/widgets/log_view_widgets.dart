@@ -258,8 +258,11 @@ class _AllLogSheetState extends State<AllLogSheet> {
                         form.save();
                         int calculatedEmission = calculateEmission(
                             newCarInput.type, newCarInput.distance);
-                        addEntry(
-                            calculatedEmission, DateTime.now(), 'Transport');
+                        deleteEntry(id);
+                        addEntry(calculatedEmission, time, 'Transport');
+                        setState(() {
+                          _loadAllEntries();
+                        });
                         Navigator.pop(context);
                       },
                       child: Text('Save Changes',
@@ -820,8 +823,11 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
                         form.save();
                         int calculatedEmission = calculateEmission(
                             newCarInput.type, newCarInput.distance);
-                        addEntry(
-                            calculatedEmission, DateTime.now(), 'Transport');
+                        deleteEntry(id);
+                        addEntry(calculatedEmission, time, 'Transport');
+                        setState(() {
+                          _loadTransportEntries();
+                        });
                         Navigator.pop(context);
                       },
                       child: Text('Save Changes',
