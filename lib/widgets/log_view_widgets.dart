@@ -3,98 +3,6 @@ import 'package:intl/intl.dart';
 
 import '../database.dart';
 
-class Options extends StatefulWidget {
-  @override
-  _OptionsState createState() => _OptionsState();
-}
-
-class _OptionsState extends State<Options> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  void onSelection(int value) {
-    if (value == 1) {
-      // editEntry();
-    } else {
-      //deleteEntry();
-      //print();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 20.0,
-      alignment: Alignment.center,
-      child: PopupMenuButton(
-        itemBuilder: (context) {
-          var list = List<PopupMenuEntry<Object>>();
-          list.add(
-            PopupMenuItem(
-              child: Container(
-                width: 70.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.create,
-                      size: 18,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Edit',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
-              ),
-              value: 1,
-            ),
-          );
-          list.add(
-            PopupMenuItem(
-              child: Container(
-                width: 70.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.delete,
-                      size: 18,
-                      color: Colors.red[500],
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      'Delete',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.red[500],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              value: 2,
-            ),
-          );
-          return list;
-        },
-        onSelected: (value) {},
-        icon: Container(
-          width: 4.0,
-          child: Icon(
-            Icons.more_vert,
-            color: Colors.grey[600],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 String getType(int id) {
   if (id == 383) {
     return 'Transport';
@@ -276,7 +184,16 @@ class _AllLogSheetState extends State<AllLogSheet> {
                 );
                 return list;
               },
-              onSelected: (value) {},
+              onSelected: (value) {
+                if (value == 1) {
+                  //editEntry()
+                } else {
+                  deleteEntry(id);
+                }
+                setState(() {
+                  _loadAllEntries();
+                });
+              },
               icon: Container(
                 width: 4.0,
                 child: Icon(
@@ -451,7 +368,16 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
                 );
                 return list;
               },
-              onSelected: (value) {},
+              onSelected: (value) {
+                if (value == 1) {
+                  //editEntry()
+                } else {
+                  deleteEntry(id);
+                }
+                setState(() {
+                  _loadTransportEntries();
+                });
+              },
               icon: Container(
                 width: 4.0,
                 child: Icon(
@@ -626,7 +552,16 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
                 );
                 return list;
               },
-              onSelected: (value) {},
+              onSelected: (value) {
+                if (value == 1) {
+                  //editEntry()
+                } else {
+                  deleteEntry(id);
+                }
+                setState(() {
+                  _loadHomeEntries();
+                });
+              },
               icon: Container(
                 width: 4.0,
                 child: Icon(
