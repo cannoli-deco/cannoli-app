@@ -46,5 +46,3 @@ app.*.map.json
 # Database
 *.sqlite*
 
-# Firebase
-android/app/google-services.json
