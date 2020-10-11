@@ -1,3 +1,4 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/community_submission.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,10 +20,9 @@ class CommunityFeed extends StatelessWidget {
                   FirebaseFirestore.instance.collection("posts").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  DocumentSnapshot item = snapshot.data.documents[0];
+                  List<DocumentSnapshot> items = snapshot.data.documents;
                   return CommunityCard(
-                    userName: item.data()["owner_name"],
-                    content: item.data()["content"],
+                    postData: items,
                   );
                 } else {
                   return Text("none");
@@ -37,7 +37,9 @@ class CommunityFeed extends StatelessWidget {
             Navigator.push(context, MaterialPageRoute(builder: (context) =>  CommunitySubmission()));
           },
           child: Icon(Icons.add_comment),
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: CustomMaterialColor.emphasisColor,
+          foregroundColor: CustomMaterialColor.buttonColorWhite,
+          elevation: 2,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0))),
         ));
