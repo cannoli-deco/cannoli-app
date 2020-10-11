@@ -31,7 +31,7 @@ class CommunityFeed extends StatelessWidget {
             )
           ],
         ),
-        floatingActionButton: auth.currentUser.uid == null ? null : FloatingActionButton(
+        floatingActionButton: FirebaseAuth.instance.currentUser == null ? null : FloatingActionButton(
           heroTag: "submissionButton",
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) =>  CommunitySubmission()));
