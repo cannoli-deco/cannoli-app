@@ -1,7 +1,6 @@
 import 'package:cannoli_app/color_scheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cannoli_app/database.dart';
 
@@ -17,7 +16,6 @@ class Homepage extends StatefulWidget {
 
 
 class _HomepageState extends State<Homepage>{
-  String _emissionGoal = '1000 KG/CO\u2082';
   int _totalEmission = 0;
 
   @override
@@ -61,7 +59,7 @@ class _HomepageState extends State<Homepage>{
                   Expanded(
                     //alignment: Alignment.centerLeft,
                     child: MaterialButton(
-                        child: Icon(FontAwesomeIcons.angleLeft, color: CustomMaterialColor.buttonColorBlue, size: 30.0),
+                        child: Icon(FontAwesomeIcons.angleLeft, color: CustomMaterialColor.subColorBlack[100], size: 20.0),
                         onPressed: (){}
                     ),
                   ),
@@ -69,7 +67,7 @@ class _HomepageState extends State<Homepage>{
                   Center(
                     child: Text(
                     "Today",
-                      style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold,
+                      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold,
                       color: CustomMaterialColor.emphasisColor),
                     ),
                   ),
@@ -77,7 +75,7 @@ class _HomepageState extends State<Homepage>{
                   Expanded(
                     //alignment: Alignment.centerRight,
                     child: MaterialButton(
-                        child: Icon(FontAwesomeIcons.angleRight, color: CustomMaterialColor.buttonColorBlue, size: 30.0),
+                        child: Icon(FontAwesomeIcons.angleRight, color: CustomMaterialColor.subColorBlack[100], size: 20.0),
                         onPressed: (){
                         }
                     ),
@@ -109,10 +107,9 @@ class _HomepageState extends State<Homepage>{
                       style:
                       TextStyle(
                         fontSize: 20.0,
-                        fontFamily: "Arial",
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
-                        decorationColor: CustomMaterialColor.buttonColorBlue,
+                        decorationColor: CustomMaterialColor.bannerColor,
                         foreground: Paint()..color = CustomMaterialColor.bannerColor,
                       ),
                     ),

@@ -11,7 +11,7 @@ class HomePieChart extends StatefulWidget {
 
 class HomePieState extends State<HomePieChart>{
   List<String> sources = ['Transport','Gas','Home\n Energy'];
-  List<Color> sourceColors = [CustomMaterialColor.buttonColorBlue[200],
+  List<Color> sourceColors = [CustomMaterialColor.subColorArmy[200],
     CustomMaterialColor.emphasisColor[200],CustomMaterialColor.subColorGrass[200]];
   List<double> _consumptions;
   int _totalEmission;
@@ -187,7 +187,7 @@ class HomePieState extends State<HomePieChart>{
             title: sources[0],
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
@@ -196,7 +196,7 @@ class HomePieState extends State<HomePieChart>{
             title: sources[1],
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 2:
           return PieChartSectionData(
@@ -205,7 +205,7 @@ class HomePieState extends State<HomePieChart>{
             title: sources[2],
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize, color: const Color(0xffffffff)),
           );
         default:
           return null;
@@ -216,7 +216,7 @@ class HomePieState extends State<HomePieChart>{
   List<PieChartSectionData> noSection(){
     return List.generate(1, (i){
       final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 34 : 30;
+      final double fontSize = isTouched ? 24 : 20;
       final double radius = isTouched ? 115 : 115;
       switch(i){
         case 0:
@@ -227,7 +227,7 @@ class HomePieState extends State<HomePieChart>{
             title: "No emission",
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: CustomMaterialColor.emphasisColor),
+                fontSize: fontSize, color: CustomMaterialColor.subColorBlack[50]),
           );
         default:
           return null;
@@ -248,7 +248,7 @@ class HomePieState extends State<HomePieChart>{
             title: sources[index],
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize, color: const Color(0xffffffff)),
           );
         default:
           return null;
@@ -269,7 +269,7 @@ class HomePieState extends State<HomePieChart>{
             title: sources[index],
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize, color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
@@ -278,7 +278,7 @@ class HomePieState extends State<HomePieChart>{
             title: sources[ind],
             radius: radius,
             titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+                fontSize: fontSize, color: const Color(0xffffffff)),
           );
         default:
           return null;

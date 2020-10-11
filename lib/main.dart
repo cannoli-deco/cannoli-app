@@ -56,6 +56,6 @@ class MyHomePage extends StatelessWidget {
   // Add your views in navigation_bar
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text(title)), body: NavigationBar());
+    return Scaffold(appBar: AppBar(title: Text(title, style: TextStyle(color:CustomMaterialColor.buttonColorWhite), textAlign: TextAlign.center,)), body: NavigationBar());
   }
 }

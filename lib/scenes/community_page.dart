@@ -1,8 +1,6 @@
 import 'package:cannoli_app/articles.dart';
 import 'package:cannoli_app/color_scheme.dart';
-import 'package:cannoli_app/community_card.dart';
 import 'package:cannoli_app/community_feed.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class CommunityPage extends StatefulWidget {

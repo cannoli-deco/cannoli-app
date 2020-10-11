@@ -1,5 +1,4 @@
 import 'package:cannoli_app/color_scheme.dart';
-import 'package:cannoli_app/comparison_graph.dart';
 import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
 import 'package:cannoli_app/login/login.dart';
