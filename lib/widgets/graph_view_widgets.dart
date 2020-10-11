@@ -148,44 +148,47 @@ class _AllChartsState extends State<AllCharts> {
 
   // Widget: Pie chart to show daily total user emissions, classified by categories
   Widget getPieChart(String title, String subtitle) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  color: CustomMaterialColor.bannerColor,
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: CustomMaterialColor.bannerColor,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 6.0,
-              ),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: subTextColor,
+                SizedBox(
+                  height: 6.0,
                 ),
-              ),
-              Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                child: AnimatedCircularChart(
-                  size: const Size(260, 260),
-                  initialChartData: circularData,
-                  chartType: CircularChartType.Pie,
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: subTextColor,
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  height: 312.0,
+                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                  child: AnimatedCircularChart(
+                    size: const Size(260, 260),
+                    initialChartData: circularData,
+                    chartType: CircularChartType.Pie,
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
