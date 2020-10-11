@@ -53,7 +53,8 @@ Widget feedPost() {
                           },
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(height: 10,)
               ])));
 }
 

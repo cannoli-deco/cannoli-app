@@ -19,6 +19,7 @@ class _CommunityCardState extends State<CommunityCard> {
       height: MediaQuery.of(context).size.height,
         child: postLength >= 1 ? 
         new ListView.builder (
+          padding: EdgeInsets.only(bottom: 300),
           itemCount: posts.length,
           itemBuilder: (context, index) {
           return posts[index];
