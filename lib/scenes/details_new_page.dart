@@ -61,42 +61,44 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   }
 
   Widget tabPageAll() {
-    return Stack(
-      children: <Widget>[
-        Column(
-          children: [
-            Container(
-              height: 400,
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-              child: AllCharts(),
-            ),
-            Container(
-              height: 35.0,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Swipe up for more',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Colors.grey[500],
+    return Expanded(
+      child: Stack(
+        children: <Widget>[
+          Column(
+            children: [
+              Container(
+                height: 400,
+                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                child: AllCharts(),
+              ),
+              Container(
+                height: 35.0,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Swipe up for more',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey[500],
+                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_up,
-                      color: Colors.grey[500],
-                      size: 15.0,
-                    )
-                  ],
+                      Icon(
+                        Icons.keyboard_arrow_up,
+                        color: Colors.grey[500],
+                        size: 15.0,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        AllLogSheet(),
-      ],
+            ],
+          ),
+          AllLogSheet(),
+        ],
+      ),
     );
   }
 
