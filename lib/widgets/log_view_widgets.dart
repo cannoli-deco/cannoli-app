@@ -52,7 +52,7 @@ Widget getLogDivider() {
 Widget getLogTextBody(String source, int consumption, DateTime time) {
   return Container(
     height: 50.0,
-    width: 300.0,
+    width: 270.0,
     child: Padding(
       padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
       child: Column(
@@ -74,14 +74,14 @@ Widget getLogTextBody(String source, int consumption, DateTime time) {
               Text(
                 consumption.toString() + ' CO\u2082 footprint',
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: 12.0,
                   color: Colors.grey[500],
                 ),
               ),
               Text(
                 getTimeStamp(time),
                 style: TextStyle(
-                  fontSize: 14.0,
+                  fontSize: 12.0,
                   color: Colors.grey[500],
                 ),
               ),

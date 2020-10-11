@@ -177,7 +177,7 @@ class _AllChartsState extends State<AllCharts> {
                 height: 312.0,
                 padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                 child: AnimatedCircularChart(
-                  size: const Size(300, 300),
+                  size: const Size(260, 260),
                   initialChartData: circularData,
                   chartType: CircularChartType.Pie,
                 ),

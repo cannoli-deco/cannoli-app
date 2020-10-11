@@ -11,26 +11,26 @@ class CommunityFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-          padding: EdgeInsets.all(8),
-          children: [
-            StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection("posts").snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  DocumentSnapshot item = snapshot.data.documents[0];
-                  return CommunityCard(
-                    userName: item.data()["owner_name"],
-                    content: item.data()["content"],
-                  );
-                } else {
-                  return Text("none");
-                }
-              },
-            )
-          ],
-        ),
+      body: ListView(
+        padding: EdgeInsets.all(8),
+        children: [
+          StreamBuilder(
+            stream: FirebaseFirestore.instance.collection("posts").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                DocumentSnapshot item = snapshot.data.documents[0];
+                return CommunityCard(
+                  userName: item.data()["owner_name"],
+                  content: item.data()["content"],
+                );
+              } else {
+                return Text("none");
+              }
+            },
+          )
+        ],
+      ),
+      /*
         floatingActionButton: auth.currentUser.uid == null ? null : FloatingActionButton(
           heroTag: "submissionButton",
           onPressed: () {
@@ -40,6 +40,8 @@ class CommunityFeed extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16.0))),
-        ));
+        )
+        */
+    );
   }
 }
