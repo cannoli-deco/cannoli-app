@@ -1,12 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/color_scheme.dart';
 
 List<Widget> posts = new List<Widget>();
 
 class CommunityCard extends StatefulWidget {
-  CommunityCard({Key key, this.content, this.userName}) : super(key: key);
-  final String content;
-  final String userName;
+  CommunityCard({Key key, this.postData}) : super(key: key);
+  final List<DocumentSnapshot> postData;
 
   @override
   _CommunityCardState createState() => _CommunityCardState();
@@ -15,23 +15,22 @@ class CommunityCard extends StatefulWidget {
 class _CommunityCardState extends State<CommunityCard> {
   @override
   Widget build(BuildContext context) {
+    loadPost(widget.postData);
     int postLength = posts.length;
     return SizedBox(
         width: 300,
         height: MediaQuery.of(context).size.height,
         child: postLength >= 1
             ? new ListView.builder(
-                padding: EdgeInsets.only(bottom: 300),
+                padding: EdgeInsets.only(bottom: 100),
                 itemCount: posts.length,
                 itemBuilder: (context, index) {
                   return posts[index];
                 },
               )
             : Center(
-                child: RaisedButton(
                 child: Text("Nothing to show..."),
-                onPressed: () => addFeedPost("Ivan Leong", "Testing 123 Hello :)", new DateTime.now()),
-              )));
+              ));
   }
 }
 
@@ -79,7 +78,10 @@ Widget feedPost(String name, String content, DateTime date) {
       ])));
 }
 
-void addFeedPost(String name, String content, DateTime date) {
-  posts.add(feedPost(name, content, date));
-  print(posts.length);
+void loadPost(List<DocumentSnapshot> postData) {
+  posts.clear();
+  for (int i = 0; i < postData.length; i++) {
+    // TODO: Date needs to be change
+    posts.add(feedPost(postData[i].data()["owner_name"], postData[i].data()["content"], DateTime.now()));
+  }
 }

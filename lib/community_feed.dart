@@ -20,10 +20,9 @@ class CommunityFeed extends StatelessWidget {
                   FirebaseFirestore.instance.collection("posts").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  DocumentSnapshot item = snapshot.data.documents[0];
+                  List<DocumentSnapshot> items = snapshot.data.documents;
                   return CommunityCard(
-                    userName: item.data()["owner_name"],
-                    content: item.data()["content"],
+                    postData: items,
                   );
                 } else {
                   return Text("none");
