@@ -24,9 +24,12 @@ class _CommunityPageState extends State<CommunityPage> {
                       child: Column(
                     children: [
                       TabBar(
+                        labelColor: CustomMaterialColor.emphasisColor,
+                        indicatorColor: CustomMaterialColor.emphasisColor,
+                        unselectedLabelColor: CustomMaterialColor.subColorBlack[50],
                         tabs: [
-                          Tab(icon: Icon(Icons.people, color: CustomMaterialColor.subColorBlack)),
-                          Tab(icon: Icon(Icons.book, color: CustomMaterialColor.subColorBlack)),
+                          Tab(text: "Feed"),
+                          Tab(text: "Articles"),
                         ],
                       )
                     ],
