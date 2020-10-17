@@ -31,7 +31,27 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<String> signUp(LoginData data) async {
+<<<<<<< Updated upstream
     _auth.signUp(data);
+=======
+<<<<<<< Updated upstream
+    try {
+      UserCredential user = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: data.name, password: data.password);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('Please enter a stronger password.');
+      } else if (e.code == 'email-already-in-use') {
+        print('An account already exists for that email.');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+=======
+    await _auth.signUp(data);
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
   }
 
   // Future<String> signIn(LoginData data) async {
