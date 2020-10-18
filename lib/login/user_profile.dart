@@ -10,8 +10,6 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final AuthStream _auth = AuthStream();
-<<<<<<< Updated upstream
-=======
   final _formKey = GlobalKey<FormState>();
 
   // reload user
@@ -50,7 +48,6 @@ class _UserProfileState extends State<UserProfile> {
           ));
         });
   }
->>>>>>> Stashed changes
 
   @override
   Widget build(BuildContext context) {
@@ -77,42 +74,29 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-<<<<<<< Updated upstream
-                          'Display name: Eco-123',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        OutlineButton(child: Text('Change display name'))
-                        //Text(_auth.userProfile.displayName),
-=======
-                          'Display name: ',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        Text(_auth.getUser().displayName),
+                      children: <Widget>[
+                        Row(children: <Widget>[
+                          Text(
+                            'Display name: ',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          //Text(_auth.getUser().displayName),
+                        ]),
                         OutlineButton(
                           child: Text('Change display name'),
                           onPressed: () {
                             showChangeDisplayNameForm(context);
                           },
                         ),
->>>>>>> Stashed changes
                       ])
                 ]),
                 SizedBox(height: 15),
                 Row(children: [
                   Text(
-<<<<<<< Updated upstream
-                    'Email: eco@gmail.com',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  //Text(_auth.userProfile.email),
-=======
                     'Email: ',
                     style: TextStyle(fontSize: 15),
                   ),
                   Text(_auth.getUser().email),
->>>>>>> Stashed changes
                 ]),
                 SizedBox(height: 15),
                 Row(
