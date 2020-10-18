@@ -60,6 +60,19 @@ class _UserProfileState extends State<UserProfile> {
         });
   }
 
+  Widget displayNameWidget() {
+    if (_auth.getUser().displayName != null) {
+      return Column(children: <Widget>[
+        Row(children: <Widget>[
+          Text('Display name: ', style: TextStyle(fontSize: 15)),
+          Text(_auth.getUser().displayName),
+        ]),
+      ]);
+    } else {
+      return Text('No display name set');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,16 +100,15 @@ class _UserProfileState extends State<UserProfile> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(children: <Widget>[
-                          Text(
-                            'Display name: ',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          //Text(_auth.getUser().displayName),
+                          displayNameWidget(),
                         ]),
                         OutlineButton(
                           child: Text('Change display name'),
                           onPressed: () {
                             showChangeDisplayNameForm(context);
+                            setState(() {
+                              displayNameWidget();
+                            });
                           },
                         ),
                       ])
