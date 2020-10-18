@@ -12,7 +12,7 @@ class _UserProfileState extends State<UserProfile> {
   final AuthStream _auth = AuthStream();
   final _formKey = GlobalKey<FormState>();
 
-  // reload user
+  String _displayName;
 
   void showChangeDisplayNameForm(BuildContext context) {
     showDialog(
@@ -32,8 +32,7 @@ class _UserProfileState extends State<UserProfile> {
                         labelText: 'New display name',
                       ),
                       // keyboardType: TextInputType.number, # from car_input.dart
-                      onSaved: (String value) =>
-                          {_auth.updateDisplayName(value)},
+                      onSaved: (String value) => {_displayName = value},
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Please enter a new display name';
@@ -41,6 +40,18 @@ class _UserProfileState extends State<UserProfile> {
                         return null;
                       },
                     ),
+                    RaisedButton(
+                        child: Text('Submit'),
+                        onPressed: () async {
+                          _formKey.currentState.validate();
+                          FormState form = _formKey.currentState;
+                          form.save();
+
+                          // Updates User's display name
+                          await _auth.updateDisplayName(_displayName);
+                          Navigator.pop(context);
+                          print(_auth.getUser());
+                        }),
                   ],
                 ),
               ),

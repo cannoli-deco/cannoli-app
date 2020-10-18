@@ -57,6 +57,7 @@ class AuthStream {
 
   void updateDisplayName(String name) async {
     await _auth.currentUser.updateProfile(displayName: name);
+    await _auth.currentUser.reload();
   }
 
   Future<void> signOut() async {
