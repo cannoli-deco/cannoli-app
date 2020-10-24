@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final FirebaseAuth auth = FirebaseAuth.instance;
 
 class CommunitySubmission extends StatefulWidget {
+  /// Page to submit community post
   @override
   _CommunitySubmissionState createState() => _CommunitySubmissionState();
 }

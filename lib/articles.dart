@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:webfeed/webfeed.dart';
 import 'package:http/http.dart' as http;
 
+
+/// Fetches rss from external source using RSSfeed library.
 Future<RssFeed> fetchRSS() async {
   final response =
       await http.get('https://www.sciencedaily.com/rss/top/environment.xml');
@@ -14,6 +16,7 @@ Future<RssFeed> fetchRSS() async {
   }
 }
 
+/// Article builder reading from external RSS source.
 class Articles extends StatefulWidget {
   @override
   _ArticlesState createState() => _ArticlesState();

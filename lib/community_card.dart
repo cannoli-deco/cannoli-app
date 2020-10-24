@@ -4,6 +4,7 @@ import 'package:cannoli_app/color_scheme.dart';
 
 List<Widget> posts = new List<Widget>();
 
+/// Shows a single community submission
 class CommunityCard extends StatefulWidget {
   CommunityCard({Key key, this.postData}) : super(key: key);
   final List<DocumentSnapshot> postData;

@@ -3,6 +3,7 @@ import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/community_feed.dart';
 import 'package:flutter/material.dart';
 
+/// Community page containing rss and community feed showing them in a tabbar.
 class CommunityPage extends StatefulWidget {
   @override
   _CommunityPageState createState() => _CommunityPageState();

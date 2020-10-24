@@ -8,6 +8,7 @@ import 'community_card.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
+/// Shows the community posts from firebase using [CommunityCard]
 class CommunityFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
