@@ -1,6 +1,12 @@
-# cannoli_app
+# eco2 tracker
 
-Cannoli app
+## Architecture
+
+![](systemarchitecture.png)
+
+## Schema
+
+![](schema.png)
 
 ## BEFORE YOU PUSH
 
