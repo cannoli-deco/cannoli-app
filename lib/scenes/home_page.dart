@@ -3,17 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cannoli_app/database.dart';
-
 import 'package:cannoli_app/home_pie_chart.dart';
 
+/// {@category Scene}
 class Homepage extends StatefulWidget {
   Homepage({Key key}) : super(key: key);
 
   @override
   _HomepageState createState() => _HomepageState();
 }
-
-
 
 class _HomepageState extends State<Homepage>{
   int _totalEmission = 0;
@@ -27,6 +25,7 @@ class _HomepageState extends State<Homepage>{
     });
   }
 
+  /// Load entries from database
   void _loadEntries() async {
     double totalConsumption = 0;
 
@@ -114,66 +113,6 @@ class _HomepageState extends State<Homepage>{
                       ),
                     ),
                   ),
-
-              // Max emission text disabled
-//                  Padding(
-//                    padding: EdgeInsets.only(top:24.0),
-//                    child: Text(
-//                      _emissionGoal,
-//                      style:
-//                      TextStyle(
-//                        fontSize: 30.0,
-//                        fontFamily: "Arial",
-//                        fontWeight: FontWeight.bold,
-//                        //decoration: TextDecoration.underline,
-//                        decorationColor: CustomMaterialColor.buttonColorBlue,
-//                        foreground: Paint()..color = CustomMaterialColor.subColorBlack,
-//                      ),
-//                    ),
-//                  )
-
-                  /// Add emission goal button is disabled for now
-                  // IconButton(
-                  //   icon: Icon(Icons.alarm_on),
-                  //   color: CustomMaterialColor.subColorRed,
-                  //   onPressed: (){
-                  //     showDialog(
-                  //         context: context,
-                  //         builder: (BuildContext context){
-                  //           return new AlertDialog(
-                  //             content: Container(
-                  //               height: 100,
-                  //               width: 250,
-                  //               child: Column(
-                  //                 children: <Widget>[
-                  //                   TextField(
-                  //                     decoration: InputDecoration(
-                  //                         hintText: "Please enter your emission goal"
-                  //                     ),
-                  //                     onChanged: (String value){
-                  //                       setState(() {
-                  //                           _emissionGoal = "$value KG CO\u2082";
-                  //                       });
-                  //                     },
-                  //                   ),
-                  //
-                  //                   RaisedButton(
-                  //                     color: CustomMaterialColor.subColorRed,
-                  //                     child: Text('Save',
-                  //                         style: TextStyle(
-                  //                             color: CustomMaterialColor.emphasisColor)),
-                  //                     onPressed: (){
-                  //                       Navigator.pop(context);
-                  //                     },
-                  //                   )
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //           );
-                  //         }
-                  //     );
-                  //   },
-                  // ),
                 ],
               ),
             )

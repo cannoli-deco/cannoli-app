@@ -2,9 +2,10 @@ import 'package:cannoli_app/widgets/emission_charts.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 
-// [START]Details Page: Graph View Widgets
-// -------------------------------------------------------------------------------------------
-// Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
+/// {@category Widgets}
+/// {@subcategory Charts}
+/// [START] Details Page: Graph View Widgets
+/// Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
 Widget getTransportGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -27,7 +28,7 @@ Widget getTransportGraphWidgets() {
   );
 }
 
-// Widget: Details Page, Generates List of Home Energy Emission widgets needed for graph view
+/// Widget: Details Page, Generates List of Home Energy Emission widgets needed for graph view
 Widget getHomeGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -51,7 +52,7 @@ Widget getHomeGraphWidgets() {
   );
 }
 
-// Widget: Details Page, Generates List of Important General Emission widgets needed for graph view
+/// Widget: Details Page, Generates List of Important General Emission widgets needed for graph view
 Widget getAllGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -82,12 +83,10 @@ Widget getAllGraphWidgets() {
     ),
   );
 }
-// -------------------------------------------------------------------------------------------
-// [END]Details Page: Graph View Widgets
 
-// [START]Details Page: Og View Widgets
-// -------------------------------------------------------------------------------------------
-// Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
+/// [END]Details Page: Graph View Widgets
+/// [START]Details Page: Og View Widgets
+/// Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
 Widget getTransportLogWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -106,7 +105,7 @@ Widget getTransportLogWidgets() {
   );
 }
 
-// Widget: Details Page, Generates List of Home Energy Emission widgets needed for Log view
+/// Widget: Details Page, Generates List of Home Energy Emission widgets needed for Log view
 Widget getHomeLogWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -125,7 +124,7 @@ Widget getHomeLogWidgets() {
   );
 }
 
-// Widget: Details Page, Generates List of Important General Emission widgets needed for Log view
+/// Widget: Details Page, Generates List of Important General Emission widgets needed for Log view
 Widget getAllLogWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -143,5 +142,4 @@ Widget getAllLogWidgets() {
     ),
   );
 }
-// -------------------------------------------------------------------------------------------
-// [END]Details Page: Log View Widgets
+/// [END]Details Page: Log View Widgets

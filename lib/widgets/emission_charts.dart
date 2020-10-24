@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 
-// Widget: Generates line chart to depict user emissions
+/// {@category Widgets}
+/// {@subcategory Charts}
+/// Widget: Generates line chart to depict user emissions
 Widget mychart1Items(String title, String priceVal, String subtitle) {
   return Material(
     color: Colors.white,
@@ -77,7 +79,7 @@ Widget mychart1Items(String title, String priceVal, String subtitle) {
   );
 }
 
-// Widget: Compares user to ideal australian
+/// Widget: Compares user to ideal australian
 Widget comparisonCard(String title, String subTitle) {
   return Material(
     color: Colors.white,
@@ -136,7 +138,7 @@ List<CircularStackEntry> circularData = <CircularStackEntry>[
   ),
 ];
 
-// Widget: Pie chart to show daily total user emissions, classified by categories
+/// Widget: Pie chart to show daily total user emissions, classified by categories
 Widget myCircularItems(String title, String subtitle) {
   return Material(
     color: Colors.white,

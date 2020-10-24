@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
-// General widget for text in forms.
-// Uses a 200W x 40H pixel dimension box to store output string
-// Usage : formTextBoxWidget (<context>, <output string>),
+/// {@category Widgets}
+/// {@subcategory Tools}
+/// General widget for text in forms.
+/// Uses a 200W x 40H pixel dimension box to store output string
+/// Usage : formTextBoxWidget (<context>, <output string>),
 Widget formTextBoxWidget(BuildContext context, String op) {
   return SizedBox(
     // Dimensions of text box

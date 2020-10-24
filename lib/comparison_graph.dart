@@ -2,6 +2,9 @@ import 'package:cannoli_app/database.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+/// {@category Widgets}
+/// {@subcategory Charts}
+/// Comparison graph for details page
 class ComparisonGraph extends StatefulWidget {
   ComparisonGraph({Key key}) : super(key: key);
 
