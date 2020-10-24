@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the conversion function from the home_input library, for the Dart programming language.">
+  <title>conversion function - home_input library - Dart API</title>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../static-assets/github.css">
+  <link rel="stylesheet" href="../static-assets/styles.css">
+  <link rel="icon" href="../static-assets/favicon.png">
+
+</head>
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">cannoli_app</a></li>
+    <li><a href="../inputs_home_input/inputs_home_input-library.html">home_input</a></li>
+    <li class="self-crumb">conversion function</li>
+  </ol>
+  <div class="self-name">conversion</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="../index.html">cannoli_app</a></li>
+      <li><a href="../inputs_home_input/inputs_home_input-library.html">home_input</a></li>
+      <li class="self-crumb">conversion function</li>
+    </ol>
+    
+    <h5>home_input library</h5>
+    <ol>
+      <li class="section-title"><a href="../inputs_home_input/inputs_home_input-library.html#classes">Classes</a></li>
+      <li><a href="../inputs_home_input/HomeFormInput-class.html">HomeFormInput</a></li>
+      <li><a href="../inputs_home_input/HomeInput-class.html">HomeInput</a></li>
+      <li><a href="../inputs_home_input/HomeInputForm-class.html">HomeInputForm</a></li>
+      <li><a href="../inputs_home_input/HomeInputFormState-class.html">HomeInputFormState</a></li>
+    
+    
+    
+    
+    
+      <li class="section-title"><a href="../inputs_home_input/inputs_home_input-library.html#functions">Functions</a></li>
+      <li><a href="../inputs_home_input/calculateEmission.html">calculateEmission</a></li>
+      <li><a href="../inputs_home_input/conversion.html">conversion</a></li>
+    
+    
+    
+    </ol>
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-function">conversion</span> function  </h1></div>
+
+    <section class="multi-line-signature">
+        <span class="returntype"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span>
+                <span class="name ">conversion</span>
+(<wbr><ol class="parameter-list"><li><span class="parameter" id="conversion-param-val"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">val</span>, </span></li>
+<li><span class="parameter" id="conversion-param-mul"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">mul</span>, </span></li>
+<li><span class="parameter" id="conversion-param-jurisdiction"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">jurisdiction</span></span></li>
+</ol>)
+    </section>
+    
+    <section class="summary source-code" id="source">
+      <h2><span>Implementation</span></h2>
+      <pre class="language-dart"><code class="language-dart">double conversion(double val, double mul, String jurisdiction) {
+  switch (jurisdiction) {
+    case &quot;NSW&quot;:
+      &#47;&#47; consumption * conversion to annual consumption * state emissions factor
+      return (val * mul * 0.81);
+    case &quot;ACT&quot;:
+      return (val * mul * 0.81);
+    case &quot;VIC&quot;:
+      return (val * mul * 1.02);
+    case &quot;QLD&quot;:
+      return (val * mul * 0.81);
+    case &quot;SA&quot;:
+      return (val * mul * 0.44);
+    case &quot;WA&quot;:
+      return (val * mul * 0.64); &#47;&#47; average of EF for SWIS and NWIS
+    case &quot;TAS&quot;:
+      return (val * mul * 0.15);
+    case &quot;NT&quot;:
+      return (val * mul * 0.63);
+    default:
+      return 0;
+  }
+}</code></pre>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    cannoli_app
+      1.0.0+1
+  </span>
+
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../static-assets/typeahead.bundle.min.js"></script>
+<script src="../static-assets/highlight.pack.js"></script>
+<script src="../static-assets/URI.js"></script>
+<script src="../static-assets/script.js"></script>
+
+
+</body>
+
+</html>
