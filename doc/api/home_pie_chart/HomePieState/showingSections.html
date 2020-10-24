@@ -111,56 +111,54 @@
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">List&lt;PieChartSectionData&gt; showingSections(){
-  if(_consumptions[0] != 0.0 &amp;&amp; _consumptions[1] != 0.0
-      &amp;&amp; _consumptions[2] != 0.0){
+      <pre class="language-dart"><code class="language-dart">List&lt;PieChartSectionData&gt; showingSections() {
+  if (_consumptions[0] != 0.0 &amp;&amp;
+      _consumptions[1] != 0.0 &amp;&amp;
+      _consumptions[2] != 0.0) {
     return allSections();
   }
 
-  if(_consumptions[0] != 0.0){
-    if(_consumptions[1] == 0.0
-        &amp;&amp; _consumptions[2] == 0.0){
+  if (_consumptions[0] != 0.0) {
+    if (_consumptions[1] == 0.0 &amp;&amp; _consumptions[2] == 0.0) {
       return oneSection(0);
-    }else{
-      if(_consumptions[1] == 0.0){
+    } else {
+      if (_consumptions[1] == 0.0) {
         return twoSections(0, 2);
-      }else{
+      } else {
         return twoSections(0, 1);
       }
     }
   }
 
-  if(_consumptions[1] != 0.0){
-    if(_consumptions[0] == 0.0
-        &amp;&amp; _consumptions[2] == 0.0){
+  if (_consumptions[1] != 0.0) {
+    if (_consumptions[0] == 0.0 &amp;&amp; _consumptions[2] == 0.0) {
       return oneSection(1);
-    }else{
-      if(_consumptions[0] == 0.0){
+    } else {
+      if (_consumptions[0] == 0.0) {
         return twoSections(1, 2);
-      }else{
+      } else {
         return twoSections(1, 0);
       }
     }
   }
 
-  if(_consumptions[2] != 0.0){
-    if(_consumptions[0] == 0.0
-        &amp;&amp; _consumptions[1] == 0.0){
+  if (_consumptions[2] != 0.0) {
+    if (_consumptions[0] == 0.0 &amp;&amp; _consumptions[1] == 0.0) {
       return oneSection(2);
-    }else{
-      if(_consumptions[0] == 0.0){
+    } else {
+      if (_consumptions[0] == 0.0) {
         return twoSections(1, 2);
-      }else{
+      } else {
         return twoSections(0, 2);
       }
     }
   }
 
-  if(_consumptions[0] == 0.0 &amp;&amp; _consumptions[1] == 0.0
-      &amp;&amp; _consumptions[2] == 0.0){
+  if (_consumptions[0] == 0.0 &amp;&amp;
+      _consumptions[1] == 0.0 &amp;&amp;
+      _consumptions[2] == 0.0) {
     return noSection();
   }
-
 }</code></pre>
     </section>
 

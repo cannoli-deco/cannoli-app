@@ -111,12 +111,12 @@
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">List&lt;PieChartSectionData&gt; noSection(){
-  return List.generate(1, (i){
+      <pre class="language-dart"><code class="language-dart">List&lt;PieChartSectionData&gt; noSection() {
+  return List.generate(1, (i) {
     final isTouched = i == touchedIndex;
     final double fontSize = isTouched ? 24 : 20;
     final double radius = isTouched ? 115 : 115;
-    switch(i){
+    switch (i) {
       case 0:
         return PieChartSectionData(
           titlePositionPercentageOffset: 0,
@@ -125,7 +125,8 @@
           title: &quot;No emission&quot;,
           radius: radius,
           titleStyle: TextStyle(
-              fontSize: fontSize, color: CustomMaterialColor.subColorBlack[50]),
+              fontSize: fontSize,
+              color: CustomMaterialColor.subColorBlack[50]),
         );
       default:
         return null;

@@ -207,9 +207,9 @@ prints green, as expected.</p>
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
-  &#47;&#47; TODO: implement build
-  if(_consumptions[0] == 0.0 &amp;&amp; _consumptions[1] == 0.0
-      &amp;&amp; _consumptions[2] == 0.0){
+  if (_consumptions[0] == 0.0 &amp;&amp;
+      _consumptions[1] == 0.0 &amp;&amp;
+      _consumptions[2] == 0.0) {
     return Container(
       child: Row(
         children: &lt;Widget&gt;[
@@ -221,7 +221,8 @@ Widget build(BuildContext context) {
               aspectRatio: 1,
               child: PieChart(
                 PieChartData(
-                    pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                    pieTouchData:
+                        PieTouchData(touchCallback: (pieTouchResponse) {
                       setState(() {
                         if (pieTouchResponse.touchInput is FlLongPressEnd ||
                             pieTouchResponse.touchInput is FlPanEnd) {
@@ -242,34 +243,18 @@ Widget build(BuildContext context) {
           ),
         ],
       ),
-
-          &#47;&#47; Text(
-          &#47;&#47;   &quot;Total emission: $_totalEmission KG&#47;CO\u2082&quot;,
-          &#47;&#47;   style:
-          &#47;&#47;   TextStyle(
-          &#47;&#47;     fontSize: 28.0,
-          &#47;&#47;     fontFamily: &quot;Arial&quot;,
-          &#47;&#47;     fontWeight: FontWeight.bold,
-          &#47;&#47;     decoration: TextDecoration.underline,
-          &#47;&#47;     decorationColor: CustomMaterialColor.buttonColorBlue,
-          &#47;&#47;     foreground: Paint()..color = CustomMaterialColor.subColorArmy,
-          &#47;&#47;   ),
-          &#47;&#47; )
     );
-  }
-  else{
+  } else {
     return Container(
       child: Row(
         children: &lt;Widget&gt;[
-          &#47;&#47; const SizedBox(
-          &#47;&#47;   height: 18,
-          &#47;&#47; ),
           Expanded(
             child: AspectRatio(
               aspectRatio: 1,
               child: PieChart(
                 PieChartData(
-                    pieTouchData: PieTouchData(touchCallback: (pieTouchResponse) {
+                    pieTouchData:
+                        PieTouchData(touchCallback: (pieTouchResponse) {
                       setState(() {
                         if (pieTouchResponse.touchInput is FlLongPressEnd ||
                             pieTouchResponse.touchInput is FlPanEnd) {
@@ -290,20 +275,6 @@ Widget build(BuildContext context) {
           ),
         ],
       ),
-          &#47;&#47; Text(
-          &#47;&#47;   &quot;Total emission: $_totalEmission KG&#47;CO\u2082&quot;,
-          &#47;&#47;   style:
-          &#47;&#47;   TextStyle(
-          &#47;&#47;     fontSize: 28.0,
-          &#47;&#47;     fontFamily: &quot;Arial&quot;,
-          &#47;&#47;     fontWeight: FontWeight.bold,
-          &#47;&#47;     decoration: TextDecoration.underline,
-          &#47;&#47;     decorationColor: CustomMaterialColor.buttonColorBlue,
-          &#47;&#47;     foreground: Paint()..color = CustomMaterialColor.subColorArmy,
-          &#47;&#47;   ),
-          &#47;&#47; ),
-
-
     );
   }
 }</code></pre>

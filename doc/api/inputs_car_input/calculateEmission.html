@@ -81,13 +81,17 @@
 <li><span class="parameter" id="calculateEmission-param-distance"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a></span> <span class="parameter-name">distance</span></span></li>
 </ol>)
     </section>
+    <section class="desc markdown">
+      <p>Function to calculate emission with given transportation type and distance</p>
+    </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">int calculateEmission(String type, double distance) {
   switch (type) {
     case &quot;Medium&quot;:
-      return (0.297 * distance * 1000).floor(); &#47;&#47; emissions (kg&#47;km) * distance * 1000 (gram conversion)
+      return (0.297 * distance * 1000)
+          .floor(); &#47;&#47; emissions (kg&#47;km) * distance * 1000 (gram conversion)
     case &quot;Small&quot;:
       return (0.228 * distance * 1000).floor();
     case &quot;Large&quot;:
