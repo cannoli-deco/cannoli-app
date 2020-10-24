@@ -5,7 +5,6 @@ import 'color_scheme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cannoli_app/database.dart';
 
-
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -15,6 +14,7 @@ void main() async{
 
 const AppName = 'eCO\u2082 Tracker';
 
+/// Main component of the application
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override

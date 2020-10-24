@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'inputs/input_list.dart';
 
+/// {@category Navigation}
+/// Navigation routes
 final routes = <String, WidgetBuilder>{
   // we don't need home because it is specified in main
   '/input': (context) => InputList(),

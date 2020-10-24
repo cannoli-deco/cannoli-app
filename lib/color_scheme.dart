@@ -1,6 +1,9 @@
 // Color Scheme
 import 'package:flutter/material.dart';
 
+/// {@category Design}
+/// {@subcategory Color}
+/// Custom color class for color scheme
 class CustomMaterialColor{
   static MaterialColor bannerColor;
   static MaterialColor emphasisColor;
@@ -12,6 +15,7 @@ class CustomMaterialColor{
   static MaterialColor subColorRed;
   static MaterialColor subColorDarkYelow;
 
+  /// Initialization of all colors
   static void initializeCustomColor() {
     bannerColor = createCustomColor(0xFF04645A);
     emphasisColor = createCustomColor(0xFFE2B129);
@@ -24,7 +28,7 @@ class CustomMaterialColor{
     subColorDarkYelow = createCustomColor(0xFFD59D33);
   }
 
-
+  /// Create color shades according to flutter requirement
   static MaterialColor createCustomColor(int primary) {
     int red = (0x00ff0000 & primary) >> 16;
     int green = (0x0000ff00 & primary) >> 8;

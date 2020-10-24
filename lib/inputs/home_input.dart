@@ -3,8 +3,6 @@ import 'package:cannoli_app/database.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 
-// final _title = 'Home Energy Input';
-
 class HomeFormInput {
   String type;
   String billingCycle;
@@ -12,7 +10,7 @@ class HomeFormInput {
   String jurisdiction;
 }
 
-// Converts electrical consumption (kWh) to kg of C02
+/// Converts electrical consumption (kWh) to kg of C02
 double conversion(double val, double mul, String jurisdiction) {
   switch (jurisdiction) {
     case "NSW":
@@ -37,6 +35,7 @@ double conversion(double val, double mul, String jurisdiction) {
   }
 }
 
+/// Function to calculate emission with given billing cycle and kwh 
 int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
   switch (billingCycle) {
     case "Monthly":
@@ -52,6 +51,7 @@ int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
   }
 }
 
+/// {@category Input}
 class HomeInput extends StatelessWidget {
   //final _formkey = GlobalKey();
 
@@ -93,6 +93,7 @@ class HomeInputFormState extends State<HomeInputForm> {
   String dropDownJurisdiction = "QLD";
   HomeFormInput newHomeInput = new HomeFormInput();
 
+  /// Show calculated carbon popups when input is finalized
   void showCalculatedDialog(BuildContext context, int emission) {
     showDialog(
       context: context,
@@ -114,6 +115,7 @@ class HomeInputFormState extends State<HomeInputForm> {
     );
   }
 
+  /// Show home input popups 
   void showHomeInputForm(BuildContext context) {
     showDialog(
       context: context,

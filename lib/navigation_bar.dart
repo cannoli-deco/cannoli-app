@@ -9,6 +9,8 @@ import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/scenes/details_page.dart';
 import 'package:flutter/rendering.dart';
 
+/// {@category Navigation}
+/// Navigation bar
 class NavigationBar extends StatefulWidget {
   NavigationBar({Key key}) : super(key: key);
 
@@ -21,28 +23,21 @@ class _NavigationBarState extends State<NavigationBar> {
   bool _addActive = false;
 
   int _selectedIndex = 0;
-  
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   PageController _pageController = PageController();
 
-  // Import and add your components here
+  /// Add components here
   List<Widget> _screens = <Widget>[
-    // Add home page here
     Homepage(),
-
-    /// Add detail page here
-
-
     DetailsPage(),
     Text(
       'Placeholder',
       style: optionStyle,
     ),
-      CommunityPage()
-    ,
-    // Add login page here
+    CommunityPage(),
     LoginPage()
   ];
 
@@ -184,7 +179,6 @@ class _NavigationBarState extends State<NavigationBar> {
           ),
         ],
         selectedItemColor: CustomMaterialColor.bannerColor,
-//          backgroundColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
