@@ -81,25 +81,28 @@
                 <span class="name ">allEntries</span>
 (<wbr>)
     </section>
+    <section class="desc markdown">
+      <p>Retreives all entries existing in the db</p>
+    </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">Future&lt;List&lt;Entry&gt;&gt; allEntries() async{
-   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
 
-   _query() async {
-     List&lt;Entry&gt; entryList = [];
-     final allRows = await dbHelper.queryAllRows(&#39;Entry&#39;);
-     await Future.forEach(allRows, (row) async {
-       entryList.add(Entry.fromQuery(row));
-     });
+  _query() async {
+    List&lt;Entry&gt; entryList = [];
+    final allRows = await dbHelper.queryAllRows(&#39;Entry&#39;);
+    await Future.forEach(allRows, (row) async {
+      entryList.add(Entry.fromQuery(row));
+    });
 &#47;&#47;     allRows.forEach((row) =&gt; entryList.add(Entry.fromQuery(row)));
-   return entryList;
-   }
+  return entryList;
+  }
 
-   return _query();
- }</code></pre>
+  return _query();
+}</code></pre>
     </section>
 
   </div> <!-- /.main-content -->

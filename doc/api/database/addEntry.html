@@ -84,31 +84,34 @@
 <li><span class="parameter" id="addEntry-param-source"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">source</span></span></li>
 </ol>)
     </section>
+    <section class="desc markdown">
+      <p>Add entry to database by date and consumption</p>
+    </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
       <pre class="language-dart"><code class="language-dart">Future&lt;void&gt; addEntry(int consumption, DateTime entryDate, String source) async {
- WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
- entryDate = new DateTime(entryDate.year, entryDate.month, entryDate.day, entryDate.hour - 10);
+  entryDate = new DateTime(entryDate.year, entryDate.month, entryDate.day, entryDate.hour - 10);
 
- Future&lt;int&gt; _getId() async {
-   final row = await dbHelper.queryBySourceName(source);
-   return row[0][&#39;id&#39;];
- }
+  Future&lt;int&gt; _getId() async {
+    final row = await dbHelper.queryBySourceName(source);
+    return row[0][&#39;id&#39;];
+  }
 
- void _insert() async {
-   Map&lt;String, dynamic&gt; row = {
-     &#39;consumption&#39;: consumption,
-     &#39;entry_date&#39;: entryDate.millisecondsSinceEpoch,
-     &#39;source_id&#39;: await _getId()
-   };
+  void _insert() async {
+    Map&lt;String, dynamic&gt; row = {
+      &#39;consumption&#39;: consumption,
+      &#39;entry_date&#39;: entryDate.millisecondsSinceEpoch,
+      &#39;source_id&#39;: await _getId()
+    };
 
-   await dbHelper.insert(&#39;Entry&#39;, row);
- }
+    await dbHelper.insert(&#39;Entry&#39;, row);
+  }
 
- _insert();
-}</code></pre>
+  _insert();
+ }</code></pre>
     </section>
 
   </div> <!-- /.main-content -->
