@@ -39,14 +39,18 @@ class HomePieState extends State<HomePieChart> {
 
     DateTime today = DateTime.now();
     var allEntries = await entryFromDate(today);
+
+    print("Entry here is:");
     print(allEntries);
+
+
 
     if (allEntries.length != 0) {
       for (int i = 0; i < allEntries.length; i++) {
         print(allEntries[i].source_id);
         if (allEntries[i].source_id == 1) {
           homeConsumption += allEntries[i].consumption;
-        } else if (allEntries[i].source_id == 383) {
+        } else if (allEntries[i].source_id == 2) {
           transportConsumption += allEntries[i].consumption;
         }
         totalConsumption += allEntries[i].consumption;

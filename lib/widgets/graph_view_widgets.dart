@@ -1,10 +1,15 @@
 import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/comparison_graph.dart';
+import 'package:cannoli_app/home_comparsion_graph.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 import 'package:flutter_sparkline/flutter_sparkline.dart';
 import 'package:cannoli_app/database.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:cannoli_app/trans_comparsion_graph.dart';
+
+import 'package:flutter_svg/flutter_svg.dart';
+
 
 final Color subTextColor = Colors.grey[600];
 // enum: For every graph widget in All/General Category
@@ -35,8 +40,18 @@ class _AllChartsState extends State<AllCharts> {
     CustomMaterialColor.buttonColorBlue[200],
     CustomMaterialColor.subColorGrass[200]
   ];
-
+  int _totalEmission = 0;
   int touchedIndex;
+
+  @override
+  Future<void> initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadEntries();
+    });
+  }
+
+
 
   void _loadEntries() async{
     double totalConsumption = 0;
@@ -51,7 +66,7 @@ class _AllChartsState extends State<AllCharts> {
         print(allEntries[i].source_id);
         if (allEntries[i].source_id == 1) {
           homeConsumption += allEntries[i].consumption;
-        } else if (allEntries[i].source_id == 383) {
+        } else if (allEntries[i].source_id == 2) {
           transportConsumption += allEntries[i].consumption;
         }
         totalConsumption += allEntries[i].consumption;
@@ -71,6 +86,7 @@ class _AllChartsState extends State<AllCharts> {
 
     setState(() {
       _consumptions = temp;
+      _totalEmission = (totalConsumption / 1000).round();
     });
   }
 
@@ -78,26 +94,16 @@ class _AllChartsState extends State<AllCharts> {
   Widget getWidgetGroup() {
     switch (_currentWidget) {
       case AllGraphWidgetList.graphUserEmissions:
-        return getPieChart("Today's Total Consumption", "250kg CO2");
+        return getPieChart("Today's Total Consumption", "Total emission: $_totalEmission KG/CO\u2082 ");
       case AllGraphWidgetList.graphIdealAustralian:
-        return getLineChart("Home energy Consumption", "Weekly", "300kg CO2");
+        return getLineChart("Weekly Total Consumption", "Weekly", "300kg CO2");
       case AllGraphWidgetList.graphCategoryEmissions:
         return getComparisonChart("Comparison with ideal emission", "Weekly");
     }
     return getPieChart("Today's Total Consumption", "250kg CO2");
   }
 
-  List<CircularStackEntry> circularData = <CircularStackEntry>[
-    new CircularStackEntry(
-      <CircularSegmentEntry>[
-        new CircularSegmentEntry(700.0, Color(0xff4285F4), rankKey: 'Q1'),
-        new CircularSegmentEntry(1000.0, Color(0xfff3af00), rankKey: 'Q2'),
-        new CircularSegmentEntry(1800.0, Color(0xffec3337), rankKey: 'Q3'),
-        new CircularSegmentEntry(1000.0, Color(0xff40b24b), rankKey: 'Q4'),
-      ],
-      rankKey: 'Quarterly Profits',
-    ),
-  ];
+
 
   // Widget: Generates line chart to depict user emissions
   Widget getLineChart(String title, String priceVal, String subtitle) {
@@ -127,8 +133,8 @@ class _AllChartsState extends State<AllCharts> {
                 ),
               ),
               Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                //height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 60.0, 10.0, 40.0),
                 child: Sparkline(
                   data: [
                     0.0,
@@ -183,8 +189,8 @@ class _AllChartsState extends State<AllCharts> {
                 ),
               ),
               Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                //height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
                 child: ComparisonGraph(),
               ),
             ],
@@ -268,7 +274,7 @@ class _AllChartsState extends State<AllCharts> {
   List<PieChartSectionData> noSection() {
     return List.generate(1, (i) {
       final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 34 : 30;
+      final double fontSize = isTouched ? 24 : 20;
       //final double radius = isTouched ? 115 : 115;
       final double opacity = isTouched ? 1 : 0.6;
       switch (i) {
@@ -367,47 +373,54 @@ class _AllChartsState extends State<AllCharts> {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_left),
-            onPressed: () {
-              setState(() {
-                for (int index = _widgetList.length - 1; index > -1; index--) {
-                  if (index == 0) {
-                    _currentWidget = _widgetList[_widgetList.length - 1];
-                    break;
-                  } else if (_currentWidget == _widgetList[index]) {
-                    index = index - 1;
-                    _currentWidget = _widgetList[index];
-                    break;
+          Expanded(
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_left),
+              onPressed: () {
+                setState(() {
+                  for (int index = _widgetList.length - 1; index > -1; index--) {
+                    if (index == 0) {
+                      _currentWidget = _widgetList[_widgetList.length - 1];
+                      break;
+                    } else if (_currentWidget == _widgetList[index]) {
+                      index = index - 1;
+                      _currentWidget = _widgetList[index];
+                      break;
+                    }
                   }
-                }
-              });
-            },
-          ),
-          AnimatedSwitcher(
-            duration: const Duration(seconds: 1),
-            child: Container(
-              width: 320.0,
-              child: getWidgetGroup(),
+                });
+              },
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_right),
-            onPressed: () {
-              setState(() {
-                for (int index = 0; index < _widgetList.length; index++) {
-                  if (index == _widgetList.length - 1) {
-                    _currentWidget = _widgetList[0];
-                  } else if (_currentWidget == _widgetList[index]) {
-                    index = index + 1;
-                    _currentWidget = _widgetList[index];
-                    break;
+          Center(
+            child: AnimatedSwitcher(
+              duration: const Duration(seconds: 1),
+              child: Container(
+                //width: 320.0,
+                child: getWidgetGroup(),
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              onPressed: () {
+                setState(() {
+                  for (int index = 0; index < _widgetList.length; index++) {
+                    if (index == _widgetList.length - 1) {
+                      _currentWidget = _widgetList[0];
+                    } else if (_currentWidget == _widgetList[index]) {
+                      index = index + 1;
+                      _currentWidget = _widgetList[index];
+                      break;
+                    }
                   }
-                }
-              });
-            },
+                });
+              },
+            ),
           ),
         ],
       ),
@@ -435,6 +448,7 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
   ];
   GraphWidgetList _currentWidget = GraphWidgetList.graphBreakdown;
 
+  int touchedIndex;
   // Function to switch between widget category groups Graph View
   Widget getWidgetGroup() {
     switch (_currentWidget) {
@@ -479,10 +493,36 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
                 ),
               ),
               Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
-                child: Text(
-                  'HOME ENERGY Pie',
+                // height: 312.0,
+                // padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                // child: Text(
+                //   'HOME ENERGY Pie',
+                // ),
+                /**live data by Mendes (it's not working plz ignore)**/
+                child: Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(touchCallback: (pieTouchResponse){
+                          setState(() {
+                            if(pieTouchResponse.touchInput is FlLongPressEnd ||
+                                pieTouchResponse.touchInput is FlPanEnd){
+                              touchedIndex = -1;
+                            }else{
+                              touchedIndex = pieTouchResponse.touchedSectionIndex;
+                            }
+                          });
+                        }),
+                        borderData: FlBorderData(
+                          show: false,
+                        ),
+                        sectionsSpace: 0,
+                        centerSpaceRadius: 0,
+                        sections: showingSections(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -491,6 +531,62 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
       ],
     );
   }
+
+  List<PieChartSectionData> showingSections() {
+    return List.generate(3, (i) {
+      final isTouched = i == touchedIndex;
+      final double fontSize = isTouched ? 20 : 16;
+      final double radius = isTouched ? 110 : 100;
+      final double widgetSize = isTouched ? 55 : 40;
+
+      switch (i) {
+        case 0:
+          return PieChartSectionData(
+            color: const Color(0xff0293ee),
+            value: 40,
+            title: 'Electricity',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+
+          );
+        case 1:
+          return PieChartSectionData(
+            color: const Color(0xfff8b250),
+            value: 40,
+            title: 'Water',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+
+          );
+        case 2:
+          return PieChartSectionData(
+            color: const Color(0xff845bef),
+            value: 20,
+            title: 'Miscell-\naneous',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+
+
+          );
+        default:
+          return null;
+      }
+    });
+  }
+
+
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+/**-----------------------------------------------------------------------------------------------------------------------------------**/
+
 
   // Widget: Breakdown of Transport, Breakdown Comparison with ideal target
   Widget homeEnergyBreakdownComparison(String title, String subtitle) {
@@ -520,11 +616,9 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
                 ),
               ),
               Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
-                child: Text(
-                  'HOME ENERGY Comparison',
-                ),
+                //height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
+                child: HomeCompare(),
               ),
             ],
           ),
@@ -537,53 +631,62 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
   Widget build(BuildContext context) {
     return Container(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_left),
-            onPressed: () {
-              setState(() {
-                for (int index = _widgetList.length - 1; index > -1; index--) {
-                  if (index == 0) {
-                    _currentWidget = _widgetList[_widgetList.length - 1];
-                    break;
-                  } else if (_currentWidget == _widgetList[index]) {
-                    index = index - 1;
-                    _currentWidget = _widgetList[index];
-                    break;
+          Expanded(
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_left),
+              onPressed: () {
+                setState(() {
+                  for (int index = _widgetList.length - 1; index > -1; index--) {
+                    if (index == 0) {
+                      _currentWidget = _widgetList[_widgetList.length - 1];
+                      break;
+                    } else if (_currentWidget == _widgetList[index]) {
+                      index = index - 1;
+                      _currentWidget = _widgetList[index];
+                      break;
+                    }
                   }
-                }
-              });
-            },
-          ),
-          AnimatedSwitcher(
-            duration: const Duration(seconds: 1),
-            child: Container(
-              width: 320.0,
-              child: getWidgetGroup(),
+                });
+              },
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_right),
-            onPressed: () {
-              setState(() {
-                for (int index = 0; index < _widgetList.length; index++) {
-                  if (index == _widgetList.length - 1) {
-                    _currentWidget = _widgetList[0];
-                  } else if (_currentWidget == _widgetList[index]) {
-                    index = index + 1;
-                    _currentWidget = _widgetList[index];
-                    break;
+          Center(
+            child: AnimatedSwitcher(
+              duration: const Duration(seconds: 1),
+              child: Container(
+                //width: 320.0,
+                child: getWidgetGroup(),
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              onPressed: () {
+                setState(() {
+                  for (int index = 0; index < _widgetList.length; index++) {
+                    if (index == _widgetList.length - 1) {
+                      _currentWidget = _widgetList[0];
+                    } else if (_currentWidget == _widgetList[index]) {
+                      index = index + 1;
+                      _currentWidget = _widgetList[index];
+                      break;
+                    }
                   }
-                }
-              });
-            },
+                });
+              },
+            ),
           ),
         ],
       ),
     );
   }
 }
+
+
 
 // Class to handle Widgets (Graph/Log view) for Transport Emission Category
 class TransportCharts extends StatefulWidget {
@@ -598,6 +701,8 @@ class _TransportChartsState extends State<TransportCharts> {
     GraphWidgetList.graphComparison
   ];
   GraphWidgetList _currentWidget = GraphWidgetList.graphBreakdown;
+
+  int touchedIndex;
 
   // Function to switch between widget category groups Graph View
   Widget getWidgetGroup() {
@@ -642,10 +747,33 @@ class _TransportChartsState extends State<TransportCharts> {
                 ),
               ),
               Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
-                child: Text(
-                  'TRANSPORT Breakdown Pie',
+                //height: 312.0,
+                //padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
+                /**live data by Mendes (it's not working plz ignore)**/
+                child: Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: PieChart(
+                      PieChartData(
+                        pieTouchData: PieTouchData(touchCallback: (pieTouchResponse){
+                          setState(() {
+                            if(pieTouchResponse.touchInput is FlLongPressEnd ||
+                                pieTouchResponse.touchInput is FlPanEnd){
+                              touchedIndex = -1;
+                            }else{
+                              touchedIndex = pieTouchResponse.touchedSectionIndex;
+                            }
+                          });
+                        }),
+                        borderData: FlBorderData(
+                          show: false,
+                        ),
+                        sectionsSpace: 0,
+                        centerSpaceRadius: 0,
+                        sections: showingSections(),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -653,6 +781,51 @@ class _TransportChartsState extends State<TransportCharts> {
         ),
       ],
     );
+  }
+
+  List<PieChartSectionData> showingSections() {
+    return List.generate(3, (i) {
+      final isTouched = i == touchedIndex;
+      final double fontSize = isTouched ? 20 : 16;
+      final double radius = isTouched ? 110 : 100;
+      final double widgetSize = isTouched ? 55 : 40;
+
+      switch (i) {
+        case 0:
+          return PieChartSectionData(
+            color: const Color(0xff0293ee),
+            value: 40,
+            title: 'Medium',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+
+          );
+        case 1:
+          return PieChartSectionData(
+            color: const Color(0xfff8b250),
+            value: 40,
+            title: 'Small',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+
+          );
+        case 2:
+          return PieChartSectionData(
+            color: const Color(0xff845bef),
+            value: 20,
+            title: 'Large',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
+
+
+          );
+        default:
+          return null;
+      }
+    });
   }
 
   // Widget: Breakdown of Transport, Breakdown Comparison with ideal target
@@ -683,11 +856,9 @@ class _TransportChartsState extends State<TransportCharts> {
                 ),
               ),
               Container(
-                height: 312.0,
-                padding: EdgeInsets.fromLTRB(10.0, 50.0, 10.0, 50.0),
-                child: Text(
-                  'TRANSPORT Comparison',
-                ),
+                //height: 312.0,
+                padding: EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 10.0),
+                child: TransportCompare(),
               ),
             ],
           ),
@@ -699,48 +870,56 @@ class _TransportChartsState extends State<TransportCharts> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      //padding: EdgeInsets.only(top: 20.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_left),
-            onPressed: () {
-              setState(() {
-                for (int index = _widgetList.length - 1; index > -1; index--) {
-                  if (index == 0) {
-                    _currentWidget = _widgetList[_widgetList.length - 1];
-                    break;
-                  } else if (_currentWidget == _widgetList[index]) {
-                    index = index - 1;
-                    _currentWidget = _widgetList[index];
-                    break;
+          Expanded(
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_left),
+              onPressed: () {
+                setState(() {
+                  for (int index = _widgetList.length - 1; index > -1; index--) {
+                    if (index == 0) {
+                      _currentWidget = _widgetList[_widgetList.length - 1];
+                      break;
+                    } else if (_currentWidget == _widgetList[index]) {
+                      index = index - 1;
+                      _currentWidget = _widgetList[index];
+                      break;
+                    }
                   }
-                }
-              });
-            },
-          ),
-          AnimatedSwitcher(
-            duration: const Duration(seconds: 1),
-            child: Container(
-              width: 320.0,
-              child: getWidgetGroup(),
+                });
+              },
             ),
           ),
-          IconButton(
-            icon: Icon(Icons.keyboard_arrow_right),
-            onPressed: () {
-              setState(() {
-                for (int index = 0; index < _widgetList.length; index++) {
-                  if (index == _widgetList.length - 1) {
-                    _currentWidget = _widgetList[0];
-                  } else if (_currentWidget == _widgetList[index]) {
-                    index = index + 1;
-                    _currentWidget = _widgetList[index];
-                    break;
+          Center(
+            child: AnimatedSwitcher(
+              duration: const Duration(seconds: 1),
+              child: Container(
+                //width: 320.0,
+                child: getWidgetGroup(),
+              ),
+            ),
+          ),
+
+          Expanded(
+            child: IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              onPressed: () {
+                setState(() {
+                  for (int index = 0; index < _widgetList.length; index++) {
+                    if (index == _widgetList.length - 1) {
+                      _currentWidget = _widgetList[0];
+                    } else if (_currentWidget == _widgetList[index]) {
+                      index = index + 1;
+                      _currentWidget = _widgetList[index];
+                      break;
+                    }
                   }
-                }
-              });
-            },
+                });
+              },
+            ),
           ),
         ],
       ),

@@ -62,42 +62,49 @@ class _NewDetailsPageState extends State<NewDetailsPage>
 
   Widget tabPageAll() {
     return Expanded(
-      child: Stack(
-        children: <Widget>[
-          Column(
-            children: [
-              Container(
-                height: 400,
-                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-                child: AllCharts(),
-              ),
-              Container(
-                height: 35.0,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Swipe up for more',
-                        style: TextStyle(
-                          fontSize: 10.0,
-                          color: Colors.grey[500],
-                        ),
-                      ),
-                      Icon(
-                        Icons.keyboard_arrow_up,
-                        color: Colors.grey[500],
-                        size: 15.0,
-                      )
-                    ],
+      child: Center(
+        child: Stack(
+          children: <Widget>[
+            Center(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 400,
+                    //padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                    child: AllCharts(),
                   ),
-                ),
+                  Container(
+                    //height: 35.0,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Swipe up for more',
+                            style: TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey[500],
+                            ),
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_up,
+                            color: Colors.grey[500],
+                            size: 15.0,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          AllLogSheet(),
-        ],
+            ),
+
+            Center(
+              child: AllLogSheet(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -109,11 +116,11 @@ class _NewDetailsPageState extends State<NewDetailsPage>
           children: [
             Container(
               height: 400,
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+              //padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
               child: TransportCharts(),
             ),
             Container(
-              height: 35.0,
+              //height: 35.0,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Row(
@@ -145,37 +152,39 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   Widget tabPageHome() {
     return Stack(
       children: <Widget>[
-        Column(
-          children: [
-            Container(
-              height: 400,
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
-              child: HomeEnergyCharts(),
-            ),
-            Container(
-              height: 35.0,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Swipe up for more',
-                      style: TextStyle(
-                        fontSize: 10.0,
-                        color: Colors.grey[500],
+        Center(
+          child: Column(
+            children: [
+              Container(
+                height: 400,
+                //padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 0.0),
+                child: HomeEnergyCharts(),
+              ),
+              Container(
+                //height: 35.0,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Swipe up for more',
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey[500],
+                        ),
                       ),
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_up,
-                      color: Colors.grey[500],
-                      size: 15.0,
-                    )
-                  ],
+                      Icon(
+                        Icons.keyboard_arrow_up,
+                        color: Colors.grey[500],
+                        size: 15.0,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         HomeLogSheet(),
       ],
