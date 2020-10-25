@@ -542,7 +542,7 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
+            color: const Color(0xfff8b250),
             value: 40,
             title: 'Electricity',
             radius: radius,
@@ -552,7 +552,7 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
+            color: CustomMaterialColor.buttonColorBlue,
             value: 40,
             title: 'Water',
             radius: radius,
@@ -562,7 +562,7 @@ class _HomeEnergyChartsState extends State<HomeEnergyCharts> {
           );
         case 2:
           return PieChartSectionData(
-            color: const Color(0xff845bef),
+            color: CustomMaterialColor.subColorGrass,
             value: 20,
             title: 'Miscell-\naneous',
             radius: radius,
