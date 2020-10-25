@@ -8,14 +8,12 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<auth.User>(context);
+    print('In Wrapper(). User: ');
     print(user); // TODO delete
 
     // return either the Home or Authenticate widget
     if (user == null) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: LoginPage(),
-      );
+      return LoginPage();
     } else {
       return UserProfile();
     }

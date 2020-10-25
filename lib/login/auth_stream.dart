@@ -15,14 +15,8 @@ class AuthStream {
   }
 
   // Return User object
-
   auth.User getUser() {
     return _auth.currentUser;
-  }
-
-  // Reload current user
-  Future<void> reloadUser() async {
-    await _auth.currentUser.reload();
   }
 
   Future<String> signIn(LoginData data) async {
@@ -38,12 +32,6 @@ class AuthStream {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: data.name, password: data.password);
-
-      // Create default display name
-      // String email = _auth.currentUser.email;
-      // var arr = email.split('@');
-      // updateDisplayName(arr[0]);
-      // await _auth.currentUser.reload();
     } on auth.FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('Please enter a stronger password.');
@@ -57,10 +45,38 @@ class AuthStream {
 
   void updateDisplayName(String name) async {
     await _auth.currentUser.updateProfile(displayName: name);
-    await _auth.currentUser.reload();
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+  // //
+  // Future<void> resetPassword() async {
+  //   await _auth.sendPasswordResetEmail(email: _auth.currentUser.email);
+  // }
+
+  Future<bool> reauthenticate(String email, String password) async {
+    // Create a credential
+    auth.EmailAuthCredential credential =
+        auth.EmailAuthProvider.credential(email: email, password: password);
+
+    // Reauthenticate
+    try {
+      await _auth.currentUser.reauthenticateWithCredential(credential);
+      print('reauthenticate true');
+      return true;
+    } on auth.FirebaseAuthException catch (e) {
+      print('reauthenticate false');
+      return false;
+    }
+  }
+
+  Future<void> changePassword(String password) async {
+    //Pass in the password to updatePassword.
+    _auth.currentUser.updatePassword(password).then((_) {
+      print("Password successfully changed");
+    }).catchError((error) {
+      print("Password cannot be changed" + error.toString());
+    });
   }
 }

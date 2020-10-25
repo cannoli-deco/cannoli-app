@@ -1,5 +1,6 @@
 import 'package:cannoli_app/login/auth_stream.dart';
 import 'package:cannoli_app/login/user_profile.dart';
+import 'package:cannoli_app/login/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_login/flutter_login.dart';
@@ -14,26 +15,28 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: FlutterLogin(
-          title: 'Sign in',
-          onLogin: signIn,
-          onSignup: signUp,
-          onSubmitAnimationCompleted: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => UserProfile(),
-            ));
-          },
+    return FlutterLogin(
+      title: 'Sign in',
+      onLogin: signIn,
+      onSignup: signUp,
+      onSubmitAnimationCompleted: () {
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => Wrapper(),
         ));
+      },
+    );
   }
 
   Future<String> signIn(LoginData data) async {
     _auth.signIn(data);
+    print('In LoginPage() singIn(). User: ');
+    print(_auth.getUser());
   }
 
   Future<String> signUp(LoginData data) async {
-    await _auth.signUp(data);
+    _auth.signUp(data);
+    print('In LoginPage() singUp(). User: ');
+    print(_auth.getUser());
   }
 
   // Future<String> signIn(LoginData data) async {
