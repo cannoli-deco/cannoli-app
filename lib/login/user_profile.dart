@@ -107,7 +107,7 @@ class _UserProfileState extends State<UserProfile> {
                       decoration: InputDecoration(
                         labelText: 'Email',
                       ),
-                      // keyboardType: TextInputType.number, # from car_input.dart
+                      // TODO? keyboardType: TextInputType.number, # from car_input.dart
                       onSaved: (String value) => {_email = value},
                       validator: (value) {
                         if (value.isEmpty) {
@@ -128,6 +128,7 @@ class _UserProfileState extends State<UserProfile> {
                         }
                         return null;
                       },
+                      obscureText: true,
                     ),
                     RaisedButton(
                         child: Text('Confirm'),
@@ -137,14 +138,21 @@ class _UserProfileState extends State<UserProfile> {
                           form.save();
 
                           // Reauthenticate user
-                          if (_auth.reauthenticate(_email, _currentPassword) ==
-                              true) {
-                            Navigator.pop(context);
-                            showChangePasswordForm(context);
-                          } else {
-                            //TODO error diaglogue
-                            print('incorrect login details');
-                          }
+                          setState(() {
+                            _reauthenticate() async {
+                              bool authRes = await _auth.reauthenticate(
+                                  _email, _currentPassword);
+
+                              if (authRes == true) {
+                                // login details correct, user can
+                                // change password
+                                _auth.changePassword(_newPassword);
+                              } else {
+                                return 'Incorrect login details/Passwords do not match';
+                              }
+                            }
+                          });
+
                           Navigator.pop(context);
                         }),
                   ],
@@ -168,32 +176,66 @@ class _UserProfileState extends State<UserProfile> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    // Email field
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'New password',
+                        labelText: 'Email',
                       ),
-                      // keyboardType: TextInputType.number, # from car_input.dart
-                      onSaved: (String value) => {_newPassword = value},
+                      // TODO? keyboardType: TextInputType.number, # from car_input.dart
+                      onSaved: (String value) => {_email = value},
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please enter a new password';
+                          return 'Please enter your email address';
                         }
                         return null;
                       },
                     ),
+                    // Current password field
                     TextFormField(
                       decoration: InputDecoration(
-                        labelText: 'Confirm new password',
+                        labelText: 'Password',
                       ),
                       // keyboardType: TextInputType.number, # from car_input.dart
-                      onSaved: (String value) => {_confirmPassword = value},
+                      onSaved: (String value) => {_currentPassword = value},
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please confirm your new password';
+                          return 'Please enter your current password';
                         }
                         return null;
                       },
+                      obscureText: true,
                     ),
+                    // New password field
+                    TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'New password',
+                        ),
+                        // keyboardType: TextInputType.number, # from car_input.dart
+                        onSaved: (String value) => {_newPassword = value},
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter a new password';
+                          }
+                          return null;
+                        },
+                        obscureText: true),
+                    // Confirm new password field
+                    TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Confirm new password',
+                        ),
+                        // keyboardType: TextInputType.number, # from car_input.dart
+                        onSaved: (String value) => {_confirmPassword = value},
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please confirm your new password';
+                          }
+                          if (_newPassword != _confirmPassword) {
+                            return 'The passwords do not match';
+                          }
+                          return null;
+                        },
+                        obscureText: true),
                     RaisedButton(
                         child: Text('Confirm'),
                         onPressed: () async {
@@ -201,11 +243,20 @@ class _UserProfileState extends State<UserProfile> {
                           FormState form = _formKey.currentState;
                           form.save();
 
-                          if (_newPassword != _confirmPassword) {
-                            print('The passwords do not match');
-                          } else {
-                            _auth.changePassword(_newPassword);
-                          }
+                          setState(() {
+                            _reauthenticate() async {
+                              bool authRes = await _auth.reauthenticate(
+                                  _email, _currentPassword);
+
+                              if ((authRes == true) && (_newPassword == _confirmPassword)) {
+                                // login details correct, user can
+                                // change password
+                                _auth.changePassword(_newPassword);
+                              } else {
+                                return 'Incorrect login details/Passwords do not match';
+                              }
+                            }
+                          });
                           Navigator.pop(context);
                         }),
                   ],
@@ -235,9 +286,12 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       Icon(
                         Icons.person,
-                        size: 70.0,
+                        size: 75.0,
                       ),
-                      Text(_displayName),
+                      Text(
+                        _displayName,
+                        style: TextStyle(fontSize: 25),
+                      ),
                     ]),
                 SizedBox(height: 20),
                 FlatButton(
@@ -257,9 +311,9 @@ class _UserProfileState extends State<UserProfile> {
                             backgroundColor: const Color(0xFFffdb00))),
                     color: const Color(0xFFffdb00),
                     onPressed: () {
-                      showReauthenticateForm(context);
+                      showChangePasswordForm(context);
                     }),
-                SizedBox(height: 100),
+                SizedBox(height: 180),
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: FlatButton(

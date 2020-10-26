@@ -12,7 +12,7 @@ class UserPage extends StatelessWidget {
     return StreamProvider<auth.User>.value(
       value: AuthStream().user,
       child: MaterialApp(
-        home: KeyboardAvoider(child: Wrapper()),
+        home: Wrapper(),
       ),
     );
   }
