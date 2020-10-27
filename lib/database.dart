@@ -6,6 +6,7 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
+/// Manages the state of the data base as a singleton class.
 class DatabaseHelper {
 //  List<Map<String, dynamic>> columns;
 //  DatabaseHelper(this.)
@@ -97,16 +98,16 @@ class DatabaseHelper {
         await db.rawQuery('SELECT COUNT(*) FROM $table'));
   }
 
-  // We are assuming here that the id column in the map is set. The other
-  // column values will be used to update the row.
+  /// We are assuming here that the id column in the map is set. The other
+  /// column values will be used to update the row.
   Future<int> update(String table, Map<String, dynamic> row) async {
     Database db = await instance.database;
     int id = row[columnId];
     return await db.update(table, row, where: '$columnId = ?', whereArgs: [id]);
   }
 
-  // Deletes the row specified by the id. The number of affected rows is
-  // returned. This should be 1 as long as the row exists.
+  /// Deletes the row specified by the id. The number of affected rows is
+  /// returned. This should be 1 as long as the row exists.
   Future<int> delete(String table, int id) async {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
@@ -122,6 +123,7 @@ class DatabaseHelper {
 final dbHelper = DatabaseHelper.instance;
 
 
+/// Add entry to database by date and consumption
  Future<void> addEntry(int consumption, DateTime entryDate, String source) async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -145,6 +147,7 @@ final dbHelper = DatabaseHelper.instance;
   _insert();
  }
 
+ /// Retreives all entries existing in the db
 Future<List<Entry>> allEntries() async{
    WidgetsFlutterBinding.ensureInitialized();
 
@@ -172,9 +175,6 @@ Future<List<Entry>> allEntries() async{
    int epochDayLength = 86400000;
    int startOfDay = inputDay.millisecondsSinceEpoch - (inputDay.millisecondsSinceEpoch % epochDayLength);
    int endOfDay = startOfDay + epochDayLength;
-   print(inputDay.millisecondsSinceEpoch);
-   print(startOfDay);
-   print(endOfDay);
 
    _query() async {
      List<Entry> entryList = [];
@@ -219,6 +219,8 @@ Future<void> instantiateDB() {
   _insert();
 }
 
+
+/// Object for interacting with entries
 class Entry {
   // naming scheme based on db
   int id;

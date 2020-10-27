@@ -10,10 +10,12 @@ class CarFormInput {
   double distance;
 }
 
+/// Function to calculate emission with given transportation type and distance 
 int calculateEmission(String type, double distance) {
   switch (type) {
     case "Medium":
-      return (0.297 * distance * 1000).floor(); // emissions (kg/km) * distance * 1000 (gram conversion)
+      return (0.297 * distance * 1000)
+          .floor(); // emissions (kg/km) * distance * 1000 (gram conversion)
     case "Small":
       return (0.228 * distance * 1000).floor();
     case "Large":
@@ -25,6 +27,7 @@ int calculateEmission(String type, double distance) {
   }
 }
 
+/// {@category Input}
 class CarInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,7 @@ class CarInputFormState extends State<CarInputForm> {
   String dropdownValue = "Medium";
   CarFormInput newCarInput = new CarFormInput();
 
+  /// Show calculated carbon popups when input is finalized
   void showCalculatedDialog(BuildContext context, int emission) {
     showDialog(
       context: context,
@@ -70,7 +74,6 @@ class CarInputFormState extends State<CarInputForm> {
             new FlatButton(
               child: new Text("Ok"),
               onPressed: () {
-                // go back to home
                 Navigator.pop(context);
               },
             ),
@@ -80,6 +83,8 @@ class CarInputFormState extends State<CarInputForm> {
     );
   }
 
+
+  /// Show car input popups 
   void showCarInputForm(BuildContext context) {
     showDialog(
         context: context,

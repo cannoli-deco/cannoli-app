@@ -1,5 +1,4 @@
 import 'package:cannoli_app/color_scheme.dart';
-import 'package:cannoli_app/comparison_graph.dart';
 import 'package:cannoli_app/inputs/home_input.dart';
 import 'package:cannoli_app/inputs/car_input.dart';
 import 'package:cannoli_app/login/login.dart';
@@ -11,6 +10,8 @@ import 'package:cannoli_app/scenes/home_page.dart';
 import 'package:cannoli_app/scenes/details_page.dart';
 import 'package:flutter/rendering.dart';
 
+/// {@category Navigation}
+/// Navigation bar
 class NavigationBar extends StatefulWidget {
   NavigationBar({Key key}) : super(key: key);
 
@@ -29,12 +30,12 @@ class _NavigationBarState extends State<NavigationBar> {
 
   PageController _pageController = PageController();
 
-  // Import and add your components here
+  /// Add components here
   List<Widget> _screens = <Widget>[
-    // Add home page here
     Homepage(),
 
     /// Add detail page here
+
 
     DetailsPage(),
     Text(
@@ -44,6 +45,7 @@ class _NavigationBarState extends State<NavigationBar> {
     CommunityPage(),
     // Add user page here
     UserPage()
+
   ];
 
   void _onPageChanged(int index) {
@@ -184,7 +186,6 @@ class _NavigationBarState extends State<NavigationBar> {
           ),
         ],
         selectedItemColor: CustomMaterialColor.bannerColor,
-//          backgroundColor: Colors.green,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

@@ -2,6 +2,9 @@ import 'package:cannoli_app/database.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+/// {@category Widgets}
+/// {@subcategory Charts}
+/// Comparison graph for details page
 class ComparisonGraph extends StatefulWidget {
   ComparisonGraph({Key key}) : super(key: key);
 
@@ -28,7 +31,6 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
     for (var i = 0; i < 7; i++) {
       var currentEntries =
           await entryFromDate(firstDayOfTheweek.add(Duration(days: i)));
-      print(currentEntries);
 
       // Add sum of the days as FlSpots.
       entries.add(FlSpot(

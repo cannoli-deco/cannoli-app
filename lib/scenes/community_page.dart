@@ -1,9 +1,9 @@
 import 'package:cannoli_app/articles.dart';
-import 'package:cannoli_app/community_card.dart';
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/community_feed.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+/// Community page containing rss and community feed showing them in a tabbar.
 class CommunityPage extends StatefulWidget {
   @override
   _CommunityPageState createState() => _CommunityPageState();
@@ -18,14 +18,17 @@ class _CommunityPageState extends State<CommunityPage> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(48) ,//Size.fromHeight(kToolbarHeight),
               child: Container(
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.white,
                   child: SafeArea(
                       child: Column(
                     children: [
                       TabBar(
+                        labelColor: CustomMaterialColor.emphasisColor,
+                        indicatorColor: CustomMaterialColor.emphasisColor,
+                        unselectedLabelColor: CustomMaterialColor.subColorBlack[50],
                         tabs: [
-                          Tab(icon: Icon(Icons.people)),
-                          Tab(icon: Icon(Icons.book)),
+                          Tab(text: "Feed"),
+                          Tab(text: "Articles"),
                         ],
                       )
                     ],
