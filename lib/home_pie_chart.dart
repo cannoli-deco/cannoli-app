@@ -13,9 +13,9 @@ class HomePieChart extends StatefulWidget {
 class HomePieState extends State<HomePieChart> {
   List<String> sources = ['Transport', 'Gas', 'Home\n Energy'];
   List<Color> sourceColors = [
-    CustomMaterialColor.buttonColorBlue[200],
-    CustomMaterialColor.emphasisColor[200],
-    CustomMaterialColor.subColorGrass[200]
+    CustomMaterialColor.buttonColorBlue,
+    CustomMaterialColor.emphasisColor,
+    CustomMaterialColor.subColorGrass
   ];
   List<double> _consumptions;
   int _totalEmission;
@@ -42,6 +42,9 @@ class HomePieState extends State<HomePieChart> {
 
     print("Entry here is:");
     print(allEntries);
+    for (int i = 0; i < allEntries.length; i++){
+      print(allEntries[i].source_id);
+    }
 
 
 
@@ -50,7 +53,7 @@ class HomePieState extends State<HomePieChart> {
         print(allEntries[i].source_id);
         if (allEntries[i].source_id == 1) {
           homeConsumption += allEntries[i].consumption;
-        } else if (allEntries[i].source_id == 2) {
+        } else if (allEntries[i].source_id == 3){
           transportConsumption += allEntries[i].consumption;
         }
         totalConsumption += allEntries[i].consumption;
@@ -182,12 +185,13 @@ class HomePieState extends State<HomePieChart> {
     return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
+      final double opacity = isTouched ? 1 : 0.8;
       final double radius = isTouched ? 115 : 95;
 
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[0],
+            color: sourceColors[0].withOpacity(opacity),
             value: _consumptions[0],
             title: sources[0],
             radius: radius,
@@ -198,7 +202,7 @@ class HomePieState extends State<HomePieChart> {
           );
         case 1:
           return PieChartSectionData(
-            color: sourceColors[1],
+            color: sourceColors[1].withOpacity(opacity),
             value: _consumptions[1],
             title: sources[1],
             radius: radius,
@@ -209,7 +213,7 @@ class HomePieState extends State<HomePieChart> {
           );
         case 2:
           return PieChartSectionData(
-            color: sourceColors[2],
+            color: sourceColors[2].withOpacity(opacity),
             value: _consumptions[2],
             title: sources[2],
             radius: radius,
@@ -229,6 +233,7 @@ class HomePieState extends State<HomePieChart> {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 34 : 30;
       final double radius = isTouched ? 115 : 115;
+
       switch (i) {
         case 0:
           return PieChartSectionData(
@@ -253,10 +258,11 @@ class HomePieState extends State<HomePieChart> {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
       final double radius = isTouched ? 115 : 95;
+      final double opacity = isTouched ? 1 : 0.8;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[index],
+            color: sourceColors[index].withOpacity(opacity),
             value: _consumptions[index],
             title: sources[index],
             radius: radius,
@@ -276,10 +282,11 @@ class HomePieState extends State<HomePieChart> {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
       final double radius = isTouched ? 115 : 95;
+      final double opacity = isTouched ? 1 : 0.8;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[index],
+            color: sourceColors[index].withOpacity(opacity),
             value: _consumptions[index],
             title: sources[index],
             radius: radius,
@@ -290,7 +297,7 @@ class HomePieState extends State<HomePieChart> {
           );
         case 1:
           return PieChartSectionData(
-            color: sourceColors[ind],
+            color: sourceColors[ind].withOpacity(opacity),
             value: _consumptions[ind],
             title: sources[ind],
             radius: radius,

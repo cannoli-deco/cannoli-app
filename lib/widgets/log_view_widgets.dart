@@ -8,7 +8,7 @@ import '../color_scheme.dart';
 import '../database.dart';
 
 String getType(int id) {
-  if (id == 383) {
+  if (id == 3) {
     return 'Transport';
   } else {
     return 'Home Energy';
@@ -17,7 +17,7 @@ String getType(int id) {
 
 int getSourceID(String source) {
   if (source == 'Transport') {
-    return 383;
+    return 3;
   } else {
     return 1;
   }

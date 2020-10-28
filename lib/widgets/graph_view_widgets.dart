@@ -37,8 +37,8 @@ class _AllChartsState extends State<AllCharts> {
   List<double> _consumptions;
   List<String> sources = ['Transport', 'Home\n Energy'];
   List<Color> sourceColors = [
-    CustomMaterialColor.buttonColorBlue[200],
-    CustomMaterialColor.subColorGrass[200]
+    CustomMaterialColor.buttonColorBlue,
+    CustomMaterialColor.subColorGrass
   ];
   int _totalEmission = 0;
   int touchedIndex;
@@ -66,7 +66,7 @@ class _AllChartsState extends State<AllCharts> {
         print(allEntries[i].source_id);
         if (allEntries[i].source_id == 1) {
           homeConsumption += allEntries[i].consumption;
-        } else if (allEntries[i].source_id == 2) {
+        } else if (allEntries[i].source_id == 3) {
           transportConsumption += allEntries[i].consumption;
         }
         totalConsumption += allEntries[i].consumption;
@@ -137,17 +137,13 @@ class _AllChartsState extends State<AllCharts> {
                 padding: EdgeInsets.fromLTRB(10.0, 60.0, 10.0, 40.0),
                 child: Sparkline(
                   data: [
-                    0.0,
                     1.0,
                     1.5,
                     2.0,
-                    0.0,
-                    0.0,
-                    -0.5,
-                    -1.0,
-                    -0.5,
-                    0.0,
-                    0.0
+                    0.5,
+                    0.1,
+                    2.5,
+                    1.8
                   ],
                   lineColor: Color(0xffff6101),
                   pointsMode: PointsMode.all,
@@ -253,11 +249,10 @@ class _AllChartsState extends State<AllCharts> {
                               }
                             });
                           }),
-                          startDegreeOffset: 180,
                           borderData: FlBorderData(
                             show: false,
                           ),
-                          sectionsSpace: 12,
+                          sectionsSpace: 0,
                           centerSpaceRadius: 0,
                           sections: showingSections()),
                     ),
@@ -275,7 +270,7 @@ class _AllChartsState extends State<AllCharts> {
     return List.generate(1, (i) {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 24 : 20;
-      //final double radius = isTouched ? 115 : 115;
+      final double radius = isTouched ? 130 : 130;
       final double opacity = isTouched ? 1 : 0.6;
       switch (i) {
         case 0:
@@ -284,7 +279,7 @@ class _AllChartsState extends State<AllCharts> {
             color: CustomMaterialColor.buttonColorWhite,
             value: 1,
             title: "No emission",
-            radius: 80,
+            radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
@@ -300,15 +295,15 @@ class _AllChartsState extends State<AllCharts> {
     return List.generate(1, (i) {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
-      //final double radius = isTouched ? 115 : 95;
-      final double opacity = isTouched ? 1 : 0.6;
+      final double radius = isTouched ? 140 : 120;
+      final double opacity = isTouched ? 1 : 0.8;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[index],
+            color: sourceColors[index].withOpacity(opacity),
             value: _consumptions[index],
             title: sources[index],
-            radius: 80,
+            radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
@@ -323,7 +318,8 @@ class _AllChartsState extends State<AllCharts> {
   List<PieChartSectionData> allSections() {
     return List.generate(2, (i){
       final isTouched = i == touchedIndex;
-      final double opacity = isTouched ? 1 : 0.6;
+      final double opacity = isTouched ? 1 : 0.8;
+      final double radius = isTouched ? 140 : 120;
 
       switch (i){
         case 0:
@@ -331,19 +327,19 @@ class _AllChartsState extends State<AllCharts> {
             color: sourceColors[0].withOpacity(opacity),
             value: _consumptions[0],
             title: sources[0],
-            radius: 80,
+            radius: radius,
             titleStyle: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xff044d7c)),
+                fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
             titlePositionPercentageOffset: 0.55,
           );
         case 1:
           return PieChartSectionData(
-            color: sourceColors[0].withOpacity(opacity),
-            value: _consumptions[0],
-            title: sources[0],
-            radius: 65,
+            color: sourceColors[1].withOpacity(opacity),
+            value: _consumptions[1],
+            title: sources[1],
+            radius: radius,
             titleStyle: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: const Color(0xff90672d)),
+                fontSize: 18, fontWeight: FontWeight.bold, color:const Color(0xffffffff)),
             titlePositionPercentageOffset: 0.55,
           );
         default:

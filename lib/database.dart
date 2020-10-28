@@ -14,7 +14,7 @@ class DatabaseHelper {
 //  DatabaseHelper(this.)
 
   // Change the dbname to reset the db lol
-  static final _databaseName = "data1104sqlite";
+  static final _databaseName = "data1105sqlite";
   static final _databaseVersion = 2;
 
   static final table = 'Source';
@@ -232,7 +232,7 @@ Future<void> instantiateDB() {
         'source_name': 'Home Energy',
       },
       {'source_name': 'Gas'},
-      {'source_name': 'Car'}
+      {'source_name': 'Transport'}
     ];
 
     await Future.forEach(defaultSources, (source) async {

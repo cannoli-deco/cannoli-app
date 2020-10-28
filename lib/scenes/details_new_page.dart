@@ -39,7 +39,7 @@ class _NewDetailsPageState extends State<NewDetailsPage>
   TabController _detailsTabController;
 
   String getType(int id) {
-    if (id == 383) {
+    if (id == 3) {
       return 'Transport';
     } else {
       return 'Home Energy';
