@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
     /// Use Theme.of(context).accentColor etc. to get color
     CustomMaterialColor.initializeCustomColor();
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'eco2tracker',
       theme: ThemeData(
         // This is the theme of your application.
         //

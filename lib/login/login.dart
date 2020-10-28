@@ -4,7 +4,6 @@ import 'package:cannoli_app/login/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:keyboard_avoider/keyboard_avoider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
