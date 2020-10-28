@@ -301,7 +301,7 @@ class _AllChartsState extends State<AllCharts> {
         case 0:
           return PieChartSectionData(
             color: sourceColors[index].withOpacity(opacity),
-            value: _consumptions[index],
+            value: _consumptions == null? 0 : _consumptions[index],
             title: sources[index],
             radius: radius,
             titleStyle: TextStyle(
@@ -325,7 +325,7 @@ class _AllChartsState extends State<AllCharts> {
         case 0:
           return PieChartSectionData(
             color: sourceColors[0].withOpacity(opacity),
-            value: _consumptions[0],
+            value: _consumptions == null ? 0 : _consumptions[0],
             title: sources[0],
             radius: radius,
             titleStyle: TextStyle(
@@ -335,7 +335,7 @@ class _AllChartsState extends State<AllCharts> {
         case 1:
           return PieChartSectionData(
             color: sourceColors[1].withOpacity(opacity),
-            value: _consumptions[1],
+            value: _consumptions == null ? 0 : _consumptions[1],
             title: sources[1],
             radius: radius,
             titleStyle: TextStyle(
@@ -349,14 +349,13 @@ class _AllChartsState extends State<AllCharts> {
   }
 
   List<PieChartSectionData> showingSections() {
-    if (_consumptions[0] != 0.0 &&
-        _consumptions[1] != 0.0) {
+    if (_consumptions == null) {
       return allSections();
     }
 
-    if (_consumptions[0] != 0.0){
+    if (_consumptions != null){
       return oneSection(0);
-    }else if(_consumptions[1] != 0.0){
+    }else if(_consumptions != null){
       return oneSection(1);
     }else{
       return noSection();
