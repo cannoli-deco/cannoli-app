@@ -18,21 +18,21 @@ double conversion(double val, double mul, String jurisdiction) {
   switch (jurisdiction) {
     case "NSW":
       // consumption * conversion to annual consumption * state emissions factor
-      return (val * mul * 0.81);
+      return (val * mul * 0.81 / 365);
     case "ACT":
-      return (val * mul * 0.81);
+      return (val * mul * 0.81 / 365);
     case "VIC":
-      return (val * mul * 1.02);
+      return (val * mul * 1.02 / 365);
     case "QLD":
-      return (val * mul * 0.81);
+      return (val * mul * 0.81 / 365);
     case "SA":
-      return (val * mul * 0.44);
+      return (val * mul * 0.44 / 365);
     case "WA":
-      return (val * mul * 0.64); // average of EF for SWIS and NWIS
+      return (val * mul * 0.64 / 365); // average of EF for SWIS and NWIS
     case "TAS":
-      return (val * mul * 0.15);
+      return (val * mul * 0.15 / 365);
     case "NT":
-      return (val * mul * 0.63);
+      return (val * mul * 0.63 / 365);
     default:
       return 0;
   }
