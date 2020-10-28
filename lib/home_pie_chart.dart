@@ -81,9 +81,7 @@ class HomePieState extends State<HomePieChart> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    if (_consumptions[0] == 0.0 &&
-        _consumptions[1] == 0.0 &&
-        _consumptions[2] == 0.0) {
+    if (_consumptions == null) {
       return Container(
         child: Row(
           children: <Widget>[
@@ -192,7 +190,7 @@ class HomePieState extends State<HomePieChart> {
         case 0:
           return PieChartSectionData(
             color: sourceColors[0].withOpacity(opacity),
-            value: _consumptions[0],
+            value: _consumptions == null ? 0 : _consumptions[0],
             title: sources[0],
             radius: radius,
             titleStyle: TextStyle(
@@ -203,7 +201,7 @@ class HomePieState extends State<HomePieChart> {
         case 1:
           return PieChartSectionData(
             color: sourceColors[1].withOpacity(opacity),
-            value: _consumptions[1],
+            value: _consumptions == null? 0 : _consumptions[1],
             title: sources[1],
             radius: radius,
             titleStyle: TextStyle(
@@ -214,7 +212,7 @@ class HomePieState extends State<HomePieChart> {
         case 2:
           return PieChartSectionData(
             color: sourceColors[2].withOpacity(opacity),
-            value: _consumptions[2],
+            value: _consumptions == null? 0 : _consumptions[2],
             title: sources[2],
             radius: radius,
             titleStyle: TextStyle(
@@ -313,9 +311,7 @@ class HomePieState extends State<HomePieChart> {
   }
 
   List<PieChartSectionData> showingSections() {
-    if (_consumptions[0] != 0.0 &&
-        _consumptions[1] != 0.0 &&
-        _consumptions[2] != 0.0) {
+    if (_consumptions == null) {
       return allSections();
     }
 
