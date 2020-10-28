@@ -1,3 +1,4 @@
+import 'package:cannoli_app/color_scheme.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 
@@ -248,7 +249,8 @@ class _UserProfileState extends State<UserProfile> {
                               bool authRes = await _auth.reauthenticate(
                                   _email, _currentPassword);
 
-                              if ((authRes == true) && (_newPassword == _confirmPassword)) {
+                              if ((authRes == true) &&
+                                  (_newPassword == _confirmPassword)) {
                                 // login details correct, user can
                                 // change password
                                 _auth.changePassword(_newPassword);
@@ -285,43 +287,59 @@ class _UserProfileState extends State<UserProfile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.person,
+                        Icons.account_circle,
+                        color: CustomMaterialColor.subColorBlack[50],
                         size: 75.0,
+                      ),
+                      SizedBox(
+                        width: 10,
                       ),
                       Text(
                         _displayName,
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: CustomMaterialColor.subColorBlack[200]),
                       ),
                     ]),
                 SizedBox(height: 20),
-                FlatButton(
+                Divider(thickness: 1.0),
+                SizedBox(height: 20),
+                RaisedButton(
                   child: Text('Edit display name',
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
-                  color: const Color(0xFFffdb00),
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: CustomMaterialColor.buttonColorWhite)),
+                  color: CustomMaterialColor.emphasisColor[400],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
                   onPressed: () {
                     showChangeDisplayNameForm(context);
                   },
                 ),
                 SizedBox(height: 20),
-                FlatButton(
+                RaisedButton(
                     child: Text('Change password',
                         style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            backgroundColor: const Color(0xFFffdb00))),
-                    color: const Color(0xFFffdb00),
+                          fontSize: 14,
+                          color: CustomMaterialColor.buttonColorWhite,
+                        )),
+                    color: CustomMaterialColor.emphasisColor[400],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     onPressed: () {
                       showChangePasswordForm(context);
                     }),
-                SizedBox(height: 180),
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: FlatButton(
-                      child: Text('LOG OUT',
-                          style: TextStyle(fontSize: 20, color: Colors.white)),
-                      color: const Color(0xFFd43636),
-                      onPressed: () => _auth.signOut(),
-                    )),
+                SizedBox(height: 20),
+                RaisedButton(
+                  child: Text('Log Out',
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: CustomMaterialColor.buttonColorWhite)),
+                  color: CustomMaterialColor.subColorRed[400],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  onPressed: () => _auth.signOut(),
+                ),
               ],
             ))
       ]),

@@ -215,12 +215,12 @@ class _NewDetailsPageState extends State<NewDetailsPage>
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Material(
-          color: CustomMaterialColor.bannerColor,
+          color: Colors.white,
           child: TabBar(
             controller: _detailsTabController,
-            indicatorColor: CustomMaterialColor.emphasisColor,
             labelColor: CustomMaterialColor.emphasisColor,
-            unselectedLabelColor: Colors.white,
+            indicatorColor: CustomMaterialColor.emphasisColor,
+            unselectedLabelColor: CustomMaterialColor.subColorBlack[50],
             tabs: tabLabels,
           ),
         ),
