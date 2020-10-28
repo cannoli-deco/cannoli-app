@@ -50,10 +50,6 @@ class AuthStream {
   Future<void> signOut() async {
     await _auth.signOut();
   }
-  // //
-  // Future<void> resetPassword() async {
-  //   await _auth.sendPasswordResetEmail(email: _auth.currentUser.email);
-  // }
 
   Future<bool> reauthenticate(String email, String password) async {
     // Create a credential
