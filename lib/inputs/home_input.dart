@@ -1,7 +1,10 @@
 import 'package:cannoli_app/color_scheme.dart';
 import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/data_models.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
+
+// final _title = 'Home Energy Input';
 
 class HomeFormInput {
   String type;
@@ -10,7 +13,7 @@ class HomeFormInput {
   String jurisdiction;
 }
 
-/// Converts electrical consumption (kWh) to kg of C02
+// Converts electrical consumption (kWh) to kg of C02
 double conversion(double val, double mul, String jurisdiction) {
   switch (jurisdiction) {
     case "NSW":
@@ -35,8 +38,8 @@ double conversion(double val, double mul, String jurisdiction) {
   }
 }
 
-/// Function to calculate emission with given billing cycle and kwh 
-int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
+int calculateHomeEmission(
+    String billingCycle, double kwh, String jurisdiction) {
   switch (billingCycle) {
     case "Monthly":
       return (conversion(kwh, 12.0, jurisdiction) * 1000).floor();
@@ -51,19 +54,19 @@ int calculateEmission(String billingCycle, double kwh, String jurisdiction) {
   }
 }
 
-/// {@category Input}
 class HomeInput extends StatelessWidget {
   //final _formkey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
-        child: HomeInputForm(),
+      home: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(20.0, 30.0, 20.0, 0.0),
+          child: HomeInputForm(),
+        ),
       ),
-    ));
+    );
   }
 }
 
@@ -93,7 +96,6 @@ class HomeInputFormState extends State<HomeInputForm> {
   String dropDownJurisdiction = "QLD";
   HomeFormInput newHomeInput = new HomeFormInput();
 
-  /// Show calculated carbon popups when input is finalized
   void showCalculatedDialog(BuildContext context, int emission) {
     showDialog(
       context: context,
@@ -115,7 +117,6 @@ class HomeInputFormState extends State<HomeInputForm> {
     );
   }
 
-  /// Show home input popups 
   void showHomeInputForm(BuildContext context) {
     showDialog(
       context: context,
@@ -134,7 +135,9 @@ class HomeInputFormState extends State<HomeInputForm> {
                 children: <Widget>[
                   /// Children of Form
                   Row(mainAxisSize: MainAxisSize.max, children: <Widget>[
-                    Expanded(child: formTextBoxWidget(context, rowTitles[0])),
+                    Expanded(
+                      child: formTextBoxWidget(context, rowTitles[0]),
+                    ),
                     Expanded(
                       child: Container(
                         child: DropdownButtonFormField(
@@ -285,7 +288,7 @@ class HomeInputFormState extends State<HomeInputForm> {
                             FormState form = _formKey.currentState;
                             form.save();
 
-                            int calculatedEmission = calculateEmission(
+                            int calculatedEmission = calculateHomeEmission(
                                 newHomeInput.billingCycle,
                                 newHomeInput.kwh,
                                 newHomeInput.jurisdiction);

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 final Color subTextColor = Colors.grey[600];
 
-class ComparisonGraph extends StatefulWidget {
-  ComparisonGraph({Key key}) : super(key: key);
+class HomeCompare extends StatefulWidget {
+  HomeCompare({Key key}) : super(key: key);
 
   @override
-  _ComparisonGraphState createState() => _ComparisonGraphState();
+  _HomeCompareState createState() => _HomeCompareState();
 }
 
-class _ComparisonGraphState extends State<ComparisonGraph> {
+class _HomeCompareState extends State<HomeCompare> {
   List<FlSpot> _entries;
 
   @override
@@ -31,8 +31,14 @@ class _ComparisonGraphState extends State<ComparisonGraph> {
 
     for (var i = 0; i < 7; i++) {
       var currentEntries =
-          await entryFromDate(firstDayOfTheweek.add(Duration(days: i)));
+      await entryFromDate(firstDayOfTheweek.add(Duration(days: i)));
       print(currentEntries);
+
+      for(int i = 0; i < currentEntries.length; i++){
+        if(currentEntries[i].source_id != 1){
+          currentEntries.removeAt(i);
+        }
+      }
 
       // Add sum of the days as FlSpots.
       entries.add(FlSpot(

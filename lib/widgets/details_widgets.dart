@@ -1,11 +1,13 @@
-import 'package:cannoli_app/widgets/emission_charts.dart';
+import 'package:cannoli_app/widgets/log_view_widgets.dart';
 import 'package:cannoli_app/widgets/textboxes.dart';
 import 'package:flutter/material.dart';
 
-/// {@category Widgets}
-/// {@subcategory Charts}
-/// [START] Details Page: Graph View Widgets
-/// Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
+import 'graph_view_widgets.dart';
+
+// TODO: [START]Details Page: Graph View Widgets
+// Add new Graph Widgets in graph_view_widgets.dart
+// -------------------------------------------------------------------------------------------
+// Widget: Details Page, Generates List of Transport Emission widgets needed for graph view
 Widget getTransportGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -20,15 +22,14 @@ Widget getTransportGraphWidgets() {
         ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
-          child: mychart1Items("Transport Emissions", "Weekly", "300kg CO2"),
+          child: TransportCharts(),
         ),
-        // Add Widgets Here
       ],
     ),
   );
 }
 
-/// Widget: Details Page, Generates List of Home Energy Emission widgets needed for graph view
+// Widget: Details Page, Generates List of Home Energy Emission widgets needed for graph view
 Widget getHomeGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -43,16 +44,14 @@ Widget getHomeGraphWidgets() {
         ),
         Container(
           padding: EdgeInsets.only(top: 8.0),
-          child:
-              mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
+          child: HomeEnergyCharts(),
         ),
-        // Add Widgets Here
       ],
     ),
   );
 }
 
-/// Widget: Details Page, Generates List of Important General Emission widgets needed for graph view
+// Widget: Details Page, Generates List of Important General Emission widgets needed for graph view
 Widget getAllGraphWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -65,28 +64,18 @@ Widget getAllGraphWidgets() {
             pageLayoutTextBoxWidget('All Emissions: Overview', 18.0),
           ],
         ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child: myCircularItems("Today's Total Consumption", "250kg CO2"),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child:
-              mychart1Items("Home energy Consumption", "Weekly", "300kg CO2"),
-        ),
-        Container(
-          padding: EdgeInsets.only(top: 8.0),
-          child: comparisonCard("Comparison with ideal emission", "Weekly"),
-        ),
-        // Add Widgets Here
+        AllCharts(),
       ],
     ),
   );
 }
+// -------------------------------------------------------------------------------------------
+// [END]Details Page: Graph View Widgets
 
-/// [END]Details Page: Graph View Widgets
-/// [START]Details Page: Og View Widgets
-/// Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
+// TODO: [START]Details Page: Log View Widgets
+// Add new Log Widgets in log_view_widgets.dart
+// -------------------------------------------------------------------------------------------
+// Widget: Details Page, Generates List of Transport Emission widgets needed for Log view
 Widget getTransportLogWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -99,13 +88,19 @@ Widget getTransportLogWidgets() {
             pageLayoutTextBoxWidget('Transport Emissions Log', 18.0),
           ],
         ),
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: Text(
+            'Log widget',
+          ),
+        ),
         // Add Widgets Here
       ],
     ),
   );
 }
 
-/// Widget: Details Page, Generates List of Home Energy Emission widgets needed for Log view
+// Widget: Details Page, Generates List of Home Energy Emission widgets needed for Log view
 Widget getHomeLogWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -118,13 +113,19 @@ Widget getHomeLogWidgets() {
             pageLayoutTextBoxWidget('Home Energy Emissions Log', 18.0),
           ],
         ),
+        Container(
+          padding: EdgeInsets.only(top: 8.0),
+          child: Text(
+            'Log widget',
+          ),
+        ),
         // Add Widgets Here
       ],
     ),
   );
 }
 
-/// Widget: Details Page, Generates List of Important General Emission widgets needed for Log view
+// Widget: Details Page, Generates List of Important General Emission widgets needed for Log view
 Widget getAllLogWidgets() {
   return Container(
     padding: EdgeInsets.only(top: 8.0),
@@ -137,9 +138,11 @@ Widget getAllLogWidgets() {
             pageLayoutTextBoxWidget('All Emissions Log', 18.0),
           ],
         ),
+
         // Add Widgets Here
       ],
     ),
   );
 }
-/// [END]Details Page: Log View Widgets
+// -------------------------------------------------------------------------------------------
+// [END]Details Page: Log View Widgets

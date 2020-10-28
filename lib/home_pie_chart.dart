@@ -2,10 +2,8 @@ import 'package:cannoli_app/color_scheme.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:cannoli_app/database.dart';
+// import 'package:cannoli_app/data_models.dart';
 
-/// {@category Widgets}
-/// {@subcategory Charts}
-/// Pie chart at home page
 class HomePieChart extends StatefulWidget {
   HomePieChart({Key key}) : super(key: key);
   @override
@@ -15,9 +13,9 @@ class HomePieChart extends StatefulWidget {
 class HomePieState extends State<HomePieChart> {
   List<String> sources = ['Transport', 'Gas', 'Home\n Energy'];
   List<Color> sourceColors = [
-    CustomMaterialColor.subColorArmy[200],
-    CustomMaterialColor.emphasisColor[200],
-    CustomMaterialColor.subColorGrass[200]
+    CustomMaterialColor.buttonColorBlue,
+    CustomMaterialColor.emphasisColor,
+    CustomMaterialColor.subColorGrass
   ];
   List<double> _consumptions;
   int _totalEmission;
@@ -41,15 +39,21 @@ class HomePieState extends State<HomePieChart> {
 
     DateTime today = DateTime.now();
     var allEntries = await entryFromDate(today);
+
+    print("Entry here is:");
     print(allEntries);
+    for (int i = 0; i < allEntries.length; i++){
+      print(allEntries[i].source_id);
+    }
+
+
 
     if (allEntries.length != 0) {
       for (int i = 0; i < allEntries.length; i++) {
+        print(allEntries[i].source_id);
         if (allEntries[i].source_id == 1) {
           homeConsumption += allEntries[i].consumption;
-        } else if (allEntries[i].source_id == 2) {
-          gasConsumption += allEntries[i].consumption;
-        } else {
+        } else if (allEntries[i].source_id == 3){
           transportConsumption += allEntries[i].consumption;
         }
         totalConsumption += allEntries[i].consumption;
@@ -65,6 +69,9 @@ class HomePieState extends State<HomePieChart> {
       temp.add(homeConsumption / totalConsumption);
     }
 
+    print("Now:");
+    print(temp);
+
     setState(() {
       _consumptions = temp;
       _totalEmission = (totalConsumption / 1000).round();
@@ -73,6 +80,7 @@ class HomePieState extends State<HomePieChart> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     if (_consumptions[0] == 0.0 &&
         _consumptions[1] == 0.0 &&
         _consumptions[2] == 0.0) {
@@ -109,11 +117,27 @@ class HomePieState extends State<HomePieChart> {
             ),
           ],
         ),
+
+        // Text(
+        //   "Total emission: $_totalEmission KG/CO\u2082",
+        //   style:
+        //   TextStyle(
+        //     fontSize: 28.0,
+        //     fontFamily: "Arial",
+        //     fontWeight: FontWeight.bold,
+        //     decoration: TextDecoration.underline,
+        //     decorationColor: CustomMaterialColor.buttonColorBlue,
+        //     foreground: Paint()..color = CustomMaterialColor.subColorArmy,
+        //   ),
+        // )
       );
     } else {
       return Container(
         child: Row(
           children: <Widget>[
+            // const SizedBox(
+            //   height: 18,
+            // ),
             Expanded(
               child: AspectRatio(
                 aspectRatio: 1,
@@ -141,44 +165,62 @@ class HomePieState extends State<HomePieChart> {
             ),
           ],
         ),
+        // Text(
+        //   "Total emission: $_totalEmission KG/CO\u2082",
+        //   style:
+        //   TextStyle(
+        //     fontSize: 28.0,
+        //     fontFamily: "Arial",
+        //     fontWeight: FontWeight.bold,
+        //     decoration: TextDecoration.underline,
+        //     decorationColor: CustomMaterialColor.buttonColorBlue,
+        //     foreground: Paint()..color = CustomMaterialColor.subColorArmy,
+        //   ),
+        // ),
       );
     }
   }
 
-  /// Sections on pie chart
   List<PieChartSectionData> allSections() {
     return List.generate(3, (i) {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
+      final double opacity = isTouched ? 1 : 0.8;
       final double radius = isTouched ? 115 : 95;
 
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[0],
+            color: sourceColors[0].withOpacity(opacity),
             value: _consumptions[0],
             title: sources[0],
             radius: radius,
-            titleStyle:
-                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
-            color: sourceColors[1],
+            color: sourceColors[1].withOpacity(opacity),
             value: _consumptions[1],
             title: sources[1],
             radius: radius,
-            titleStyle:
-                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         case 2:
           return PieChartSectionData(
-            color: sourceColors[2],
+            color: sourceColors[2].withOpacity(opacity),
             value: _consumptions[2],
             title: sources[2],
             radius: radius,
-            titleStyle:
-                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         default:
           return null;
@@ -189,8 +231,9 @@ class HomePieState extends State<HomePieChart> {
   List<PieChartSectionData> noSection() {
     return List.generate(1, (i) {
       final isTouched = i == touchedIndex;
-      final double fontSize = isTouched ? 24 : 20;
+      final double fontSize = isTouched ? 34 : 30;
       final double radius = isTouched ? 115 : 115;
+
       switch (i) {
         case 0:
           return PieChartSectionData(
@@ -201,7 +244,8 @@ class HomePieState extends State<HomePieChart> {
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
-                color: CustomMaterialColor.subColorBlack[50]),
+                fontWeight: FontWeight.bold,
+                color: CustomMaterialColor.emphasisColor),
           );
         default:
           return null;
@@ -214,15 +258,18 @@ class HomePieState extends State<HomePieChart> {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
       final double radius = isTouched ? 115 : 95;
+      final double opacity = isTouched ? 1 : 0.8;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[index],
+            color: sourceColors[index].withOpacity(opacity),
             value: _consumptions[index],
             title: sources[index],
             radius: radius,
-            titleStyle:
-                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         default:
           return null;
@@ -235,24 +282,29 @@ class HomePieState extends State<HomePieChart> {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 28 : 18;
       final double radius = isTouched ? 115 : 95;
+      final double opacity = isTouched ? 1 : 0.8;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: sourceColors[index],
+            color: sourceColors[index].withOpacity(opacity),
             value: _consumptions[index],
             title: sources[index],
             radius: radius,
-            titleStyle:
-                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         case 1:
           return PieChartSectionData(
-            color: sourceColors[ind],
+            color: sourceColors[ind].withOpacity(opacity),
             value: _consumptions[ind],
             title: sources[ind],
             radius: radius,
-            titleStyle:
-                TextStyle(fontSize: fontSize, color: const Color(0xffffffff)),
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: const Color(0xffffffff)),
           );
         default:
           return null;
