@@ -36,7 +36,7 @@ class _UserProfileState extends State<UserProfile> {
         });
       }
     } on NoSuchMethodError catch (e) {
-      //TODO error
+      // error
     }
   }
 
@@ -58,7 +58,6 @@ class _UserProfileState extends State<UserProfile> {
                       decoration: InputDecoration(
                         labelText: 'New display name',
                       ),
-                      // keyboardType: TextInputType.number, # from car_input.dart
                       onSaved: (String value) => {_displayName = value},
                       validator: (value) {
                         if (value.isEmpty) {
@@ -81,80 +80,6 @@ class _UserProfileState extends State<UserProfile> {
                           Navigator.pop(context);
                           print('Updated display name');
                           print(_auth.getUser());
-                        }),
-                  ],
-                ),
-              ),
-            ],
-          ));
-        });
-  }
-
-  // Reauthenticate user
-  void showReauthenticateForm(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                      ),
-                      // TODO? keyboardType: TextInputType.number, # from car_input.dart
-                      onSaved: (String value) => {_email = value},
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter your email address';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                      ),
-                      // keyboardType: TextInputType.number, # from car_input.dart
-                      onSaved: (String value) => {_currentPassword = value},
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Please enter your current password';
-                        }
-                        return null;
-                      },
-                      obscureText: true,
-                    ),
-                    RaisedButton(
-                        child: Text('Confirm'),
-                        onPressed: () async {
-                          _formKey.currentState.validate();
-                          FormState form = _formKey.currentState;
-                          form.save();
-
-                          // Reauthenticate user
-                          setState(() {
-                            _reauthenticate() async {
-                              bool authRes = await _auth.reauthenticate(
-                                  _email, _currentPassword);
-
-                              if (authRes == true) {
-                                // login details correct, user can
-                                // change password
-                                _auth.changePassword(_newPassword);
-                              } else {
-                                return 'Incorrect login details/Passwords do not match';
-                              }
-                            }
-                          });
-
-                          Navigator.pop(context);
                         }),
                   ],
                 ),
@@ -345,33 +270,4 @@ class _UserProfileState extends State<UserProfile> {
       ]),
     );
   }
-
-//
-
-  // Widget resetPassword(BuildContext context) {
-  //   if (!_auth.getUser().emailVerified) {
-  //     //emailVerificationPrompt(context);
-  //   }
-  //   _auth.resetPassword();
-  // }
-  //
-  // Widget emailVerificationPrompt(BuildContext context) {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           content: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-  //             Text('Email must be verified to enable password reset.'),
-  //             RaisedButton(
-  //                 child: Text('Verify email'),
-  //                 onPressed: () async {
-  //                   // TODO set up email verification
-  //                   await _auth.getUser().sendEmailVerification();
-  //                   Navigator.pop(context);
-  //                   print(_auth.getUser());
-  //                 }),
-  //           ]),
-  //         );
-  //       });
-  // }
 }
