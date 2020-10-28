@@ -99,7 +99,6 @@ class _NewDetailsPageState extends State<NewDetailsPage>
                 ],
               ),
             ),
-
             Center(
               child: AllLogSheet(),
             ),
@@ -211,32 +210,27 @@ class _NewDetailsPageState extends State<NewDetailsPage>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        Material(
-          color: Colors.white,
-          child: TabBar(
-            controller: _detailsTabController,
-            labelColor: CustomMaterialColor.emphasisColor,
-            indicatorColor: CustomMaterialColor.emphasisColor,
-            unselectedLabelColor: CustomMaterialColor.subColorBlack[50],
-            tabs: tabLabels,
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(48) ,//Size.fromHeight(kToolbarHeight),
+              child: Container(
+                  color: Colors.white,
+                  child: SafeArea(
+                      child: Column(
+                    children: [
+                      TabBar(
+                        labelColor: CustomMaterialColor.emphasisColor,
+                        indicatorColor: CustomMaterialColor.emphasisColor,
+                        unselectedLabelColor: CustomMaterialColor.subColorBlack[50],
+                        tabs: tabLabels,
+                      )
+                    ],
+                  )))),
+          body: TabBarView(
+            children: [tabPageAll(), tabPageTransport(), tabPageHome()],
           ),
-        ),
-        Container(
-          height: 628.0,
-          color: Colors.grey[200],
-          child: TabBarView(
-            controller: _detailsTabController,
-            children: [
-              tabPageAll(),
-              tabPageTransport(),
-              tabPageHome(),
-            ],
-          ),
-        ),
-      ],
-    );
+        ));
   }
 }
