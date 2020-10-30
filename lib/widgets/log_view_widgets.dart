@@ -537,13 +537,13 @@ class _AllLogSheetState extends State<AllLogSheet> {
           ),
         ),
       ),
-      padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             height: 50.0,
-            width: 50.0,
+            width: 30.0,
             decoration: BoxDecoration(
               color: Colors.grey[200],
               shape: BoxShape.circle,
@@ -553,9 +553,10 @@ class _AllLogSheetState extends State<AllLogSheet> {
               color: Colors.grey[800],
             ),
           ),
-          getLogDivider(),
+//          getLogDivider(),
           getLogTextBody(source, consumption, time),
-          getLogDivider(),
+//          getLogDivider(),
+
           Container(
             width: 20.0,
             alignment: Alignment.center,
@@ -884,13 +885,13 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
           ),
         ),
       ),
-      padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             height: 50.0,
-            width: 50.0,
+            width: 30.0,
             decoration: BoxDecoration(
               color: Colors.grey[200],
               shape: BoxShape.circle,
@@ -900,9 +901,9 @@ class _TransportLogSheetState extends State<TransportLogSheet> {
               color: Colors.grey[800],
             ),
           ),
-          getLogDivider(),
+//          getLogDivider(),
           getLogTextBody(source, consumption, time),
-          getLogDivider(),
+//          getLogDivider(),
           Container(
             width: 20.0,
             alignment: Alignment.center,
@@ -1350,13 +1351,13 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
           ),
         ),
       ),
-      padding: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 10.0),
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             height: 50.0,
-            width: 50.0,
+            width: 30.0,
             decoration: BoxDecoration(
               color: Colors.grey[200],
               shape: BoxShape.circle,
@@ -1366,9 +1367,9 @@ class _HomeLogSheetState extends State<HomeLogSheet> {
               color: Colors.grey[800],
             ),
           ),
-          getLogDivider(),
+//          getLogDivider(),
           getLogTextBody(source, consumption, time),
-          getLogDivider(),
+//          getLogDivider(),
           Container(
             width: 20.0,
             alignment: Alignment.center,
