@@ -35,11 +35,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<String> signIn(LoginData data) async {
     await _auth.signIn(data);
-    print(_auth.getUser());
   }
 
   Future<String> signUp(LoginData data) async {
     await _auth.signUp(data);
-    print(_auth.getUser());
   }
 }

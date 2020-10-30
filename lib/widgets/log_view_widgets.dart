@@ -37,7 +37,7 @@ String getTimeStamp(DateTime time) {
   }
   DateTime today = DateTime.now().subtract(Duration(days: 1));
   if (!time.difference(today).isNegative) {
-    return 'Today, ' + DateFormat.jm().format(time);
+    return 'Today';
   }
   return 'More than a day ago';
 }
@@ -72,7 +72,7 @@ Widget getLogTextBody(String source, int consumption, DateTime time) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                consumption.toString() + ' CO\u2082 footprint',
+                consumption.toString() + 'g CO\u2082 footprint',
                 style: TextStyle(
                   fontSize: 12.0,
                   color: Colors.grey[500],
@@ -100,7 +100,7 @@ class AllLogSheet extends StatefulWidget {
 
 class _AllLogSheetState extends State<AllLogSheet> {
   //AnimationController _controller;
-  List<Widget> _allWidgetEntries = [Text('Test')];
+  List<Widget> _allWidgetEntries = [];
   final _formKey = GlobalKey<FormState>();
 
   List<String> rowTitles = [
@@ -690,7 +690,7 @@ class TransportLogSheet extends StatefulWidget {
 
 class _TransportLogSheetState extends State<TransportLogSheet> {
   //AnimationController _controller;
-  List<Widget> _transportWidgetEntries = [Text('Test')];
+  List<Widget> _transportWidgetEntries = [];
 
   final _formKey = GlobalKey<FormState>();
 
@@ -1037,7 +1037,7 @@ class HomeLogSheet extends StatefulWidget {
 
 class _HomeLogSheetState extends State<HomeLogSheet> {
   //AnimationController _controller;
-  List<Widget> _homeWidgetEntries = [Text('Test')];
+  List<Widget> _homeWidgetEntries = [];
 
   final _formKey = GlobalKey<FormState>();
 

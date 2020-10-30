@@ -31,7 +31,6 @@ class _HomepageState extends State<Homepage> {
 
     DateTime today = DateTime.now();
     var allEntries = await entryFromDate(today);
-    print(allEntries);
 
     if (allEntries.length != 0) {
       for (int i = 0; i < allEntries.length; i++) {
@@ -54,31 +53,16 @@ class _HomepageState extends State<Homepage> {
           Container(
             padding: EdgeInsets.only(top: 20.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
-                  //alignment: Alignment.centerLeft,
-                  child: MaterialButton(
-                      child: Icon(FontAwesomeIcons.angleLeft,
-                          color: CustomMaterialColor.buttonColorBlue,
-                          size: 30.0),
-                      onPressed: () {}),
-                ),
                 Center(
                   child: Text(
                     "Today",
                     style: TextStyle(
                         fontSize: 32.0,
                         fontWeight: FontWeight.bold,
-                        color: CustomMaterialColor.emphasisColor),
+                        color: CustomMaterialColor.bannerColor),
                   ),
-                ),
-                Expanded(
-                  //alignment: Alignment.centerRight,
-                  child: MaterialButton(
-                      child: Icon(FontAwesomeIcons.angleRight,
-                          color: CustomMaterialColor.buttonColorBlue,
-                          size: 30.0),
-                      onPressed: () {}),
                 ),
               ],
             ),

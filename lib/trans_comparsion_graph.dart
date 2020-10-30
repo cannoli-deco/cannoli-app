@@ -32,7 +32,6 @@ class _TransportCompareState extends State<TransportCompare> {
     for (var i = 0; i < 7; i++) {
       var currentEntries =
       await entryFromDate(firstDayOfTheweek.add(Duration(days: i)));
-      print(currentEntries);
 
       for(int i = 0; i < currentEntries.length; i++){
         if(currentEntries[i].source_id == 1){

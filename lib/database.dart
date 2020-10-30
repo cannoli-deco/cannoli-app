@@ -203,9 +203,6 @@ Future<List<Entry>> entryFromDate(DateTime inputDay) async {
   int startOfDay = inputDay.millisecondsSinceEpoch -
       (inputDay.millisecondsSinceEpoch % epochDayLength);
   int endOfDay = startOfDay + epochDayLength;
-  print(inputDay.millisecondsSinceEpoch);
-  print(startOfDay);
-  print(endOfDay);
 
   _query() async {
     List<Entry> entryList = [];

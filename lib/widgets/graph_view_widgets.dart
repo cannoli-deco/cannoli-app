@@ -349,13 +349,13 @@ class _AllChartsState extends State<AllCharts> {
   }
 
   List<PieChartSectionData> showingSections() {
-    if (_consumptions[0] != 0.0 && _consumptions[1] != 0.0) {
+    if (_consumptions != null && _consumptions[0] != 0.0 && _consumptions[1] != 0.0) {
       return allSections();
     }
 
-    if (_consumptions[0] != 0.0){
+    if (_consumptions != null && _consumptions[0] != 0.0){
       return oneSection(0);
-    }else if(_consumptions[1] != 0.0){
+    }else if(_consumptions != null && _consumptions[1] != 0.0){
       return oneSection(1);
     }else{
       return noSection();

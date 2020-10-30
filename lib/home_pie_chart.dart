@@ -40,17 +40,8 @@ class HomePieState extends State<HomePieChart> {
     DateTime today = DateTime.now();
     var allEntries = await entryFromDate(today);
 
-    print("Entry here is:");
-    print(allEntries);
-    for (int i = 0; i < allEntries.length; i++){
-      print(allEntries[i].source_id);
-    }
-
-
-
     if (allEntries.length != 0) {
       for (int i = 0; i < allEntries.length; i++) {
-        print(allEntries[i].source_id);
         if (allEntries[i].source_id == 1) {
           homeConsumption += allEntries[i].consumption;
         } else if (allEntries[i].source_id == 3){
@@ -69,9 +60,6 @@ class HomePieState extends State<HomePieChart> {
       temp.add(homeConsumption / totalConsumption);
     }
 
-    print("Now:");
-    print(temp);
-
     setState(() {
       _consumptions = temp;
       _totalEmission = (totalConsumption / 1000).round();
@@ -81,7 +69,7 @@ class HomePieState extends State<HomePieChart> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    if (_consumptions[0] == 0.0 && _consumptions[1] == 0.0   && _consumptions[2] == 0.0) {
+    if (_consumptions != null && _consumptions[0] == 0.0 && _consumptions[1] == 0.0   && _consumptions[2] == 0.0) {
       return Container(
         child: Row(
           children: <Widget>[
@@ -311,11 +299,11 @@ class HomePieState extends State<HomePieChart> {
   }
 
   List<PieChartSectionData> showingSections() {
-    if (_consumptions[0] != 0.0 && _consumptions[1] != 0.0 && _consumptions[2] != 0.0) {
+    if (_consumptions != null && _consumptions[0] != 0.0 && _consumptions[1] != 0.0 && _consumptions[2] != 0.0) {
       return allSections();
     }
 
-    if (_consumptions[0] != 0.0) {
+    if (_consumptions != null && _consumptions[0] != 0.0) {
       if (_consumptions[1] == 0.0 && _consumptions[2] == 0.0) {
         return oneSection(0);
       } else {
@@ -327,7 +315,7 @@ class HomePieState extends State<HomePieChart> {
       }
     }
 
-    if (_consumptions[1] != 0.0) {
+    if (_consumptions != null && _consumptions[1] != 0.0) {
       if (_consumptions[0] == 0.0 && _consumptions[2] == 0.0) {
         return oneSection(1);
       } else {
@@ -339,7 +327,7 @@ class HomePieState extends State<HomePieChart> {
       }
     }
 
-    if (_consumptions[2] != 0.0) {
+    if (_consumptions != null && _consumptions[2] != 0.0) {
       if (_consumptions[0] == 0.0 && _consumptions[1] == 0.0) {
         return oneSection(2);
       } else {
@@ -351,7 +339,7 @@ class HomePieState extends State<HomePieChart> {
       }
     }
 
-    if (_consumptions[0] == 0.0 &&
+    if (_consumptions != null && _consumptions[0] == 0.0 &&
         _consumptions[1] == 0.0 &&
         _consumptions[2] == 0.0) {
       return noSection();

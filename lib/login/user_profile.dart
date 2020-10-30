@@ -79,8 +79,6 @@ class _UserProfileState extends State<UserProfile> {
                             _auth.updateDisplayName(_displayName);
                           });
                           Navigator.pop(context);
-                          print('Updated display name');
-                          print(_auth.getUser());
                         }),
                   ],
                 ),
